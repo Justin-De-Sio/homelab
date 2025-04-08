@@ -30,6 +30,16 @@ spec:
               mountPath: /movies
             - name: downloads
               mountPath: /downloads
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            capabilities:
+              drop:
+                - ALL
+            seccompProfile:
+              type: RuntimeDefault
+      securityContext:
+        runAsNonRoot: true
       volumes:
         - name: config
           persistentVolumeClaim:

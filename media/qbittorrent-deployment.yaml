@@ -13,8 +13,6 @@ spec:
       labels:
         app: qbittorrent
     spec:
-      securityContext:
-        runAsNonRoot: true
       containers:
         - name: qbittorrent
           image: linuxserver/qbittorrent
@@ -34,12 +32,6 @@ spec:
               mountPath: /downloads
           securityContext:
             allowPrivilegeEscalation: false
-            runAsNonRoot: true
-            capabilities:
-              drop:
-                - ALL
-            seccompProfile:
-              type: RuntimeDefault
       volumes:
         - name: config
           persistentVolumeClaim:

@@ -13,8 +13,6 @@ spec:
       labels:
         app: jackett
     spec:
-      securityContext:
-        runAsNonRoot: true
       containers:
         - name: jackett
           image: linuxserver/jackett
@@ -30,13 +28,8 @@ spec:
               mountPath: /config
           securityContext:
             allowPrivilegeEscalation: false
-            runAsNonRoot: true
-            capabilities:
-              drop:
-                - ALL
-            seccompProfile:
-              type: RuntimeDefault
       volumes:
         - name: config
           persistentVolumeClaim:
             claimName: jackett-config
+

@@ -32,7 +32,7 @@ spec:
               mountPath: /downloads
           securityContext:
             allowPrivilegeEscalation: false
-            runAsNonRoot: true
+            runAsNonRoot: false
             capabilities:
               drop:
                 - ALL

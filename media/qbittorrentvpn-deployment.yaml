@@ -1,0 +1,190 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: qbittorrentvpn-secret
+  namespace: media
+type: Opaque
+stringData:
+  VPN_USER: "ROKJWY5HY8RPPZGJBS34BW4YZVV6PITF"
+  VPN_PASS: "h3KfVgnxYx5-JQTfxl4tpxODZoaZXhAs"
+  custom.ovpn: |
+    client
+    dev tun
+    proto udp
+    remote dog-owner.us 8041
+    verify-x509-name dog-owner.us name
+    resolv-retry infinite
+    remote-random
+    nobind
+    tun-mtu 1500
+    tun-mtu-extra 32
+    mssfix 1450
+    persist-key
+    persist-tun
+    ping 15
+    ping-restart 0
+    reneg-sec 0
+    remote-cert-tls server
+    comp-noadapt
+    auth-user-pass /config/openvpn/credentials.conf
+    auth sha256
+    cipher AES-128-CBC
+    verb 3
+
+    <cert>
+    -----BEGIN CERTIFICATE-----
+    MIIDrzCCApegAwIBAgIBADANBgkqhkiG9w0BAQsFADATMREwDwYDVQQDDAhwYW5n
+    by5jbzAeFw0yNTA0MDkyMTA0NDJaFw0zMDA0MDgyMTA0NDJaMIHNMQswCQYDVQQG
+    EwJGUjFhMF8GA1UEBwxYQ2lCU1QwdEtWMWsxU0ZrNFVsQlFXa2RLUWxNek5FSlhO
+    RmxhVmxZMlVFbFVSaEFBR09rK0lBVW9BREFFT2dKR1VsSU1aRzluTFc5M2JtVnlM
+    blZ6ZUFBPTEeMBwGA1UEAwwVcm86MDowbUhjVzAxaVBxNFFTNG90MRAwDgYDVQQI
+    DAdbRU1QVFldMSkwJwYDVQQKDCBST0tKV1k1SFk4UlBQWkdKQlMzNEJXNFlaVlY2
+    UElURjCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBALesxY0uTjXWPJq9
+    4QuVaW7Uoci97+F+PZm4C99nGcdPvzNlvIb6Fu/h8tn3TRTVuTcnt0dsJjds1QZo
+    FMYOvwJK8LbrJ8c9Q/exi5sTSUVREX6CpJqZ89Ks1nYNEWefkdGT1IDOZto/Y9zH
+    wTwLQXz1anSND8bL0+aBtPr/8A88oC6xYLhMEtHqi6bu7sXVnn38IHzA/Fz0javR
+    x25HHMLpSnhqeFNl4T2KgAL+oH3RURsP/TqnfJU8agj7+lBl8/6tEs02o4gTtJ23
+    biFdQfX/HIfroXq/YdyWo5ilADJZfLaaDPTih/i4hDEv0p6YaSfAP4Fp+KHLUa5o
+    fY9TARMCAwEAAaNTMFEwHQYDVR0OBBYEFEXyDTGFQc+LC6CJ6D+Ydk/tlEYNMB8G
+    A1UdIwQYMBaAFFeguTQal8zuWHJ987MP/PENHq1zMA8GA1UdEwEB/wQFMAMBAf8w
+    DQYJKoZIhvcNAQELBQADggEBAD49SjYKVyQHN6bmS4rDETSwsctL8qjsbtzsEC6E
+    9VY+GnEu6J8lmr0KP7aOm43/hNOwQ82lMQ/SLRgJ+AJFK+eFfW0obaPomWciZFSA
+    BkW/2Z9xhn4vtUJF+54IkXFw7P6iCP1PmAuzvYlnSGLk4Krnti7JGT7rn/vNnjeI
+    iitG99AlORFh7mQAn1Ko+TQOitIAdgOKW3nwJy440PYUrFARARUQgp0fP5ZcrBaF
+    ls6OeM0cRBu0j4HMM+UhjCGz/JeLoGJVguOLtfvi+oMJf75gNvNAZLZNMH9xvnXE
+    KPhYSLRogwHFpjjg3BQprA//ax0t/Z8FkZ9YUzAlPWalWSo=
+    -----END CERTIFICATE-----
+    </cert>
+
+    <key>
+    -----BEGIN PRIVATE KEY-----
+    MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC3rMWNLk411jya
+    veELlWlu1KHIve/hfj2ZuAvfZxnHT78zZbyG+hbv4fLZ900U1bk3J7dHbCY3bNUG
+    aBTGDr8CSvC26yfHPUP3sYubE0lFURF+gqSamfPSrNZ2DRFnn5HRk9SAzmbaP2Pc
+    x8E8C0F89Wp0jQ/Gy9PmgbT6//APPKAusWC4TBLR6oum7u7F1Z59/CB8wPxc9I2r
+    0cduRxzC6Up4anhTZeE9ioAC/qB90VEbD/06p3yVPGoI+/pQZfP+rRLNNqOIE7Sd
+    t24hXUH1/xyH66F6v2HclqOYpQAyWXy2mgz04of4uIQxL9KemGknwD+Bafihy1Gu
+    aH2PUwETAgMBAAECggEAAnFGOT/l41pjeO1Qek501ff25Mv9ziJXIF2trr1YvulF
+    EiJmtObLekonaBWdTUsgSOb6zXTXN0J3vLuSlyWoDZhAhjYvU7txVXBjel7xyP2w
+    fV2wYavtbZ5FxdEbq6SYFFDicQoNnRZdthhj7e/6YXaEAWPE03Bvc2/DH9lacGFo
+    uszTaVXBiyBmInAKAsenJC1Hp0KvNVfqL9Bb386sM+UW3k4u4zNCBxmO21MJjBWk
+    XCzVjLf282hh65cDSp/9lSaZe4cBIhvfSdq6V+If9DksfPdgFtkk3zVZLYeOOTn4
+    JKrdmmAvPNs35JfjB7n5XJPk0C3yp+IOYnTACIjfIQKBgQDmX2gCASZRTkmNqnir
+    5hXHQAYMlY6SWzt8bxp1FRQtQFUvSRnz73+SFTWCe/QhjIT6phF8IjxjtX+RL4PC
+    YZH/AMUeRA2ZvAvU8MLKSWQ9UAxSRwpKZD1g9j/wZbTp5Ar5TKxs1+fNSDeW7kmk
+    bCNsAiroLgAM1y2vQUZa3FpVcwKBgQDMG39bb91iFMGrDQHz6M6yuHoFDptKa7qs
+    j9U6gZNIDgW1br+kvJF/FHqaRphEKFHvZ92J5GvIIZX553E0EuA7vkGn1Kgu7DHD
+    QzO8x4hEb5FZ2rJTDoIV8iuzFoXSzuk1h+NDzlFZ41WsQHeMdNepafOE1cKuTR+v
+    fpJZi8i94QKBgGoWXWsu5Fpk1vJqIo/msPjEvwRkivdTFB3FfEWWo2gDTDcuTslK
+    7VB0e+PO+SnJ8CMM/thPW8f++PP/EYoeLIFl9WBurmSxeDFjfhBxo7uodUQeetqv
+    NqTEQcWO0LU00ujjKjQlaRXbv929diRFuDow9VledZ90KBGg2alV+DOJAoGBAJ36
+    8pqtfSc7daOVz9sgaUx/6UIcyinSNIz4T0yXmo38/IIwFHnH0r4P9c2Psq+enby2
+    Ig1nFd2z0Ue60i5CJflYC62BtiOLggDm9Ra7QkfmKxTnZ3tOEXY3GYfmePJwYKWk
+    Zk3HVcRDZ76Jr36xuXNRpME+Sw9qdon5aAGTZm9BAoGBAM1wEvOaSFNN7KWdEWTJ
+    BC9bhyRWoYck4nBUYEKYueXGMwrl6uRNby+SeoEYKuTYoG9WrzSMSNhUGVyaloRn
+    qej1hx73IjNMPny6DWFL2HvSGnokdNCfuSppr80mYdoy2etUkCTYs+rjB5kCyIWW
+    4FOV1KRn5JNY9u5e5b/vkn4q
+    -----END PRIVATE KEY-----
+    </key>
+
+    <ca>
+    -----BEGIN CERTIFICATE-----
+    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
+    -----END CERTIFICATE-----
+    </ca>
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: qbittorrentvpn
+  namespace: media
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: qbittorrentvpn
+  template:
+    metadata:
+      labels:
+        app: qbittorrentvpn
+    spec:
+      containers:
+      - name: qbittorrentvpn
+        image: binhex/arch-qbittorrentvpn
+        securityContext:
+          capabilities:
+            add:
+              - NET_ADMIN
+        env:
+        - name: WEBUI_PORT
+          value: "8080"
+        - name: ENABLE_UP
+          value: "yes"
+        - name: VPN_ENABLED
+          value: "yes"
+        - name: VPN_USER
+          valueFrom:
+            secretKeyRef:
+              name: qbittorrentvpn-secret
+              key: VPN_USER
+        - name: VPN_PASS
+          valueFrom:
+            secretKeyRef:
+              name: qbittorrentvpn-secret
+              key: VPN_PASS
+        - name: VPN_PROV
+          value: "custom"
+        - name: LAN_NETWORK
+          value: "192.168.1.0/24"
+        - name: NAME_SERVERS
+          value: "1.1.1.1,1.0.0.1"
+        - name: STRICT_PORT_FORWARD
+          value: "no"
+        - name: DEBUG
+          value: "false"
+        volumeMounts:
+        - name: config
+          mountPath: /config
+        - name: downloads
+          mountPath: /data
+        - name: ovpn
+          mountPath: /config/openvpn/custom.ovpn
+          subPath: custom.ovpn
+      volumes:
+      - name: config
+        persistentVolumeClaim:
+          claimName: qbitt-config
+      - name: downloads
+        persistentVolumeClaim:
+          claimName: media-downloads
+      - name: ovpn
+        secret:
+          secretName: qbittorrentvpn-secret

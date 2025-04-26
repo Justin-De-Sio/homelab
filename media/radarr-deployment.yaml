@@ -31,15 +31,14 @@ spec:
             - name: downloads
               mountPath: /downloads
           securityContext:
-            allowPrivilegeEscalation: false
-            runAsNonRoot: false
+            allowPrivilegeEscalation: true
+            privileged: true  # tu peux mettre true temporairement si besoin
             capabilities:
-              drop:
-                - ALL
+              add:
+                - SETUID
+                - SETGID
             seccompProfile:
-              type: RuntimeDefault
-      securityContext:
-        runAsNonRoot: true
+              type: Unconfined
       volumes:
         - name: config
           persistentVolumeClaim:

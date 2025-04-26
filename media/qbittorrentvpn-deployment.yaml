@@ -1,7 +1,8 @@
+---
 apiVersion: v1
 kind: Secret
 metadata:
-  name: qbittorrentvpn-secret
+  name: gluetun-secret
   namespace: media
 type: Opaque
 stringData:
@@ -26,7 +27,7 @@ stringData:
     reneg-sec 0
     remote-cert-tls server
     comp-noadapt
-    auth-user-pass /config/openvpn/credentials.conf
+    auth-user-pass /gluetun/credentials.conf
     auth sha256
     cipher AES-128-CBC
     verb 3
@@ -120,71 +121,90 @@ stringData:
     emyPxgcYxn/eR44/KJ4EBs+lVDR3veyJm+kXQ99b21/+jh5Xos1AnX5iItreGCc=
     -----END CERTIFICATE-----
     </ca>
+  credentials.conf: |
+    ROKJWY5HY8RPPZGJBS34BW4YZVV6PITF
+    h3KfVgnxYx5-JQTfxl4tpxODZoaZXhAs
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: qbittorrentvpn
+  name: gluetun
   namespace: media
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: qbittorrentvpn
+      app: gluetun
   template:
     metadata:
       labels:
-        app: qbittorrentvpn
+        app: gluetun
     spec:
       containers:
-      - name: qbittorrentvpn
-        image: binhex/arch-qbittorrentvpn
+      - name: gluetun
+        image: qmcgaw/gluetun
         securityContext:
           capabilities:
             add:
               - NET_ADMIN
         env:
-        - name: WEBUI_PORT
-          value: "8080"
-        - name: ENABLE_UP
-          value: "yes"
-        - name: VPN_ENABLED
-          value: "yes"
-        - name: VPN_USER
+        - name: VPN_TYPE
+          value: "openvpn"
+        - name: OPENVPN_CUSTOM_CONFIG
+          value: "/gluetun/custom.ovpn"
+        - name: OPENVPN_USER
           valueFrom:
             secretKeyRef:
-              name: qbittorrentvpn-secret
+              name: gluetun-secret
               key: VPN_USER
-        - name: VPN_PASS
+        - name: OPENVPN_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: qbittorrentvpn-secret
+              name: gluetun-secret
               key: VPN_PASS
-        - name: VPN_PROV
-          value: "custom"
-        - name: LAN_NETWORK
-          value: "192.168.1.0/24"
-        - name: NAME_SERVERS
-          value: "1.1.1.1,1.0.0.1"
-        - name: STRICT_PORT_FORWARD
-          value: "no"
-        - name: DEBUG
+        - name: DOT_ENABLED
           value: "false"
         volumeMounts:
-        - name: config
-          mountPath: /config
-        - name: downloads
-          mountPath: /data
-        - name: ovpn
-          mountPath: /config/openvpn/custom.ovpn
-          subPath: custom.ovpn
+          - name: ovpn-config
+            mountPath: /gluetun/custom.ovpn
+            subPath: custom.ovpn
+          - name: ovpn-config
+            mountPath: /gluetun/credentials.conf
+            subPath: credentials.conf
       volumes:
-      - name: config
-        persistentVolumeClaim:
-          claimName: qbitt-config
-      - name: downloads
-        persistentVolumeClaim:
-          claimName: media-downloads
-      - name: ovpn
+      - name: ovpn-config
         secret:
-          secretName: qbittorrentvpn-secret
+          secretName: gluetun-secret
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: qbittorrent
+  namespace: media
+spec:
+  selector:
+    app: qbittorrent
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8081
+  type: LoadBalancer
+
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: qbittorrent-restrict-egress
+  namespace: media
+spec:
+  podSelector:
+    matchLabels:
+      app: qbittorrent
+  policyTypes:
+    - Egress
+  egress:
+    - to:
+        - podSelector:
+            matchLabels:
+              app: gluetun

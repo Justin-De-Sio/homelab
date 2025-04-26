@@ -11,10 +11,17 @@ spec:
       labels:
         app: linkding
     spec:
+      securityContext:
+        fsGroup: 33
+        runAsUser: 33
+        runAsGroup: 33
       containers:
       - name: linkding
         image: sissbruecker/linkding:1.39.1
         resources:
+          requests:
+            memory: "640Mi"
+            cpu: "250m"
           limits:
             memory: "1280Mi"
             cpu: "500m"

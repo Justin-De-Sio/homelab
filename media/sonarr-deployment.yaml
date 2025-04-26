@@ -36,6 +36,9 @@ spec:
             allowPrivilegeEscalation: false
             runAsNonRoot: false
             capabilities:
+              add:
+                - SETGID
+                - SETUID
               drop:
                 - ALL
             seccompProfile:

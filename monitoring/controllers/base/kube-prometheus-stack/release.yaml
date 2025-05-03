@@ -35,8 +35,8 @@ spec:
         enabled: true
         ingressClassName: traefik
         hosts:
-          - monitoring.home.justindesio.com 
-        # tls:
-        #   - secretName: alertmanager-general-tls
-        #     hosts:
-        #     - monitoring.home.justindesio.com 
+          - monitoring.justindesio.com
+        tls:
+          - secretName: tls-secret
+            hosts:
+            - monitoring.justindesio.com

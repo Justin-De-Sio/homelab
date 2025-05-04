@@ -14,8 +14,7 @@ spec:
             - name: renovate
               image: renovate/renovate:latest
               args:
-                - justin-de-sio/homelab
-
+                - Justin-De-Sio/homelab
               envFrom:
                 - secretRef:
                     name: renovate-container-env

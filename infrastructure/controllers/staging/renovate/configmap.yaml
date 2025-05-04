@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: renovate-configmap-stagging
+  namespace: renovate
+data:
+  LOG_LEVEL: "debug"

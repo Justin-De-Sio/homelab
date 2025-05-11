@@ -13,6 +13,7 @@ resources:
   - sonarr.yaml
   - radarr.yaml
   - jackett.yaml
+  - qbittorrent.yaml
 
 commonLabels:
   app.kubernetes.io/part-of: media-stack

@@ -1,10 +1,10 @@
-# Sonarr - TV Series Management
+# qBittorrent - Torrent Client
 ---
-# Sonarr PVCs
+# qBittorrent PVC
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: sonarr-config
+  name: qbittorrent-config
   namespace: media
 spec:
   accessModes:
@@ -17,23 +17,27 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sonarr
+  name: qbittorrent
   namespace: media
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: sonarr
+      app: qbittorrent
   template:
     metadata:
       labels:
-        app: sonarr
+        app: qbittorrent
     spec:
       containers:
-        - name: sonarr
-          image: linuxserver/sonarr
+        - name: qbittorrent
+          image: linuxserver/qbittorrent
           ports:
-            - containerPort: 8989
+            - containerPort: 8080
+            - containerPort: 6881
+              protocol: TCP
+            - containerPort: 6881
+              protocol: UDP
           env:
             - name: PUID
               value: "1000"
@@ -41,52 +45,58 @@ spec:
               value: "1000"
             - name: TZ
               value: "Europe/Paris"
+            - name: WEBUI_PORT
+              value: "8080"
           volumeMounts:
             - name: config
               mountPath: /config
             - name: downloads
               mountPath: /downloads
-            - name: videos
-              mountPath: /tv
       volumes:
         - name: config
           persistentVolumeClaim:
-            claimName: sonarr-config
+            claimName: qbittorrent-config
         - name: downloads
           persistentVolumeClaim:
             claimName: media-downloads
-        - name: videos
-          persistentVolumeClaim:
-            claimName: media-videos
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: sonarr
+  name: qbittorrent
   namespace: media
 spec:
   type: ClusterIP
   selector:
-    app: sonarr
+    app: qbittorrent
   ports:
-    - protocol: TCP
+    - name: web
+      protocol: TCP
       port: 80
-      targetPort: 8989
+      targetPort: 8080
+    - name: torrent-tcp
+      protocol: TCP
+      port: 6881
+      targetPort: 6881
+    - name: torrent-udp
+      protocol: UDP
+      port: 6881
+      targetPort: 6881
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: sonarr
+  name: qbittorrent
   namespace: media
 spec:
   ingressClassName: traefik
   rules:
-    - host: sonarr.justindesio.com
+    - host: qbittorrent.justindesio.com
       http:
         paths:
           - backend:
               service:
-                name: sonarr
+                name: qbittorrent
                 port:
                   number: 80
             path: /

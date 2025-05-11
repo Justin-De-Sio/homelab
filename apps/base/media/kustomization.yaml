@@ -6,6 +6,7 @@ namespace: media
 resources:
   # Core resources
   - media-namespace.yaml
+  - shared-pvcs.yaml
   
   # Media applications
   - jellyfin.yaml

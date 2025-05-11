@@ -15,7 +15,4 @@ resources:
 
 commonLabels:
   app.kubernetes.io/part-of: media-stack
-  app.kubernetes.io/managed-by: kustomize
-  
-# Add patches here if needed in the future
-patchesStrategicMerge: [] 
+  app.kubernetes.io/managed-by: flux

@@ -14,32 +14,6 @@ spec:
       storage: 5Gi
   storageClassName: local-path
 ---
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: media-downloads
-  namespace: media
-spec:
-  accessModes:
-    - ReadWriteMany
-  resources:
-    requests:
-      storage: 100Gi
-  storageClassName: local-path
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: media-videos
-  namespace: media
-spec:
-  accessModes:
-    - ReadWriteMany
-  resources:
-    requests:
-      storage: 100Gi
-  storageClassName: local-path
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:

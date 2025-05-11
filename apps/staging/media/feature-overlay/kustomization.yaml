@@ -1,0 +1,13 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../../base/media
+
+nameSuffix: -feature
+namespace: media-feature
+
+# Any feature-specific customizations can be added here
+# For example:
+# patchesStrategicMerge:
+#   - feature-patches.yaml 

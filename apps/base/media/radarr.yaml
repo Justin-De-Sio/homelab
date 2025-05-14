@@ -48,6 +48,7 @@ spec:
               mountPath: /downloads
             - name: videos
               mountPath: /movies
+              subPath: movies
       volumes:
         - name: config
           persistentVolumeClaim:

@@ -1,0 +1,27 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: init-media-dirs
+  namespace: media
+spec:
+  ttlSecondsAfterFinished: 10
+  template:
+    spec:
+      containers:
+      - name: init-dirs
+        image: busybox
+        command: ["/bin/sh", "-c"]
+        args:
+        - mkdir -p /media/movies /media/tv && 
+          chmod -R 777 /media/movies /media/tv && 
+          echo "Media directories created successfully"
+        volumeMounts:
+        - name: media-volume
+          mountPath: /media
+      restartPolicy: Never
+      volumes:
+      - name: media-volume
+        persistentVolumeClaim:
+          claimName: media-videos
+  backoffLimit: 2 

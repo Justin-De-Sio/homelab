@@ -81,7 +81,7 @@ data:
       service: http://linkding:9090
 
     - hostname: video.justindesio.com
-      service: http://jellyfin.media.svc.cluster.local:9090
+      service: http://jellyfin.media.svc.cluster.local:80
       
 
     # This rule sends traffic to the built-in hello-world HTTP server. This can help debug connectivity

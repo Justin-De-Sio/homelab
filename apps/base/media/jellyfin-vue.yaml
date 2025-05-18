@@ -33,7 +33,7 @@ spec:
         - name: jellyfin-vue
           image: jellyfin/jellyfin-vue:unstable.2025-05-18.caae268
           ports:
-            - containerPort: 8096
+            - containerPort: 80
           volumeMounts:
             - name: config
               mountPath: /config
@@ -54,23 +54,4 @@ spec:
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 8096
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: jellyfin-vue
-  namespace: media
-spec:
-  ingressClassName: traefik
-  rules:
-    - host: tv.justindesio.com
-      http:
-        paths:
-          - backend:
-              service:
-                name: jellyfin-vue
-                port:
-                  number: 80
-            path: /
-            pathType: Prefix 
+      targetPort: 80

@@ -31,7 +31,7 @@ spec:
     spec:
       containers:
         - name: jackett
-          image: linuxserver/jackett
+          image: linuxserver/jackett:0.21.2318
           ports:
             - containerPort: 9117
           volumeMounts:

@@ -11,6 +11,7 @@ resources:
   
   # Media applications
   - jellyfin.yaml
+  - jellyfin-vue.yaml
   - sonarr.yaml
   - radarr.yaml
   - jackett.yaml

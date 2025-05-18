@@ -1,0 +1,76 @@
+# jellyfin-vue Media Server
+---
+# jellyfin-vue PVCs
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: jellyfin-vue-config
+  namespace: media
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+  storageClassName: local-path
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jellyfin-vue
+  namespace: media
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jellyfin-vue
+  template:
+    metadata:
+      labels:
+        app: jellyfin-vue
+    spec:
+      containers:
+        - name: jellyfin-vue
+          image: jellyfin/jellyfin-vue:unstable.2025-05-18.caae268
+          ports:
+            - containerPort: 8096
+          volumeMounts:
+            - name: config
+              mountPath: /config
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: jellyfin-vue-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jellyfin-vue
+  namespace: media
+spec:
+  selector:
+    app: jellyfin-vue
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8096
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: jellyfin-vue
+  namespace: media
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: tv.justindesio.com
+      http:
+        paths:
+          - backend:
+              service:
+                name: jellyfin-vue
+                port:
+                  number: 80
+            path: /
+            pathType: Prefix 

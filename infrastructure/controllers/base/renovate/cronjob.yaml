@@ -12,7 +12,7 @@ spec:
         spec:
           containers:
             - name: renovate
-              image: renovate/renovate:40.19.2
+              image: renovate/renovate:40.21.4
               args:
                 - Justin-De-Sio/homelab
               envFrom:

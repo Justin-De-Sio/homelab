@@ -39,6 +39,8 @@ spec:
               mountPath: /config
             - name: videos
               mountPath: /data
+            - name: dev-dri
+              mountPath: /dev/dri
       volumes:
         - name: config
           persistentVolumeClaim:
@@ -46,6 +48,9 @@ spec:
         - name: videos
           persistentVolumeClaim:
             claimName: media-videos
+        - name: dev-dri
+          hostPath:
+            path: /dev/dri
 ---
 apiVersion: v1
 kind: Service

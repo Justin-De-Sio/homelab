@@ -3,3 +3,4 @@ kind: Kustomization
 namespace: dashboard
 resources:
   - ../../base/homarr
+  - secret.yaml

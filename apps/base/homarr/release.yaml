@@ -22,19 +22,3 @@ spec:
       homarrDatabase:
         enabled: true
         size: "1Gi"
-    service:
-      enabled: true # Ensure the service is enabled for Ingress to route traffic
-    ingress:
-      enabled: true
-      ingressClassName: "traefik"
-      annotations:
-      # Add any additional annotations as needed
-      hosts:
-        - host: dashboard.justindesio.fr
-          paths:
-            - path: /
-              pathType: ImplementationSpecific
-      # tls:
-      #   - secretName: tls-secret
-      #     hosts:
-      #     - dashboard.justindesio.com

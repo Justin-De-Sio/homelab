@@ -1,4 +1,6 @@
+# NZBGet - Usenet Client
 ---
+# NZBGet PVC
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:

@@ -1,0 +1,93 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nzbget-config
+  namespace: media
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: local-path
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nzbget
+  namespace: media
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nzbget
+  template:
+    metadata:
+      labels:
+        app: nzbget
+    spec:
+      containers:
+        - name: nzbget
+          image: linuxserver/nzbget:latest
+          ports:
+            - containerPort: 6789
+          env:
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            - name: TZ
+              value: "Europe/Paris"
+          volumeMounts:
+            - name: config
+              mountPath: /config
+            - name: downloads
+              mountPath: /downloads
+            - name: incomplete
+              mountPath: /incomplete-downloads
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: nzbget-config
+        - name: downloads
+          persistentVolumeClaim:
+            claimName: media-downloads
+        - name: incomplete
+          persistentVolumeClaim:
+            claimName: media-downloads
+            subPath: incomplete
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nzbget
+  namespace: media
+spec:
+  type: ClusterIP
+  selector:
+    app: nzbget
+  ports:
+    - name: web
+      protocol: TCP
+      port: 80
+      targetPort: 6789
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nzbget
+  namespace: media
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: nzbget.justindesio.com
+      http:
+        paths:
+          - backend:
+              service:
+                name: nzbget
+                port:
+                  number: 80
+            path: /
+            pathType: Prefix 

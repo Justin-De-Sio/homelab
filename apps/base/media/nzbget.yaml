@@ -1,4 +1,6 @@
+# NZBGet - Usenet Client
 ---
+# NZBGet PVC
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -9,7 +11,7 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 5Gi
+      storage: 1Gi
   storageClassName: local-path
 ---
 apiVersion: apps/v1
@@ -42,21 +44,10 @@ spec:
           volumeMounts:
             - name: config
               mountPath: /config
-            - name: downloads
-              mountPath: /downloads
-            - name: incomplete
-              mountPath: /incomplete-downloads
       volumes:
         - name: config
           persistentVolumeClaim:
             claimName: nzbget-config
-        - name: downloads
-          persistentVolumeClaim:
-            claimName: media-downloads
-        - name: incomplete
-          persistentVolumeClaim:
-            claimName: media-downloads
-            subPath: incomplete
 ---
 apiVersion: v1
 kind: Service

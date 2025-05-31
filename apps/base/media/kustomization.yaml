@@ -17,6 +17,7 @@ resources:
   - jackett.yaml
   - qbittorrent.yaml
   - nzbget.yaml
+  - prowlarr.yaml
 
 commonLabels:
   app.kubernetes.io/part-of: media-stack

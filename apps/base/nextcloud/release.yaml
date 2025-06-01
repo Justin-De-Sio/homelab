@@ -1,0 +1,52 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: nextcloud
+  namespace: nextcloud
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: nextcloud
+      version: "6.6.10"
+      sourceRef:
+        kind: HelmRepository
+        name: nextcloud
+        namespace: nextcloud
+      interval: 12h
+  values:
+    nextcloud:
+      host: nextcloud.justindesio.com
+      existingSecret:
+        enabled: true
+        secretName: nextcloud-admin
+        usernameKey: username
+        passwordKey: password
+    
+    ingress:
+      enabled: true
+      className: "traefik"
+      annotations:
+        traefik.ingress.kubernetes.io/service.sticky.cookie: "true"
+      hosts:
+        - host: nextcloud.justindesio.com
+          paths:
+            - path: /
+              pathType: Prefix
+    
+    internalDatabase:
+      enabled: false
+    
+    postgresql:
+      enabled: true
+      auth:
+        existingSecret: postgresql-credentials
+        database: nextcloud
+    
+    redis:
+      enabled: false
+    
+    # Storage
+    persistence:
+      enabled: true
+      size: 8Gi

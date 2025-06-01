@@ -1,0 +1,58 @@
+---
+apiVersion: longhorn.io/v1beta2
+kind: RecurringJob
+metadata:
+  name: daily-backup
+  namespace: longhorn-system
+spec:
+  cron: "0 2 * * *"  # Daily at 2 AM
+  task: "backup"
+  groups: ["critical-data"]
+  retain: 7  # Keep 7 daily backups (1 week)
+  concurrency: 1
+  labels:
+    backup-type: "daily"
+---
+apiVersion: longhorn.io/v1beta2
+kind: RecurringJob
+metadata:
+  name: weekly-backup
+  namespace: longhorn-system
+spec:
+  cron: "0 1 * * 0"  # Weekly on Sunday at 1 AM
+  task: "backup"
+  groups: ["critical-data"]
+  retain: 4  # Keep 4 weekly backups (1 month)
+  concurrency: 1
+  labels:
+    backup-type: "weekly"
+---
+apiVersion: longhorn.io/v1beta2
+kind: RecurringJob
+metadata:
+  name: monthly-backup
+  namespace: longhorn-system
+spec:
+  cron: "0 0 1 * *"  # Monthly on 1st day at midnight
+  task: "backup"
+  groups: ["critical-data"]
+  retain: 6  # Keep 6 monthly backups (6 months)
+  concurrency: 1
+  labels:
+    backup-type: "monthly"
+    retention: "6-months"
+---
+apiVersion: longhorn.io/v1beta2
+kind: RecurringJob
+metadata:
+  name: snapshot-cleanup
+  namespace: longhorn-system
+spec:
+  cron: "0 3 * * *"  # Daily at 3 AM after backups
+  task: "snapshot-cleanup"
+  groups: ["critical-data"]
+  retain: 7  # Keep snapshots for 7 days
+  concurrency: 1
+  labels:
+    task-type: "cleanup"
+    retention: "7-days" 

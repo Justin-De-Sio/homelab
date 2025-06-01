@@ -118,28 +118,28 @@ spec:
       runAsNonRoot: true
       readOnlyRootFilesystem: false
     
-    # Probes
+    # Probes - RELAXED for first-time setup
     livenessProbe:
       enabled: true
-      initialDelaySeconds: 120
-      periodSeconds: 30
-      timeoutSeconds: 10
+      initialDelaySeconds: 300      # Wait 5 minutes before first check
+      periodSeconds: 60            # Check every minute
+      timeoutSeconds: 30           # 30 second timeout
       successThreshold: 1
-      failureThreshold: 3
+      failureThreshold: 5          # Allow 5 failures before restart
     
     readinessProbe:
       enabled: true
-      initialDelaySeconds: 30
-      periodSeconds: 10
-      timeoutSeconds: 5
+      initialDelaySeconds: 120     # Wait 2 minutes
+      periodSeconds: 30           # Check every 30 seconds
+      timeoutSeconds: 10
       successThreshold: 1
-      failureThreshold: 3
+      failureThreshold: 10        # Allow 10 failures
     
-    # Startup probe
+    # Startup probe - VERY generous for first-time setup
     startupProbe:
       enabled: true
-      initialDelaySeconds: 30
-      periodSeconds: 10
-      timeoutSeconds: 5
+      initialDelaySeconds: 60     # Wait 1 minute before starting
+      periodSeconds: 30           # Check every 30 seconds
+      timeoutSeconds: 10         
       successThreshold: 1
-      failureThreshold: 30 
+      failureThreshold: 40        # 40 * 30s = 20 minutes total startup time 

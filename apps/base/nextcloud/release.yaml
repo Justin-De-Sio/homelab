@@ -1,0 +1,145 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: nextcloud
+  namespace: nextcloud
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: nextcloud
+      version: "6.6.10"
+      sourceRef:
+        kind: HelmRepository
+        name: nextcloud
+        namespace: nextcloud
+      interval: 12h
+  values:
+    image:
+      tag: "29.0.11-apache"
+    
+    # Enable ingress for external access
+    ingress:
+      enabled: true
+      className: "nginx"
+      annotations:
+        cert-manager.io/cluster-issuer: "letsencrypt-prod"
+        nginx.ingress.kubernetes.io/proxy-body-size: "4G"
+        nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
+      hosts:
+        - host: nextcloud.justindesio.com
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - secretName: nextcloud-tls
+          hosts:
+            - nextcloud.justindesio.com
+    
+    # Nextcloud configuration
+    nextcloud:
+      host: nextcloud.justindesio.com
+      existingSecret:
+        enabled: true
+        secretName: nextcloud-admin
+        usernameKey: username
+        passwordKey: password
+        
+      # Configure for your domain
+      configs:
+        general.config.php: |-
+          <?php
+          $CONFIG = array (
+            'trusted_domains' => array (
+              'nextcloud.justindesio.com',
+            ),
+            'overwrite.cli.url' => 'https://nextcloud.justindesio.com',
+            'overwriteprotocol' => 'https',
+            'default_phone_region' => 'US',
+            'maintenance_window_start' => 1,
+            'memories.db.triggers' => false,
+            'enabledPreviewProviders' => array (
+              'OC\\Preview\\PNG',
+              'OC\\Preview\\JPEG',
+              'OC\\Preview\\GIF',
+              'OC\\Preview\\WebP',
+              'OC\\Preview\\Movie',
+              'OC\\Preview\\MP3',
+              'OC\\Preview\\TXT',
+              'OC\\Preview\\MarkDown',
+            ),
+            'preview_max_x' => 1024,
+            'preview_max_y' => 768,
+            'jpeg_quality' => 60,
+          );
+    
+    # Internal database for simplicity (PostgreSQL would be better for production)
+    internalDatabase:
+      enabled: true
+      name: nextcloud
+    
+    # Disable external database
+    externalDatabase:
+      enabled: false
+    
+    # PostgreSQL disabled for minimalist setup
+    postgresql:
+      enabled: false
+    
+    # Redis disabled for minimalist setup  
+    redis:
+      enabled: false
+    
+    # Cronjob configuration
+    cronjob:
+      enabled: true
+      schedule: "*/5 * * * *"
+    
+    # Persistence
+    persistence:
+      enabled: true
+      size: 8Gi
+      storageClass: ""
+      accessMode: ReadWriteOnce
+    
+    # Resource limits for minimalist setup
+    resources:
+      requests:
+        cpu: 100m
+        memory: 256Mi
+      limits:
+        cpu: 1000m
+        memory: 1Gi
+    
+    # Security context
+    securityContext:
+      runAsUser: 33
+      runAsGroup: 33
+      runAsNonRoot: true
+      readOnlyRootFilesystem: false
+    
+    # Probes
+    livenessProbe:
+      enabled: true
+      initialDelaySeconds: 120
+      periodSeconds: 30
+      timeoutSeconds: 10
+      successThreshold: 1
+      failureThreshold: 3
+    
+    readinessProbe:
+      enabled: true
+      initialDelaySeconds: 30
+      periodSeconds: 10
+      timeoutSeconds: 5
+      successThreshold: 1
+      failureThreshold: 3
+    
+    # Startup probe
+    startupProbe:
+      enabled: true
+      initialDelaySeconds: 30
+      periodSeconds: 10
+      timeoutSeconds: 5
+      successThreshold: 1
+      failureThreshold: 30 

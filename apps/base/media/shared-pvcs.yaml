@@ -23,5 +23,6 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 100Gi
+      storage: 400Gi
   storageClassName: longhorn-capacity
+  volumeName: pvc-347cd776-345a-4b7d-95c4-e88020ce0b3b

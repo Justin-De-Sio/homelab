@@ -22,6 +22,7 @@ kind: StorageClass
 metadata:
   name: longhorn-performance
 provisioner: driver.longhorn.io
+allowVolumeExpansion: true
 parameters:
   diskSelector: "ssd,performance"
 ---
@@ -30,5 +31,6 @@ kind: StorageClass
 metadata:
   name: longhorn-capacity
 provisioner: driver.longhorn.io
+allowVolumeExpansion: true
 parameters:
   diskSelector: "hdd,capacity"

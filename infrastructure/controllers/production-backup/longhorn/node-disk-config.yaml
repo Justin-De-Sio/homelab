@@ -1,0 +1,36 @@
+---
+apiVersion: longhorn.io/v1beta2
+kind: Node
+metadata:
+  name: homelab1
+  namespace: longhorn-system
+spec:
+  disks:
+    performance-tier:
+      path: /var/lib/longhorn
+      tags:
+        - ssd
+        - performance
+    capacity-tier:
+      path: /storage/capacity
+      tags:
+        - hdd
+        - capacity
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: longhorn-performance
+provisioner: driver.longhorn.io
+parameters:
+  numberOfReplicas: "2"
+  diskSelector: "ssd,performance"
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: longhorn-capacity
+provisioner: driver.longhorn.io
+parameters:
+  numberOfReplicas: "1"
+  diskSelector: "hdd,capacity"

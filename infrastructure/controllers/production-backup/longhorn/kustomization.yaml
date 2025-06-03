@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - ../../base/longhorn
   - storage-class-config.yaml
+  - node-disk-config.yaml
 
 patchesStrategicMerge:
   - helmrelease-patch.yaml 

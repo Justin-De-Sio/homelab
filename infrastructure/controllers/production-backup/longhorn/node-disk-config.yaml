@@ -1,18 +1,18 @@
 ---
-apiVersion: longhorn.io/v1beta2
+apiVersion: longhorn.io/v1beta2  # yamllint disable-line
 kind: Node
 metadata:
   name: homelab1
   namespace: longhorn-system
 spec:
   disks:
-    performance-tier:
-      path: /var/lib/longhorn
+    ssd1:
+      path: /mnt/ssd1
       tags:
         - ssd
         - performance
-    capacity-tier:
-      path: /storage/capacity
+    hdd1:
+      path: /mnt/hdd1
       tags:
         - hdd
         - capacity

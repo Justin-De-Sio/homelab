@@ -23,7 +23,7 @@ metadata:
   name: longhorn-performance
 provisioner: driver.longhorn.io
 parameters:
-  numberOfReplicas: "2"
+  numberOfReplicas: "1"
   diskSelector: "ssd,performance"
 ---
 apiVersion: storage.k8s.io/v1

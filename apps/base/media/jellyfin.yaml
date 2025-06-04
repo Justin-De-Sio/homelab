@@ -29,6 +29,17 @@ spec:
       labels:
         app: jellyfin
     spec:
+      initContainers:
+        - name: sysctl
+          image: busybox:1.35
+          command:
+            - sh
+            - -c
+            - |
+              sysctl -w fs.inotify.max_user_instances=8192
+              sysctl -w fs.inotify.max_user_watches=524288
+          securityContext:
+            privileged: true
       containers:
         - name: jellyfin
           image: jellyfin/jellyfin:2025060205
@@ -41,6 +52,8 @@ spec:
               mountPath: /data
             - name: dev-dri
               mountPath: /dev/dri
+          securityContext:
+            privileged: false
       volumes:
         - name: config
           persistentVolumeClaim:

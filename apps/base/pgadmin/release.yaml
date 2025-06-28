@@ -15,9 +15,9 @@ spec:
         namespace: pgadmin
       interval: 12h
   values:
-    env:
-      email: admin@example.com
-      password: admin
+    envFrom:
+      - secretRef:
+          name: pgadmin-credentials
     service:
       type: ClusterIP
       port: 80

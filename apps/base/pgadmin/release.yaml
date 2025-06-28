@@ -15,9 +15,17 @@ spec:
         namespace: pgadmin
       interval: 12h
   values:
-    envFrom:
-      - secretRef:
-          name: pgadmin-credentials
+    env:
+      PGADMIN_DEFAULT_EMAIL:
+        valueFrom:
+          secretKeyRef:
+            name: pgadmin-credentials
+            key: PGADMIN_DEFAULT_EMAIL
+      PGADMIN_DEFAULT_PASSWORD:
+        valueFrom:
+          secretKeyRef:
+            name: pgadmin-credentials
+            key: PGADMIN_DEFAULT_PASSWORD
     service:
       type: ClusterIP
       port: 80

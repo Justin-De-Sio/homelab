@@ -16,16 +16,16 @@ spec:
       interval: 12h
   values:
     env:
-      PGADMIN_DEFAULT_EMAIL:
+      email:
         valueFrom:
           secretKeyRef:
             name: pgadmin-credentials
-            key: PGADMIN_DEFAULT_EMAIL
-      PGADMIN_DEFAULT_PASSWORD:
+            key: email
+      password:
         valueFrom:
           secretKeyRef:
             name: pgadmin-credentials
-            key: PGADMIN_DEFAULT_PASSWORD
+            key: password
     service:
       type: ClusterIP
       port: 80

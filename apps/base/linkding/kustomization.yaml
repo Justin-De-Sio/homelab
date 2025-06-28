@@ -6,3 +6,4 @@ resources:
  - deployment.yaml
  - data-pvc.yaml
  - service.yaml
+ - database.yaml

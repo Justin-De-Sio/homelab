@@ -6,3 +6,4 @@ resources:
   - cloudflared.yaml
   - ingress.yaml
   - secret.yaml
+  - configmap.yaml

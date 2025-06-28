@@ -1,0 +1,13 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: linkding-database
+  
+spec:
+  imageName: ghcr.io/cloudnative-pg/postgresql:16.1
+  instances: 3
+
+  primaryUpdateStrategy: unsupervised
+
+  storage:
+    size: 1Gi

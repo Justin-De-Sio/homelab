@@ -32,7 +32,9 @@ spec:
               mountPath: /etc/linkding/data
           envFrom:
             - secretRef:
-                    name: linkding-credentials
+              name: linkding-credentials
+            - configMapRef:
+              name: linkding-configmap
       volumes:
         - name: linkding-data
           persistentVolumeClaim:

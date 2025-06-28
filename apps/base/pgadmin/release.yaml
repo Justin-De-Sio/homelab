@@ -16,16 +16,8 @@ spec:
       interval: 12h
   values:
     env:
-      email:
-        valueFrom:
-          secretKeyRef:
-            name: pgadmin-credentials
-            key: email
-      password:
-        valueFrom:
-          secretKeyRef:
-            name: pgadmin-credentials
-            key: password
+      email: admin 
+    existingSecret: pgadmin-credentials
     service:
       type: ClusterIP
       port: 80

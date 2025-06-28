@@ -13,15 +13,10 @@ spec:
     size: 1Gi
     storageClass: longhorn-postgres
 
-  # Pod anti-affinity to ensure instances are distributed across different nodes
-  # This allows Longhorn strict-local data locality to work effectively
+  # CloudNativePG affinity configuration to ensure instances are distributed across different nodes
+  # This works with Longhorn strict-local data locality for optimal storage performance
   affinity:
-    podAntiAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        - labelSelector:
-            matchExpressions:
-              - key: postgresql
-                operator: In
-                values: ["linkding-database"]
-          topologyKey: kubernetes.io/hostname
+    enablePodAntiAffinity: true
+    topologyKey: kubernetes.io/hostname
+    podAntiAffinityType: required
   

@@ -7,6 +7,8 @@ metadata:
 spec:
   values:
     persistence:
+      # Set to 1 replica to avoid write amplification with CloudNativePG
+      # CloudNativePG provides resiliency through PostgreSQL clustering
       defaultClassReplicaCount: 1
       defaultClass: true
     ingress:

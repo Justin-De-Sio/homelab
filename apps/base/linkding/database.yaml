@@ -2,7 +2,7 @@ apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
   name: linkding-database
-  
+  namespace: linkding
 spec:
   imageName: ghcr.io/cloudnative-pg/postgresql:16.1
   instances: 3
@@ -11,3 +11,17 @@ spec:
 
   storage:
     size: 1Gi
+    storageClass: longhorn-postgres
+
+  # Pod anti-affinity to ensure instances are distributed across different nodes
+  # This allows Longhorn strict-local data locality to work effectively
+  affinity:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchExpressions:
+              - key: postgresql
+                operator: In
+                values: ["linkding-database"]
+          topologyKey: kubernetes.io/hostname
+  

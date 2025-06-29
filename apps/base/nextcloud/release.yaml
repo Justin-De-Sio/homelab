@@ -37,15 +37,18 @@ spec:
     internalDatabase:
       enabled: false
     
-    postgresql:
+    
+    # Configure external database connection
+    externalDatabase:
       enabled: true
-      auth:
-        existingSecret: postgresql-credentials
-        database: nextcloud
-    
-    redis:
-      enabled: false
-    
+      type: postgresql
+      host: nextcloud-database-rw
+      database: nextcloud
+      existingSecret:
+        secretName: nextcloud-database-app
+        usernameKey: user
+        passwordKey: password
+
     # Storage
     persistence:
       storageClass: longhorn-performance

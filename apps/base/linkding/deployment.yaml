@@ -17,7 +17,7 @@ spec:
         runAsGroup: 33
       containers:
         - name: linkding
-          image: sissbruecker/linkding:1.40.0
+          image: sissbruecker/linkding:1.41.0
           resources:
             requests:
               memory: "640Mi"

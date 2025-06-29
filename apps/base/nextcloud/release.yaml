@@ -27,6 +27,10 @@ spec:
         trusted_proxies.config.php: |-
           <?php
           $CONFIG = array (
+            'trusted_domains' => array(
+              'nextcloud.justindesio.com',
+              'cloud.justindesio.com',
+            ),
             'trusted_proxies' => array(
               '10.0.0.0/8',     # Internal cluster network
               '172.16.0.0/12',  # Internal cluster network  

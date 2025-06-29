@@ -9,6 +9,9 @@ spec:
 
   primaryUpdateStrategy: unsupervised
 
+  monitoring:
+    enablePodMonitor: true
+
   storage:
     size: 1Gi
     storageClass: longhorn-postgres

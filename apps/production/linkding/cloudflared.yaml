@@ -80,7 +80,7 @@ data:
     - hostname: linkding.justindesio.com
       service: http://linkding:9090
 
-    - hostname: nextcloud.justindesio.com
+    - hostname: cloud.justindesio.com
       service: http://nextcloud.nextcloud.svc.cluster.local:8080
 
     - hostname: video.justindesio.com

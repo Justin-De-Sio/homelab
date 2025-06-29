@@ -43,7 +43,7 @@ spec:
       enabled: true
       type: postgresql
       host: nextcloud-database-rw
-      database: nextcloud
+      database: app
       existingSecret:
         secretName: nextcloud-database-app
         usernameKey: user

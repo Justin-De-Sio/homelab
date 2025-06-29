@@ -12,6 +12,18 @@ spec:
   monitoring:
     enablePodMonitor: true
 
+  backup:
+    barmanObjectStore:
+      destinationPath: linkding-database
+      endpoint: https://s3.eu-central-003.backblazeb2.com
+      bucket: cloudnativepg-homelab-backup
+      s3Credentials:
+        accessKeyId:
+          name: cloudnativepg-backup-secret
+          key: ACCESS_KEY_ID
+        secretAccessKey:
+          name: cloudnativepg-backup-secret
+          key: ACCESS_SECRET_KEY
   storage:
     size: 1Gi
     storageClass: longhorn-postgres

@@ -34,7 +34,7 @@ spec:
             ),
             'forwarded_for_headers' => array('HTTP_X_FORWARDED_FOR'),
             'overwriteprotocol' => 'https',
-            'overwrite.cli.url' => 'https://nextcloud.justindesio.com',
+            'overwrite.cli.url' => 'https://cloud.justindesio.com',
           );
     
     ingress:

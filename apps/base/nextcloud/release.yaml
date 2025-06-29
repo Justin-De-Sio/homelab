@@ -22,6 +22,20 @@ spec:
         secretName: nextcloud-admin
         usernameKey: username
         passwordKey: password
+      # Configure reverse proxy settings for security
+      configs:
+        trusted_proxies.config.php: |-
+          <?php
+          $CONFIG = array (
+            'trusted_proxies' => array(
+              '10.0.0.0/8',     # Internal cluster network
+              '172.16.0.0/12',  # Internal cluster network  
+              '192.168.0.0/16', # Internal cluster network
+            ),
+            'forwarded_for_headers' => array('HTTP_X_FORWARDED_FOR'),
+            'overwriteprotocol' => 'https',
+            'overwrite.cli.url' => 'https://nextcloud.justindesio.com',
+          );
     
     ingress:
       enabled: true

@@ -1,0 +1,37 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: nextcloud-database
+  namespace: nextcloud
+spec:
+  imageName: ghcr.io/cloudnative-pg/postgresql:16.1
+  instances: 1
+
+  primaryUpdateStrategy: unsupervised
+
+  monitoring:
+    enablePodMonitor: true
+
+  backup:
+    barmanObjectStore:
+      destinationPath: s3://cloudnativepg-homelab-backup/nextcloud-database
+      endpointURL: https://s3.eu-central-003.backblazeb2.com
+      s3Credentials:
+        accessKeyId:
+          name: cloudnativepg-backup-secret
+          key: ACCESS_KEY_ID
+        secretAccessKey:
+          name: cloudnativepg-backup-secret
+          key: ACCESS_SECRET_KEY
+    retentionPolicy: "30d"
+  storage:
+    size: 10Gi
+    storageClass: longhorn-postgres
+
+  # CloudNativePG affinity configuration to ensure instances are distributed across different nodes
+  # This works with Longhorn strict-local data locality for optimal storage performance
+  affinity:
+    enablePodAntiAffinity: true
+    topologyKey: kubernetes.io/hostname
+    podAntiAffinityType: required
+  

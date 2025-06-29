@@ -16,7 +16,7 @@ spec:
       interval: 12h
   values:
     nextcloud:
-      host: nextcloud.justindesio.com
+      host: cloud.justindesio.com
       existingSecret:
         enabled: true
         secretName: nextcloud-admin
@@ -28,7 +28,6 @@ spec:
           <?php
           $CONFIG = array (
             'trusted_domains' => array(
-              'nextcloud.justindesio.com',
               'cloud.justindesio.com',
             ),
             'trusted_proxies' => array(
@@ -39,7 +38,7 @@ spec:
             'forwarded_for_headers' => array('HTTP_X_FORWARDED_FOR'),
             'overwriteprotocol' => 'https',
             'overwrite.cli.url' => 'https://cloud.justindesio.com',
-            'maintenance_window_start' => 2,  
+            'maintenance_window_start' => 2,
           );
     
     ingress:
@@ -48,14 +47,13 @@ spec:
       annotations:
         traefik.ingress.kubernetes.io/service.sticky.cookie: "true"
       hosts:
-        - host: nextcloud.justindesio.com
+        - host: cloud.justindesio.com
           paths:
             - path: /
               pathType: Prefix
     
     internalDatabase:
       enabled: false
-    
     
     # Configure external database connection
     externalDatabase:

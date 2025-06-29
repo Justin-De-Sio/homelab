@@ -70,4 +70,4 @@ spec:
     persistence:
       storageClass: longhorn-performance
       enabled: true
-      size: 8Gi
+      size: 500Gi

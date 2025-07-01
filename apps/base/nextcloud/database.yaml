@@ -24,7 +24,6 @@ spec:
           name: cloudnativepg-backup-secret
           key: ACCESS_SECRET_KEY
       wal:
-        archiveTimeout: "1h"
         compression: gzip
     retentionPolicy: "7d"
   storage:
@@ -37,4 +36,9 @@ spec:
     enablePodAntiAffinity: true
     topologyKey: kubernetes.io/hostname
     podAntiAffinityType: required
+
+  postgresql:
+    parameters:
+      archive_timeout: "1h"  # Archive WALs every hour instead of default
+      wal_level: "replica"   # Ensure proper WAL level for archiving
   

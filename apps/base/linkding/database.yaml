@@ -24,8 +24,6 @@ spec:
           name: cloudnativepg-backup-secret
           key: ACCESS_SECRET_KEY
     retentionPolicy: "3d"
-    wal:
-      enable: false
 
   storage:
     size: 1Gi

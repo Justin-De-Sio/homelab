@@ -23,11 +23,10 @@ spec:
         secretAccessKey:
           name: cloudnativepg-backup-secret
           key: ACCESS_SECRET_KEY
+      wal:
+        archiveTimeout: "1h"
+        compression: gzip
     retentionPolicy: "7d"
-    wal:
-      enable: true
-      archiveTimeout: "1h"
-      compression: gzip
   storage:
     size: 10Gi
     storageClass: longhorn-postgres

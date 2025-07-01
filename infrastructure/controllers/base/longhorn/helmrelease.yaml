@@ -22,4 +22,4 @@ spec:
       # -- Name of the Kubernetes secret associated with the default backup target.
       backupTargetCredentialSecret: longhorn-backup-target-secret
       # -- Number of seconds that Longhorn waits before checking the default backupstore for new backups.
-      pollInterval: 300
+      pollInterval: 3600

@@ -7,3 +7,4 @@ resources:
   - release.yaml 
   - database.yaml
   - backup-secret.yaml
+  - scheduled-backup.yaml

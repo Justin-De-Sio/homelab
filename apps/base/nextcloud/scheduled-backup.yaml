@@ -4,7 +4,7 @@ metadata:
   name: nextcloud-backup
   namespace: nextcloud
 spec:
-  schedule: "0 0 3 * * *"  # Daily at 3 AM 
+  schedule: "0 1 * * 1"
   backupOwnerReference: self
   cluster:
-    name: nextcloud-database 
+    name: nextcloud-database

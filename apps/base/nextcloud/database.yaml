@@ -23,9 +23,7 @@ spec:
         secretAccessKey:
           name: cloudnativepg-backup-secret
           key: ACCESS_SECRET_KEY
-      wal:
-        archiveTimeout: "10m"  # Archive WAL files every 10 minutes
-    retentionPolicy: "30d" 
+    retentionPolicy: "90d" 
   storage:
     size: 10Gi
     storageClass: longhorn-postgres

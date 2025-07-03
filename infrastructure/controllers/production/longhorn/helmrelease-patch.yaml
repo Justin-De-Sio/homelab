@@ -15,3 +15,8 @@ spec:
       enabled: true
       ingressClassName: traefik
       host: longhorn.justindesio.com
+
+      annotations:
+        cert-manager.io/cluster-issuer: "letsencrypt-prod"
+      tls: true
+      tlsSecret: longhorn-tls

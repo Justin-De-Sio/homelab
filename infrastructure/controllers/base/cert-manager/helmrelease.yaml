@@ -1,0 +1,24 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: cert-manager-release
+  namespace: cert-manager
+spec:
+  chart:
+    spec:
+      chart: cert-manager
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: cert-manager-repo
+      version: "1.16.x"
+  interval: 1m0s
+  values:
+    # Enable CRD installation and management by Flux
+    crds:
+      enabled: true
+    
+    # Enable Prometheus metrics (optional)
+    prometheus:
+      enabled: true

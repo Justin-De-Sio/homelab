@@ -8,6 +8,8 @@ resources:
   - cert-manager-namespace.yaml
   - helmrepo.yaml
   - helmrelease.yaml
+  - cluster-issuer-letsencrypt.yaml
+  - cluster-issuer-letsencrypt-staging.yaml
 
 commonLabels:
   app.kubernetes.io/part-of: cert-manager

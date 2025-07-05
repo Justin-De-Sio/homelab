@@ -9,7 +9,7 @@ resources:
   - helmrepo.yaml
   - helmrelease.yaml
   - cluster-issuer-letsencrypt.yaml
-  - cluster-issuer-letsencrypt-staging.yaml
+  - cloudflare-secret.yaml
 
 commonLabels:
   app.kubernetes.io/part-of: cert-manager

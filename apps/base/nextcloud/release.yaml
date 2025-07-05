@@ -46,6 +46,11 @@ spec:
       className: "traefik"
       annotations:
         traefik.ingress.kubernetes.io/service.sticky.cookie: "true"
+        cert-manager.io/cluster-issuer: "letsencrypt-production"
+      tls:
+        - hosts:
+          - cloud.justindesio.com
+          secretName: nextcloud-tls
       hosts:
         - host: cloud.justindesio.com
           paths:

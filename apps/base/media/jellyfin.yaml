@@ -84,8 +84,14 @@ kind: Ingress
 metadata:
   name: jellyfin
   namespace: media
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
 spec:
   ingressClassName: traefik
+  tls:
+  - hosts:
+    - jellyfin.justindesio.com
+    secretName: jellyfin-tls
   rules:
     - host: jellyfin.justindesio.com
       http:

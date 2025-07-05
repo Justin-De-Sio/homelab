@@ -36,7 +36,3 @@ spec:
         ingressClassName: traefik
         hosts:
           - monitoring.justindesio.com
-        tls:
-          - secretName: tls-secret
-            hosts:
-            - monitoring.justindesio.com

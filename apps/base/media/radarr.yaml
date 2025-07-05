@@ -79,8 +79,14 @@ kind: Ingress
 metadata:
   name: radarr
   namespace: media
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
 spec:
   ingressClassName: traefik
+  tls:
+  - hosts:
+    - radarr.justindesio.com
+    secretName: radarr-tls
   rules:
     - host: radarr.justindesio.com
       http:

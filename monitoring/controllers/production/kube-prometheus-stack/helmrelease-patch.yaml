@@ -1,0 +1,16 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: kube-prometheus-stack
+  namespace: monitoring
+spec:
+  values:
+    grafana:
+      ingress:
+        annotations:
+          cert-manager.io/cluster-issuer: "letsencrypt-prod"
+        tls:
+          - secretName: monitoring-tls
+            hosts:
+            - monitoring.justindesio.com 

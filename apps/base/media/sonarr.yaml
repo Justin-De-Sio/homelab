@@ -79,8 +79,14 @@ kind: Ingress
 metadata:
   name: sonarr
   namespace: media
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
 spec:
   ingressClassName: traefik
+  tls:
+  - hosts:
+    - sonarr.justindesio.com
+    secretName: sonarr-tls
   rules:
     - host: sonarr.justindesio.com
       http:

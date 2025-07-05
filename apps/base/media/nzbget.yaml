@@ -77,8 +77,14 @@ kind: Ingress
 metadata:
   name: nzbget
   namespace: media
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
 spec:
   ingressClassName: traefik
+  tls:
+  - hosts:
+    - nzbget.justindesio.com
+    secretName: nzbget-tls
   rules:
     - host: nzbget.justindesio.com
       http:

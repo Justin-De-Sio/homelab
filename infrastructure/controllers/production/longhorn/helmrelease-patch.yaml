@@ -6,6 +6,7 @@ metadata:
   namespace: longhorn-system
 spec:
   values:
+    defaultStorageClass: longhorn-storage
     persistence:
       # Set to 1 replica to avoid write amplification with CloudNativePG
       # CloudNativePG provides resiliency through PostgreSQL clustering

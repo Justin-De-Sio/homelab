@@ -26,6 +26,11 @@ spec:
       className: "traefik"
       annotations:
         traefik.ingress.kubernetes.io/service.sticky.cookie: "true"
+        cert-manager.io/cluster-issuer: "letsencrypt-prod"
+      tls:
+        - hosts:
+          - pgadmin.justindesio.com
+          secretName: pgadmin-tls
       hosts:
         - host: pgadmin.justindesio.com
           paths:

@@ -15,8 +15,6 @@ spec:
         namespace: nextcloud
       interval: 12h
   values:
-    defaultSettings:
-      defaultLonghornStaticStorageClass: longhorn-capacity
     nextcloud:
       host: cloud.justindesio.com
       existingSecret:
@@ -75,6 +73,6 @@ spec:
 
     # Storage
     persistence:
-      storageClass: longhorn-performance
+      storageClass: longhorn-capacity
       enabled: true
-      size: 500Gi
+      size: 1500Gi

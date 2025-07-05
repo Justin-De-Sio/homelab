@@ -46,7 +46,7 @@ spec:
       className: "traefik"
       annotations:
         traefik.ingress.kubernetes.io/service.sticky.cookie: "true"
-        cert-manager.io/cluster-issuer: "letsencrypt-production"
+        cert-manager.io/cluster-issuer: "letsencrypt-prod"
       tls:
         - hosts:
           - cloud.justindesio.com

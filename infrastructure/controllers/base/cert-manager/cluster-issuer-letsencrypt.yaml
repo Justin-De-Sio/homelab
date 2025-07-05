@@ -12,7 +12,6 @@ spec:
     solvers:
     - dns01:
         cloudflare:
-          email: desio.j@live.fr 
-          apiKeySecretRef:
+          apiTokenSecretRef:
             name: cloudflare-api-key-secret
             key: api-key 

@@ -90,10 +90,10 @@ spec:
   ingressClassName: traefik
   tls:
   - hosts:
-    - jellyfin.justindesio.com
+    - video.justindesio.com
     secretName: jellyfin-tls
   rules:
-    - host: jellyfin.justindesio.com
+    - host: video.justindesio.com
       http:
         paths:
           - backend:

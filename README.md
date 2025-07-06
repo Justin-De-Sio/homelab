@@ -21,24 +21,26 @@ A production-ready, cloud-native homelab infrastructure managed entirely through
 | **Networking** | Traefik + Cloudflare | SSL termination and secure external access |
 | **Security** | cert-manager + age encryption | Automated certificates and encrypted secrets |
 
-## ��️ Architecture
+## ️ Architecture
 
 ### 🗺️ System Architecture
 
 ```mermaid
 graph TB
-    subgraph "External Access"
+    subgraph "🌐 External Access"
         CF[Cloudflare Tunnels]
         DNS[DNS: justindesio.com]
+        LOCAL[Local DNS: *.justindesio.com → 192.168.1.x]
     end
     
-    subgraph "Kubernetes Cluster"
-        subgraph "GitOps Layer"
-            FLUX[Flux CD]
-            SOPS[SOPS Secrets]
-            RENO[Renovate]
-        end
-        
+    subgraph "📦 GitOps Repository"
+        REPO[GitHub: Justin-De-Sio/homelab]
+        FLUX[Flux CD]
+        SOPS[SOPS Secrets]
+        RENO[Renovate]
+    end
+    
+    subgraph "☸️ Kubernetes Cluster"
         subgraph "Infrastructure"
             TRAF[Traefik Ingress]
             CERT[cert-manager]
@@ -52,12 +54,16 @@ graph TB
                 SONARR[Sonarr]
                 RADARR[Radarr]
                 QBIT[qBittorrent]
+                PROWL[Prowlarr]
+                JACK[Jackett]
+                NZB[NZBGet]
             end
             
             subgraph "Cloud Services"
                 NC[Nextcloud]
                 LINK[Linkding]
                 HOM[Homarr]
+                PGA[pgAdmin]
             end
             
             subgraph "Monitoring"
@@ -67,18 +73,31 @@ graph TB
         end
     end
     
-    subgraph "External Storage"
-        B2[Backblaze B2]
+    subgraph "💾 External Storage"
+        B2[Backblaze B2<br/>Backup Storage]
     end
     
-    CF --> TRAF
+    %% External Access Flow
     DNS --> CF
+    LOCAL --> TRAF
+    CF --> TRAF
+    
+    %% GitOps Flow
+    REPO --> FLUX
+    RENO --> FLUX
     FLUX --> SOPS
     FLUX --> Infrastructure
     FLUX --> Applications
+    
+    %% Infrastructure Flow
     CERT --> TRAF
+    TRAF --> Applications
+    
+    %% Backup Flow
     LONG --> B2
     CNPG --> B2
+    
+    %% Monitoring Flow
     PROM --> GRAF
 ```
 

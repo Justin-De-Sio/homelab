@@ -96,7 +96,8 @@ homelab/
 └── renovate.json         # Dependency automation
 ```
 
-### **External Access**
+## Service Access
+### 🌐 External Access
 Secure external access via Cloudflare tunnels:
 - `linkding.justindesio.com` - Bookmarks
 - `cloud.justindesio.com` - Nextcloud  
@@ -104,16 +105,16 @@ Secure external access via Cloudflare tunnels:
 - `tv.justindesio.com` - Jellyfin Vue
 - `dashboard.justindesio.com` - Homarr
 
-## 🏠 Local Access
+### 🏠 Local Access
 
 All services accessible via **Traefik ingress** with SSL certificates:
 
-### **Applications**
-- `linkding.justindesio.com` - Bookmark manager
-- `video.justindesio.com` - Media server
+#### 📱 Applications
+- `linkding.home.justindesio.com` - Bookmark manager (local-only)
+- `jellyfin.justindesio.com` - Media server
 - `cloud.justindesio.com` - Nextcloud file sync
 
-### **Media Management**
+#### 🎬 Media Management
 - `sonarr.justindesio.com` - TV series automation
 - `radarr.justindesio.com` - Movie automation  
 - `prowlarr.justindesio.com` - Indexer management
@@ -121,7 +122,7 @@ All services accessible via **Traefik ingress** with SSL certificates:
 - `qbittorrent.justindesio.com` - Torrent client
 - `nzbget.justindesio.com` - Usenet downloader
 
-### **Infrastructure**
+#### ⚙️ Infrastructure
 - `monitoring.justindesio.com` - Grafana dashboards
 - `longhorn.justindesio.com` - Storage management
 - `pgadmin.justindesio.com` - Database administration

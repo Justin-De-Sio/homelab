@@ -5,9 +5,9 @@
 [![Renovate](https://img.shields.io/badge/Dependencies-Renovate-1f8ceb.svg)](https://renovatebot.com/)
 [![Kubernetes](https://img.shields.io/badge/Platform-Kubernetes-326CE5.svg)](https://kubernetes.io/)
 
-A production-ready, cloud-native homelab infrastructure managed entirely through GitOps principles using Flux CD. This repository contains the complete configuration for a Kubernetes-based homelab running media services, cloud storage, monitoring, and more.
+A personal homelab infrastructure managed through GitOps principles using Flux CD. This repository contains my ongoing configuration for a Kubernetes-based homelab running media services, cloud storage, and monitoring.
 
-> **🎯 This is a reference implementation showcasing enterprise-grade practices in a homelab environment.**
+> **🏗️ Work in Progress:** Personal homelab setup that's constantly evolving and being improved.
 
 ## 📋 Quick Overview
 

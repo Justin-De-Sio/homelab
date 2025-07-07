@@ -155,5 +155,4 @@ All services accessible via **Traefik ingress** with SSL certificates:
 
 ### **Databases (CloudNative-PG)**
 - **Continuous WAL streaming** with gzip compression to Backblaze B2
-- **Linkding:** 3-day retention | **Nextcloud:** 7-day retention
-- **Hourly WAL archiving** for point-in-time recovery
+- **Weekly** complet backup.

@@ -129,8 +129,7 @@ Secure external access via Cloudflare tunnels:
 All services accessible via **Traefik ingress** with SSL certificates:
 
 #### 📱 Applications
-- `linkding.home.justindesio.com` - Bookmark manager (local-only)
-- `jellyfin.justindesio.com` - Media server
+- `video.justindesio.com` - Media server
 - `cloud.justindesio.com` - Nextcloud file sync
 
 #### 🎬 Media Management

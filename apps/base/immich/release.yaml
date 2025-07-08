@@ -1,0 +1,59 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: immich
+  namespace: immich
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: immich
+      version: "0.8.2"
+      sourceRef:
+        kind: HelmRepository
+        name: immich
+        namespace: immich
+      interval: 12h
+  values:
+    image:
+      tag: "v1.135.3"
+
+    immich:
+      persistence:
+        library:
+          enabled: true
+          storageClass: longhorn-capacity
+          size: 100Gi
+
+    env:
+      DB_HOSTNAME: immich-database-rw
+      DB_USERNAME: app
+      DB_DATABASE_NAME: app
+      DB_PASSWORD:
+        valueFrom:
+          secretKeyRef:
+            name: immich-database-app
+            key: password
+
+    server:
+      ingress:
+        main:
+          enabled: true
+          className: "traefik"
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-prod"
+          hosts:
+            - host: photos.justindesio.com
+              paths:
+                - path: /
+                  pathType: Prefix
+          tls:
+            - hosts:
+                - photos.justindesio.com
+              secretName: immich-tls
+
+    postgresql:
+      enabled: false
+    
+    redis:
+      enabled: true 

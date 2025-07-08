@@ -1,0 +1,77 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: immich
+  namespace: immich
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: immich
+      version: "0.9.3"
+      sourceRef:
+        kind: HelmRepository
+        name: immich
+        namespace: immich
+      interval: 12h
+  values:
+    image:
+      tag: "v1.135.3"
+
+    postgresql:
+      enabled: false
+
+    # Configure external database connection
+    env:
+      DB_HOSTNAME: 
+        value: "immich-database-rw"
+      DB_PORT:
+        value: "5432"
+      DB_DATABASE_NAME:
+        value: "app"
+      DB_USERNAME:
+        valueFrom:
+          secretKeyRef:
+            name: immich-database-app
+            key: user
+      DB_PASSWORD:
+        valueFrom:
+          secretKeyRef:
+            name: immich-database-app
+            key: password
+
+    immich:
+      persistence:
+        library:
+          existingClaim: immich-library
+
+    server:
+      ingress:
+        main:
+          enabled: true
+          className: "traefik"
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-prod"
+          hosts:
+            - host: photos.justindesio.com
+              paths:
+                - path: /
+                  pathType: Prefix
+          tls:
+            - secretName: immich-tls-certificate
+              hosts:
+                - photos.justindesio.com
+
+    machine-learning:
+      persistence:
+        cache:
+          enabled: true
+          size: 10Gi
+          type: pvc
+          storageClass: longhorn-performance
+
+    redis:
+      enabled: true
+      architecture: standalone
+      auth:
+        enabled: false 

@@ -1,0 +1,30 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: immich-database
+  namespace: immich
+spec:
+  imageName: ghcr.io/cloudnative-pg/postgresql:16.1
+  instances: 1
+
+  backup:
+    barmanObjectStore:
+      destinationPath: s3://cloudnativepg-homelab-backup/immich-database
+      endpointURL: https://s3.eu-central-003.backblazeb2.com
+      s3Credentials:
+        accessKeyId:
+          name: cloudnativepg-backup-secret
+          key: ACCESS_KEY_ID
+        secretAccessKey:
+          name: cloudnativepg-backup-secret
+          key: ACCESS_SECRET_KEY
+    retentionPolicy: "7d"
+  
+  storage:
+    size: 5Gi
+    storageClass: longhorn-postgres
+
+  postgresql:
+    parameters:
+      archive_timeout: "1h"
+      wal_level: "replica"

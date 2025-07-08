@@ -93,7 +93,7 @@ data:
       service: http://homarr.dashboard.svc.cluster.local:7575
 
     - hostname: photos.justindesio.com
-      service: http://immich-server.immich.svc.cluster.local:3001
+      service: http://immich.immich.svc.cluster.local:2283
 
     # This rule sends traffic to the built-in hello-world HTTP server. This can help debug connectivity
     # issues. If hello.example.com resolves and tunnel.example.com does not, then the problem is

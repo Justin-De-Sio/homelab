@@ -21,14 +21,13 @@ spec:
     postgresql:
       enabled: false
 
-    # Configure external database connection
+    redis:
+      enabled: true
+
     env:
-      DB_HOSTNAME: 
-        value: "immich-database-rw"
-      DB_PORT:
-        value: "5432"
-      DB_DATABASE_NAME:
-        value: "app"
+      DB_HOSTNAME: "immich-database-rw"
+      DB_PORT: "5432"
+      DB_DATABASE_NAME: "app"
       DB_USERNAME:
         valueFrom:
           secretKeyRef:
@@ -60,18 +59,4 @@ spec:
           tls:
             - secretName: immich-tls-certificate
               hosts:
-                - photos.justindesio.com
-
-    machine-learning:
-      persistence:
-        cache:
-          enabled: true
-          size: 10Gi
-          type: pvc
-          storageClass: longhorn-performance
-
-    redis:
-      enabled: true
-      architecture: standalone
-      auth:
-        enabled: false 
+                - photos.justindesio.com 

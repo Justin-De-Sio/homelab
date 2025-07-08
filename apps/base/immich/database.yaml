@@ -7,6 +7,16 @@ spec:
   imageName: ghcr.io/cloudnative-pg/postgresql:16.1
   instances: 1
 
+  # Bootstrap to pre-create required extensions for Immich
+  bootstrap:
+    initdb:
+      database: app
+      owner: app
+      postInitSQL:
+        - CREATE EXTENSION IF NOT EXISTS vector CASCADE;
+        - CREATE EXTENSION IF NOT EXISTS earthdistance CASCADE;
+        - CREATE EXTENSION IF NOT EXISTS cube CASCADE;
+
   backup:
     barmanObjectStore:
       destinationPath: s3://cloudnativepg-homelab-backup/immich-database

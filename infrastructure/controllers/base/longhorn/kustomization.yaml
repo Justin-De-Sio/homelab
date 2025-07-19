@@ -4,13 +4,12 @@ kind: Kustomization
 namespace: longhorn-system
 
 resources:
-  # Core resources
+  # Core operator installation only
   - longhorn-namespace.yaml
   - helmrepo.yaml
   - helmrelease.yaml
   - backup-secret.yaml
-  # Backup automation
-  - recurring-backup-job.yaml
+  # Configuration moved to separate layer
 
 commonLabels:
   app.kubernetes.io/part-of: longhorn-storage

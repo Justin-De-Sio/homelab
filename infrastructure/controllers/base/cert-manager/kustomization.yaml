@@ -4,12 +4,11 @@ kind: Kustomization
 namespace: cert-manager
 
 resources:
-  # Core resources
+  # Core operator installation only
   - cert-manager-namespace.yaml
   - helmrepo.yaml
   - helmrelease.yaml
-  - cluster-issuer-letsencrypt.yaml
-  - cloudflare-secret.yaml
+  # Configuration moved to separate layer
 
 commonLabels:
   app.kubernetes.io/part-of: cert-manager

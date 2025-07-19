@@ -5,6 +5,7 @@ metadata:
   name: kube-prometheus-stack
   namespace: monitoring
 spec:
+  interval: 30m
   values:
     grafana:
       ingress:

@@ -1,0 +1,19 @@
+---
+k3s_cluster:
+  children:
+    server:
+      hosts:
+        192.168.1.103:
+        192.168.1.104:
+        192.168.1.100:
+    agent:
+      hosts:
+        192.168.1.105:
+        192.168.1.106:
+
+  vars:
+    ansible_port: 22
+    ansible_user: funax
+    k3s_version: v1.30.2+k3s1
+    token: "e985cb8a2f0e1ec30ef21539b221dc7de961d216362dffadd0f44cee57bd0d25"
+    api_endpoint: "{{ hostvars[groups['server'][0]]['ansible_host'] | default(groups['server'][0]) }}"

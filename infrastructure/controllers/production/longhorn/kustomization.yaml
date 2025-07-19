@@ -3,7 +3,7 @@ kind: Kustomization
 
 resources:
   - ../../base/longhorn
-  - storage-class-config.yaml
+  # Configuration moved to separate layer
 
 patchesStrategicMerge:
   - helmrelease-patch.yaml 

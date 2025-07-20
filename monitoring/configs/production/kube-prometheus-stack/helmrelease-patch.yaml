@@ -8,6 +8,7 @@ spec:
   interval: 30m
   values:
     grafana:
+      adminPassword: password
       ingress:
         annotations:
           cert-manager.io/cluster-issuer: "letsencrypt-prod"

@@ -10,6 +10,7 @@ resource "proxmox_vm_qemu" "this" {
   boot             = "order=scsi0"
   vm_state         = "running"
   automatic_reboot = true
+  onboot           = true
   
   # CPU configuration (v3.x syntax)
   cpu {

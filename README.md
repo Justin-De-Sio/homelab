@@ -152,10 +152,9 @@ graph TD
     E[🔧 apps<br/>Nextcloud, Media Stack, pgAdmin]
 
     A --> B
-    A --> C
+    B --> C
     B --> E
     C --> D
-    D -.-> E
 
     style A fill:#e1f5fe
     style B fill:#f3e5f5

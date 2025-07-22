@@ -129,12 +129,47 @@ homelab/
 │   ├── base/               # Base configurations
 │   └── production/         # Production overlays
 ├── infrastructure/         # Platform components
-│   └── controllers/        # Infrastructure controllers
+│   ├── controllers/        # Infrastructure controllers
+│   └── configs/           # Infrastructure configurations
 ├── monitoring/            # Observability stack
+│   ├── controllers/        # Monitoring controllers
+│   └── configs/           # Monitoring configurations
 ├── clusters/              # Cluster configurations
 │   └── homelab/          # Main cluster config
 └── renovate.json         # Dependency automation
 ```
+
+### 🔄 GitOps Flow & Dependencies
+
+Flux CD orchestrates the deployment in a layered approach with proper dependencies:
+
+```mermaid
+graph TD
+    A[🚀 infrastructure-controllers<br/>Longhorn, cert-manager, CloudNative-PG] 
+    B[⚙️ infrastructure-configs<br/>Storage Classes, Node Config, Cluster Issuers]
+    C[📊 monitoring-controllers<br/>Prometheus, Grafana]
+    D[📈 monitoring-configs<br/>Dashboards, Alerts, Ingress]
+    E[🔧 apps<br/>Nextcloud, Media Stack, pgAdmin]
+
+    A --> B
+    A --> C
+    B --> E
+    C --> D
+    D -.-> E
+
+    style A fill:#e1f5fe
+    style B fill:#f3e5f5
+    style C fill:#fff3e0
+    style D fill:#fff8e1
+    style E fill:#e8f5e8
+```
+
+**Deployment Layers:**
+1. **infrastructure-controllers** - Core platform services (Longhorn, cert-manager, CloudNative-PG)
+2. **infrastructure-configs** - Platform configuration (storage classes, certificates, database clusters) 
+3. **monitoring-controllers** - Observability services (Prometheus, Grafana)
+4. **monitoring-configs** - Monitoring configuration (dashboards, alerts, ingress rules)
+5. **apps** - Applications that consume the platform services
 
 ## Service Access
 ### 🌐 External Access

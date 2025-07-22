@@ -21,6 +21,27 @@ A personal homelab infrastructure managed through GitOps principles using Flux C
 | **Networking** | Traefik + Cloudflare | SSL termination and secure external access |
 | **Security** | cert-manager + age encryption | Automated certificates and encrypted secrets |
 
+## Quick Start
+
+```bash
+terraform apply
+
+ansible-playbook k3s.orchestration.site -i inventory.yml
+
+flux bootstrap github \
+  --token-auth \
+  --owner=Justin-De-Sio \
+  --repository=ssh://git@github.com/Justin-De-Sio/homelab\
+  --branch=main \
+  --path=clusters/homelab \
+  --personal
+
+kubectl create secret generic sops-age \
+  --namespace=flux-system \
+  --from-literal=age.agekey="${SOPS_AGE_KEY}"
+```
+
+
 ## ️ Architecture
 
 ### 🗺️ System Architecture

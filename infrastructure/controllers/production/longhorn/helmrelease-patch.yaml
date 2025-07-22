@@ -5,12 +5,11 @@ metadata:
   name: longhorn-release
   namespace: longhorn-system
 spec:
+  interval: 1m0s
   values:
     persistence:
-      # Set to 1 replica to avoid write amplification with CloudNativePG
-      # CloudNativePG provides resiliency through PostgreSQL clustering
-      defaultClassReplicaCount: 1
-      defaultClass: true
+      defaultClass: longhorn-performance
+      defaultClassReplicaCount: 3
     ingress:
       enabled: true
       ingressClassName: traefik

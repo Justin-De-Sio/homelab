@@ -2,10 +2,41 @@
 apiVersion: longhorn.io/v1beta2
 kind: Node
 metadata:
-  name: homelab1
+  name: k3s-srv01
   namespace: longhorn-system
 spec:
   disks:
+    default-disk:
+      path: /var/lib/longhorn
+      tags:
+        - ssd
+        - performance
+---
+apiVersion: longhorn.io/v1beta2
+kind: Node
+metadata:
+  name: k3s-srv02
+  namespace: longhorn-system
+spec:
+  disks:
+    default-disk:
+      path: /var/lib/longhorn
+      tags:
+        - ssd
+        - performance
+---
+apiVersion: longhorn.io/v1beta2
+kind: Node
+metadata:
+  name: k3s-srv03
+  namespace: longhorn-system
+spec:
+  disks:
+    default-disk:
+      path: /var/lib/longhorn
+      tags:
+        - ssd
+        - performance
     ssd1:
       path: /mnt/ssd1
       tags:
@@ -16,6 +47,32 @@ spec:
       tags:
         - hdd
         - capacity
+---
+apiVersion: longhorn.io/v1beta2
+kind: Node
+metadata:
+  name: k3s-agt01
+  namespace: longhorn-system
+spec:
+  disks:
+    default-disk:
+      path: /var/lib/longhorn
+      tags:
+        - ssd
+        - performance
+---
+apiVersion: longhorn.io/v1beta2
+kind: Node
+metadata:
+  name: k3s-agt02
+  namespace: longhorn-system
+spec:
+  disks:
+    default-disk:
+      path: /var/lib/longhorn
+      tags:
+        - ssd
+        - performance
 ---
 apiVersion: storage.k8s.io/v1
 kind: StorageClass

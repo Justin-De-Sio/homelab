@@ -9,6 +9,18 @@ A personal homelab infrastructure managed through GitOps principles using Flux C
 
 > **🏗️ Work in Progress:** Personal homelab setup that's constantly evolving and being improved.
 
+## 📋 Quick Overview
+
+| **Component** | **Technology** | **Purpose** |
+|---------------|----------------|-------------|
+| **GitOps** | Flux CD + SOPS | Declarative infrastructure management |
+| **Storage** | Longhorn | Distributed block storage with automated backups |
+| **Database** | CloudNative PostgreSQL | Managed PostgreSQL with HA and continuous backup |
+| **Monitoring** | Prometheus + Grafana | Comprehensive observability stack |
+| **Media** | Jellyfin + *Arr Stack | Complete media automation and streaming |
+| **Networking** | Traefik + Cloudflare | SSL termination and secure external access |
+| **Security** | cert-manager + age encryption | Automated certificates and encrypted secrets |
+
 ## Quick Start
 
 ```bash
@@ -31,84 +43,6 @@ kubectl create secret generic sops-age \
 
 
 ## ️ Architecture
-
-### 🗺️ System Architecture
-
-```mermaid
-graph TB
-    subgraph "🌐 External Access"
-        CF[Cloudflare Tunnels]
-        DNS[DNS: justindesio.com]
-        LOCAL[Local DNS: *.justindesio.com → 192.168.1.x]
-    end
-    
-    subgraph "📦 GitOps Repository"
-        REPO[GitHub: Justin-De-Sio/homelab]
-        FLUX[Flux CD]
-        SOPS[SOPS Secrets]
-        RENO[Renovate]
-    end
-    
-    subgraph "☸️ Kubernetes Cluster"
-        subgraph "Infrastructure"
-            TRAF[Traefik Ingress]
-            CERT[cert-manager]
-            LONG[Longhorn Storage]
-            CNPG[CloudNative-PG]
-        end
-        
-        subgraph "Applications"
-            subgraph "Media Stack"
-                JELLY[Jellyfin]
-                SONARR[Sonarr]
-                RADARR[Radarr]
-                QBIT[qBittorrent]
-                PROWL[Prowlarr]
-                JACK[Jackett]
-                NZB[NZBGet]
-            end
-            
-            subgraph "Cloud Services"
-                NC[Nextcloud]
-                LINK[Linkding]
-                HOM[Homarr]
-                PGA[pgAdmin]
-            end
-            
-            subgraph "Monitoring"
-                PROM[Prometheus]
-                GRAF[Grafana]
-            end
-        end
-    end
-    
-    subgraph "💾 External Storage"
-        B2[Backblaze B2<br/>Backup Storage]
-    end
-    
-    %% External Access Flow
-    DNS --> CF
-    LOCAL --> TRAF
-    CF --> TRAF
-    
-    %% GitOps Flow
-    REPO --> FLUX
-    RENO --> FLUX
-    FLUX --> SOPS
-    FLUX --> Infrastructure
-    FLUX --> Applications
-    
-    %% Infrastructure Flow
-    CERT --> TRAF
-    TRAF --> Applications
-    
-    %% Backup Flow
-    LONG --> B2
-    CNPG --> B2
-    
-    %% Monitoring Flow
-    PROM --> GRAF
-```
 
 ### 📁 Repository Structure
 ```

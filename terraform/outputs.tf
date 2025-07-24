@@ -1,54 +1,28 @@
-# VM Information
-output "k3s_nodes" {
-  description = "Information about all K3S nodes"
+# Load Balancer IPs for Manual Configuration
+output "load_balancer_ips" {
+  description = "IP addresses of load balancers for manual setup"
   value = {
-    for k, v in module.k3s_nodes : k => {
-      id          = v.id
-      vmid        = v.vmid
-      ip_address  = v.ip_address
-      target_node = v.target_node
-      role        = v.role
-    }
+    for name, lb in module.load_balancers : name => lb.ip_address
   }
 }
 
-# Server nodes for K3S cluster setup
-output "k3s_servers" {
-  description = "K3S server nodes"
+# K3S Node IPs
+output "k3s_server_nodes" {
+  description = "K3s server node details"
   value = {
-    for k, v in module.k3s_nodes : k => {
-      ip_address = v.ip_address
-      vmid       = v.vmid
-    } if v.role == "server"
+    for name, instance in module.k3s_nodes : name => {
+      ip_address = instance.ip_address
+      vmid       = instance.vmid
+    } if var.k3s_nodes[name].role == "server"
   }
 }
 
-# Agent nodes for K3S cluster setup
-output "k3s_agents" {
-  description = "K3S agent nodes"
+output "k3s_agent_nodes" {
+  description = "K3s agent node details" 
   value = {
-    for k, v in module.k3s_nodes : k => {
-      ip_address = v.ip_address
-      vmid       = v.vmid
-    } if v.role == "agent"
-  }
-}
-
-# Ansible inventory helper
-output "ansible_inventory" {
-  description = "Ansible inventory formatted output"
-  value = {
-    k3s_servers = [
-      for k, v in module.k3s_nodes : {
-        name       = k
-        ip_address = v.ip_address
-      } if v.role == "server"
-    ]
-    k3s_agents = [
-      for k, v in module.k3s_nodes : {
-        name       = k
-        ip_address = v.ip_address
-      } if v.role == "agent"
-    ]
+    for name, instance in module.k3s_nodes : name => {
+      ip_address = instance.ip_address
+      vmid       = instance.vmid
+    } if var.k3s_nodes[name].role == "agent"
   }
 } 

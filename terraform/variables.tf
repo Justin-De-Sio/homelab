@@ -68,6 +68,17 @@ variable "default_disk_size" {
   default     = "100G"
 }
 
+# Load Balancer Configuration
+variable "load_balancers" {
+  description = "Configuration for load balancers"
+  type = map(object({
+    target_node = string
+    cores       = number
+    memory      = number
+    ip_address  = string
+  }))
+}
+
 # K3S Node Configuration
 variable "k3s_nodes" {
   description = "Configuration for K3S nodes"

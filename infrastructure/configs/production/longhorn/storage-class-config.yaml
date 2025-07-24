@@ -8,11 +8,13 @@ spec:
   disks:
     ssd1:
       path: /mnt/ssd1
+      allowScheduling: true
       tags:
         - ssd
         - performance
     hdd1:
       path: /mnt/hdd1
+      allowScheduling: true
       tags:
         - hdd
         - capacity

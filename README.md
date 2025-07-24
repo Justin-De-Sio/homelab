@@ -9,18 +9,6 @@ A personal homelab infrastructure managed through GitOps principles using Flux C
 
 > **🏗️ Work in Progress:** Personal homelab setup that's constantly evolving and being improved.
 
-## 📋 Quick Overview
-
-| **Component** | **Technology** | **Purpose** |
-|---------------|----------------|-------------|
-| **GitOps** | Flux CD + SOPS | Declarative infrastructure management |
-| **Storage** | Longhorn | Distributed block storage with automated backups |
-| **Database** | CloudNative PostgreSQL | Managed PostgreSQL with HA and continuous backup |
-| **Monitoring** | Prometheus + Grafana | Comprehensive observability stack |
-| **Media** | Jellyfin + *Arr Stack | Complete media automation and streaming |
-| **Networking** | Traefik + Cloudflare | SSL termination and secure external access |
-| **Security** | cert-manager + age encryption | Automated certificates and encrypted secrets |
-
 ## Quick Start
 
 ```bash

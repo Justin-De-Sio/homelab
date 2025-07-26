@@ -1,4 +1,3 @@
-# Load Balancer IPs for Manual Configuration
 output "load_balancer_ips" {
   description = "IP addresses of load balancers for manual setup"
   value = {
@@ -6,7 +5,6 @@ output "load_balancer_ips" {
   }
 }
 
-# K3S Node IPs
 output "k3s_server_nodes" {
   description = "K3s server node details"
   value = {

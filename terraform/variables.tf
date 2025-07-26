@@ -1,11 +1,8 @@
-# Provider Configuration
 variable "proxmox_api_url" {
   description = "Proxmox API URL"
   type        = string
   default     = "https://p1.justindesio.com:8006/api2/json"
 }
-
-# API tokens are read from environment variables PM_API_TOKEN_ID and PM_API_TOKEN_SECRET
 
 variable "proxmox_tls_insecure" {
   description = "Allow insecure TLS connections"
@@ -13,7 +10,6 @@ variable "proxmox_tls_insecure" {
   default     = true
 }
 
-# Common Configuration
 variable "default_clone_template" {
   description = "Default template to clone from"
   type        = string
@@ -68,7 +64,6 @@ variable "default_disk_size" {
   default     = "100G"
 }
 
-# Load Balancer Configuration
 variable "load_balancers" {
   description = "Configuration for load balancers"
   type = map(object({
@@ -79,7 +74,6 @@ variable "load_balancers" {
   }))
 }
 
-# K3S Node Configuration
 variable "k3s_nodes" {
   description = "Configuration for K3S nodes"
   type = map(object({

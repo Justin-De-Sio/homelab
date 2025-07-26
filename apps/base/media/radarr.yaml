@@ -1,6 +1,3 @@
-# Radarr - Movie Management
----
-# Radarr PVCs
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:

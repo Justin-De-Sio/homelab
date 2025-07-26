@@ -1,8 +1,5 @@
-# Proxmox configuration
 proxmox_api_url      = "https://192.168.1.101:8006/api2/json"
 proxmox_tls_insecure = true
-
-# Load balancer configuration
 load_balancers = {
   "K3S-LB01" = {
     target_node = "p1"
@@ -18,7 +15,6 @@ load_balancers = {
   }
 }
 
-# VM configurations
 k3s_nodes = {
   "K3S-SRV01" = {
     target_node = "p1"

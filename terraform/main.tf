@@ -1,4 +1,3 @@
-# Load Balancer Deployment
 module "load_balancers" {
   source = "./modules/load-balancer"
 
@@ -22,7 +21,6 @@ module "load_balancers" {
   disk_storage   = var.default_disk_storage
 }
 
-# K3S Node Deployment
 module "k3s_nodes" {
   source = "./modules/k3s-node"
 

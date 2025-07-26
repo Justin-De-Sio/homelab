@@ -1,6 +1,3 @@
-# Prowlarr - Indexer Manager
----
-# Prowlarr PVCs
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:

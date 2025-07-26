@@ -61,6 +61,36 @@ homelab/
 └── renovate.json         # Dependency automation
 ```
 
+### 🖥️ Infrastructure Nodes
+
+```mermaid
+graph TB
+    CLIENT["kubectl client"]
+    
+    subgraph "Proxmox Host p1"
+        LB1["K3S-LB01<br/>1C/2GB"]
+        SRV1["K3S-SRV01<br/>6C/6GB<br/>server"]
+    end
+    
+    subgraph "Proxmox Host p2"
+        LB2["K3S-LB02<br/>1C/2GB"]
+        SRV2["K3S-SRV02<br/>6C/6GB<br/>server"]
+    end
+
+    subgraph "Ubuntu bare metal"
+        SRV3["K3S-SRV03<br/>4C/4GB<br/>server"]
+    end
+    
+    CLIENT --> LB1
+    CLIENT --> LB2
+    LB1 --> SRV1
+    LB1 --> SRV2
+    LB1 --> SRV3
+    LB2 --> SRV1
+    LB2 --> SRV2
+    LB2 --> SRV3
+```
+
 ### 🔄 GitOps Flow & Dependencies
 
 Flux CD orchestrates the deployment in a layered approach with proper dependencies:
@@ -85,49 +115,13 @@ graph TD
     style E fill:#e8f5e8
 ```
 
-**Deployment Layers:**
-1. **infrastructure-controllers** - Core platform services (Longhorn, cert-manager, CloudNative-PG)
-2. **infrastructure-configs** - Platform configuration (storage classes, certificates, database clusters) 
-3. **monitoring-controllers** - Observability services (Prometheus, Grafana)
-4. **monitoring-configs** - Monitoring configuration (dashboards, alerts, ingress rules)
-5. **apps** - Applications that consume the platform services
-
-## Service Access
-### 🌐 External Access
-Secure external access via Cloudflare tunnels:
-- `linkding.justindesio.com` - Bookmarks
-- `cloud.justindesio.com` - Nextcloud  
-- `video.justindesio.com` - Jellyfin
-- `tv.justindesio.com` - Jellyfin Vue
-- `dashboard.justindesio.com` - Homarr
-
-### 🏠 Local Access
-
-All services accessible via **Traefik ingress** with SSL certificates:
-
-#### 📱 Applications
-- `video.justindesio.com` - Media server
-- `cloud.justindesio.com` - Nextcloud file sync
-
-#### 🎬 Media Management
-- `sonarr.justindesio.com` - TV series automation
-- `radarr.justindesio.com` - Movie automation  
-- `prowlarr.justindesio.com` - Indexer management
-- `jackett.justindesio.com` - Torrent trackers
-- `qbittorrent.justindesio.com` - Torrent client
-- `nzbget.justindesio.com` - Usenet downloader
-
-#### ⚙️ Infrastructure
-- `monitoring.justindesio.com` - Grafana dashboards
-- `longhorn.justindesio.com` - Storage management
-- `pgadmin.justindesio.com` - Database administration
 
 ## 🔄 Backup & Recovery
 
 ### **Storage (Longhorn)**
-- **Daily** (2 AM, 7-day retention) + **Weekly** (Sunday 1 AM, 4-week retention) + **Monthly** (1st midnight, 6-month retention)
-- **Snapshot cleanup** daily at 3 AM (7-day retention)
-- Automated backups to **Backblaze B2** for `critical-data` volumes
+- Automated backups to **Backblaze B2** 
+- **Daily** (7-day retention) + **Weekly** (4-week retention) + **Monthly** (6-month retention)
+- **Snapshot cleanup** daily (7-day retention)
 
 ### **Databases (CloudNative-PG)**
 - **Continuous WAL streaming** with gzip compression to Backblaze B2

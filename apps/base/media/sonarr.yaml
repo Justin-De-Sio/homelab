@@ -1,6 +1,3 @@
-# Sonarr - TV Series Management
----
-# Sonarr PVCs
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:

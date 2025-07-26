@@ -89,6 +89,13 @@ graph TB
     LB2 --> SRV1
     LB2 --> SRV2
     LB2 --> SRV3
+
+    style CLIENT fill:#e3f2fd
+    style LB1 fill:#fff3e0
+    style LB2 fill:#fff3e0
+    style SRV1 fill:#e8f5e8
+    style SRV2 fill:#e8f5e8
+    style SRV3 fill:#f3e5f5
 ```
 
 ### 🔄 GitOps Flow & Dependencies

@@ -17,29 +17,34 @@ A personal homelab infrastructure managed through GitOps principles using Flux C
 | **Storage** | Longhorn | Distributed block storage with automated backups |
 | **Database** | CloudNative PostgreSQL | Managed PostgreSQL with HA and continuous backup |
 | **Monitoring** | Prometheus + Grafana | Comprehensive observability stack |
-| **Media** | Jellyfin + *Arr Stack | Complete media automation and streaming |
 | **Networking** | Traefik + Cloudflare | SSL termination and secure external access |
 | **Security** | cert-manager + age encryption | Automated certificates and encrypted secrets |
 
-## Quick Start
+## 📱 Applications
 
-```bash
-terraform apply
+### **🏠 Dashboard & Management**
+- **[Homarr](https://homarr.dev/)** - Customizable homepage and dashboard for homelab services
 
-ansible-playbook k3s.orchestration.site -i inventory.yml
+### **☁️ Cloud & Storage**
+- **[Nextcloud](https://nextcloud.com/)** - Self-hosted cloud storage, file sync, and collaboration platform
+- **[Immich](https://immich.app/)** - High-performance photo and video backup solution (Google Photos alternative)
 
-flux bootstrap github \
-  --token-auth \
-  --owner=Justin-De-Sio \
-  --repository=ssh://git@github.com/Justin-De-Sio/homelab\
-  --branch=main \
-  --path=clusters/homelab \
-  --personal
+### **🔖 Productivity**
+- **[Linkding](https://github.com/sissbruecker/linkding)** - Self-hosted bookmark manager with full-text search
 
-kubectl create secret generic sops-age \
-  --namespace=flux-system \
-  --from-literal=age.agekey="${SOPS_AGE_KEY}"
-```
+### **🎬 Media Stack**
+- **[Jellyfin](https://jellyfin.org/)** - Media server for streaming movies, TV shows, and music
+- **[Jellyfin Vue](https://github.com/jellyfin/jellyfin-vue)** - Modern web client for Jellyfin
+- **[Sonarr](https://sonarr.tv/)** - TV series collection manager with automatic downloading
+- **[Radarr](https://radarr.video/)** - Movie collection manager with automatic downloading
+- **[Prowlarr](https://prowlarr.com/)** - Indexer manager for *Arr applications
+- **[Jackett](https://github.com/Jackett/Jackett)** - API support for torrent trackers
+- **[qBittorrent](https://www.qbittorrent.org/)** - BitTorrent client with web interface
+- **[NZBGet](https://nzbget.net/)** - Usenet downloader
+
+### **🗄️ Database Management**
+- **[pgAdmin](https://www.pgadmin.org/)** - Web-based PostgreSQL administration tool
+
 
 
 ## ️ Architecture
@@ -133,3 +138,22 @@ graph TD
 ### **Databases (CloudNative-PG)**
 - **Continuous WAL streaming** with gzip compression to Backblaze B2
 - **Weekly** complet backup.
+
+## Quick Start
+```bash
+terraform apply
+
+ansible-playbook k3s.orchestration.site -i inventory.yml
+
+flux bootstrap github \
+  --token-auth \
+  --owner=Justin-De-Sio \
+  --repository=ssh://git@github.com/Justin-De-Sio/homelab\
+  --branch=main \
+  --path=clusters/homelab \
+  --personal
+
+kubectl create secret generic sops-age \
+  --namespace=flux-system \
+  --from-literal=age.agekey="${SOPS_AGE_KEY}"
+```

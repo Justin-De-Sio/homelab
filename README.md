@@ -95,7 +95,7 @@ graph TB
     style LB2 fill:#fff3e0
     style SRV1 fill:#e8f5e8
     style SRV2 fill:#e8f5e8
-    style SRV3 fill:#f3e5f5
+    style SRV3 fill:#e8f5e8
 ```
 
 ### 🔄 GitOps Flow & Dependencies

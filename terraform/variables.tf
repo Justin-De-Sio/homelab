@@ -43,7 +43,7 @@ variable "default_sshkeys" {
 variable "default_ciuser" {
   description = "Default cloud-init user"
   type        = string
-  default     = "funax"
+  default     = "root"
 }
 
 variable "default_network_bridge" {

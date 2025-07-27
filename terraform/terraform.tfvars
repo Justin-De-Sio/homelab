@@ -5,13 +5,13 @@ load_balancers = {
     target_node = "p1"
     ip_address  = "192.168.1.106"
     cores       = 1
-    memory      = 2 * 1024
+    memory      = 1 * 1024
   },
   "K3S-LB02" = {
     target_node = "p2" 
     ip_address  = "192.168.1.107"
     cores       = 1
-    memory      = 2 * 1024
+    memory      = 1 * 1024
   }
 }
 

@@ -3,7 +3,7 @@ kind: Kustomization
 
 resources:
   - ../../base/longhorn
+  - cloudflare-secret.yaml
 
 patchesStrategicMerge:
   - helmrelease-patch.yaml 
-  - cloudflare-secret.yaml

@@ -4,9 +4,7 @@ kind: Kustomization
 namespace: cert-manager
 
 resources:
-  - cert-manager-namespace.yaml
-  - helmrepo.yaml
-  - helmrelease.yaml
+  - cluster-issuer-letsencrypt.yaml
 
 commonLabels:
   app.kubernetes.io/part-of: cert-manager

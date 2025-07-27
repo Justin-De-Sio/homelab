@@ -9,8 +9,7 @@ resources:
   - helmrepo.yaml
   - helmrelease.yaml
   - backup-secret.yaml
-  # Configuration moved to separate layer
-
+  
 commonLabels:
   app.kubernetes.io/part-of: longhorn-storage
   app.kubernetes.io/managed-by: flux 

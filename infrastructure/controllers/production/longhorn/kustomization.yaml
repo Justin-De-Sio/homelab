@@ -6,3 +6,4 @@ resources:
 
 patchesStrategicMerge:
   - helmrelease-patch.yaml 
+  - cloudflare-secret.yaml

@@ -9,6 +9,7 @@ resources:
   - helmrepo.yaml
   - helmrelease.yaml
   - backup-secret.yaml
+  - node-configurator.yaml
   
 commonLabels:
   app.kubernetes.io/part-of: longhorn-storage

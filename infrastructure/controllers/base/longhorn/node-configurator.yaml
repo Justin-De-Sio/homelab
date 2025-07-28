@@ -1,0 +1,87 @@
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: longhorn-node-configurator
+  namespace: longhorn-system
+  labels:
+    app: longhorn-node-configurator
+spec:
+  selector:
+    matchLabels:
+      app: longhorn-node-configurator
+  template:
+    metadata:
+      labels:
+        app: longhorn-node-configurator
+    spec:
+      serviceAccountName: longhorn-node-configurator
+      hostNetwork: true
+      containers:
+      - name: node-configurator
+        image: alpine/k8s:1.28.4
+        command:
+        - /bin/sh
+        - -c
+        - |
+          set -e
+          NODE_NAME=${NODE_NAME}
+          
+          # Add label to enable default disk configuration
+          kubectl label node $NODE_NAME node.longhorn.io/create-default-disk=config --overwrite || true
+          
+          # Add annotation for default disk configuration with ssd and performance tags
+          kubectl annotate node $NODE_NAME node.longhorn.io/default-disks-config='[
+            {
+              "path": "/var/lib/longhorn",
+              "allowScheduling": true,
+              "tags": ["ssd", "performance"]
+            }
+          ]' --overwrite || true
+          
+          echo "Node $NODE_NAME configured for Longhorn default disks with ssd and performance tags"
+          
+          # Sleep to keep container running
+          sleep infinity
+        env:
+        - name: NODE_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+        resources:
+          requests:
+            cpu: 10m
+            memory: 32Mi
+          limits:
+            cpu: 100m
+            memory: 128Mi
+      tolerations:
+      - operator: Exists
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: longhorn-node-configurator
+  namespace: longhorn-system
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: longhorn-node-configurator
+rules:
+- apiGroups: [""]
+  resources: ["nodes"]
+  verbs: ["get", "list", "patch", "update"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: longhorn-node-configurator
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: longhorn-node-configurator
+subjects:
+- kind: ServiceAccount
+  name: longhorn-node-configurator
+  namespace: longhorn-system 

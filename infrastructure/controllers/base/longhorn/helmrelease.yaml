@@ -17,6 +17,7 @@ spec:
   values:
     defaultSettings:
       defaultClass: longhorn-capacity
+      createDefaultDiskLabeledNodes: true
 
     defaultBackupStore:
       backupTarget: s3://longhorn-homelab-backup@s3.eu-central-003.backblazeb2.com/

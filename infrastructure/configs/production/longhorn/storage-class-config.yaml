@@ -2,7 +2,7 @@
 apiVersion: longhorn.io/v1beta2
 kind: Node
 metadata:
-  name: k3s-srv03
+  name: k3s-srv00
   namespace: longhorn-system
 spec:
   disks:

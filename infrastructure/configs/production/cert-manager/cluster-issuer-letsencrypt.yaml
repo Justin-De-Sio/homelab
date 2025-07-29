@@ -12,6 +12,7 @@ spec:
     solvers:
     - dns01:
         cloudflare:
-          apiTokenSecretRef:
+          email: admin@justindesio.com
+          apiKeySecretRef:
             name: cloudflare-api-key-secret
             key: api-key 

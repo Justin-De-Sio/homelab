@@ -11,7 +11,7 @@ spec:
       storage: 100Gi
     limits:
       storage: 200Gi
-  storageClassName: local-path
+  storageClassName: longhorn-performance
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim

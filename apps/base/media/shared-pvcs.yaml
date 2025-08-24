@@ -24,4 +24,4 @@ spec:
   resources:
     requests:
       storage: 800Gi
-  storageClassName: longhorn-capacity
+  storageClassName: nfs-client

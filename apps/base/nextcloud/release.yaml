@@ -73,6 +73,6 @@ spec:
 
     # Storage
     persistence:
-      storageClass: longhorn-capacity
+      storageClass: nfs-client
       enabled: true
       size: 200Gi

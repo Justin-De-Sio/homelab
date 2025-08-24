@@ -5,3 +5,4 @@ resources:
   - longhorn
   - cloudnative-pg
   - cert-manager
+  - nfs-provisioner

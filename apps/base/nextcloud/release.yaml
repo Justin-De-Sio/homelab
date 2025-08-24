@@ -75,4 +75,4 @@ spec:
     persistence:
       storageClass: longhorn-capacity
       enabled: true
-      size: 1000Gi
+      size: 200Gi

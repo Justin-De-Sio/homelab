@@ -12,12 +12,6 @@ spec:
       tags:
         - ssd
         - performance
-    hdd1:
-      path: /mnt/hdd1
-      allowScheduling: true
-      tags:
-        - hdd
-        - capacity
 ---
 apiVersion: storage.k8s.io/v1
 kind: StorageClass

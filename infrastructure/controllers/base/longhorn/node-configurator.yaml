@@ -19,7 +19,7 @@ spec:
       hostNetwork: true
       containers:
       - name: node-configurator
-        image: alpine/k8s:1.28.4
+        image: alpine/k8s:1.33.4
         command:
         - /bin/sh
         - -c

@@ -20,6 +20,7 @@ spec:
       TZ: "Europe/Paris"
     persistence:
       homarrDatabase:
+        storageClass: longhorn-postgres
         enabled: true
         size: "1Gi"
     resources:

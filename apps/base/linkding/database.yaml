@@ -5,7 +5,7 @@ metadata:
   namespace: linkding
 spec:
   imageName: ghcr.io/cloudnative-pg/postgresql:16.1
-  instances: 1
+  instances: 3
 
   primaryUpdateStrategy: unsupervised
 

@@ -6,12 +6,14 @@ load_balancers = {
     ip_address  = "192.168.1.106"
     cores       = 1
     memory      = 1 * 1024
+    disk_size   = "20G"
   },
   "K3S-LB02" = {
     target_node = "p2" 
     ip_address  = "192.168.1.107"
     cores       = 1
     memory      = 1 * 1024
+    disk_size   = "20G"
   }
 }
 

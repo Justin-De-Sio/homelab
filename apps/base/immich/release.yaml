@@ -42,6 +42,7 @@ spec:
     immich:
       persistence:
         library:
+          storageClass: longhorn-postgres
           existingClaim: immich-library
 
     server:

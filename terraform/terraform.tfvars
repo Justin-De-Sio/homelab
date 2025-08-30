@@ -21,6 +21,7 @@ k3s_nodes = {
     ip_address  = "192.168.1.103"
     cores       = 8
     memory      = 10 * 1024
+    disk_size   = "200G"
     role        = "server"
   },
   "K3S-SRV02" = {
@@ -28,6 +29,7 @@ k3s_nodes = {
     ip_address  = "192.168.1.104"
     cores       = 4
     memory      = 6 * 1024
+    disk_size   = "200G"
     role        = "server"
   },
   "K3S-SRV03" = {
@@ -35,6 +37,7 @@ k3s_nodes = {
     ip_address  = "192.168.1.105"
     cores       = 4
     memory      = 4 * 1024
+    disk_size   = "200G"
     role        = "server"
   }
 } 

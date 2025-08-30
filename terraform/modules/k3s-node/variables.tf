@@ -59,13 +59,13 @@ variable "network_bridge" {
 }
 
 variable "disk_size" {
-  description = "Disk size (unused in v3.x - inherits from template)"
+  description = "Disk size"
   type        = string
   default     = "100G"
 }
 
 variable "disk_storage" {
-  description = "Storage for the disk (unused in v3.x - inherits from template)"
+  description = "Storage for the disk"
   type        = string
   default     = "local-lvm"
 }

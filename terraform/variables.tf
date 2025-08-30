@@ -61,7 +61,7 @@ variable "default_disk_storage" {
 variable "default_disk_size" {
   description = "Default disk size"
   type        = string
-  default     = "30G"
+  default     = "100G"
 }
 
 variable "load_balancers" {
@@ -71,7 +71,6 @@ variable "load_balancers" {
     cores       = number
     memory      = number
     ip_address  = string
-    disk_size   = string
   }))
 }
 
@@ -83,6 +82,5 @@ variable "k3s_nodes" {
     memory      = number
     ip_address  = string
     role        = string # "server" or "agent"
-    disk_size   = string
   }))
 } 

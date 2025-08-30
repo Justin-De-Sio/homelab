@@ -10,7 +10,6 @@ module "load_balancers" {
   memory         = each.value.memory
   ip_address     = each.value.ip_address
   gateway        = var.default_gateway
-  disk_size      = each.value.disk_size
 
   # Common configuration
   cicustom       = var.default_cicustom
@@ -18,6 +17,7 @@ module "load_balancers" {
   sshkeys        = var.default_sshkeys
   nameserver     = var.default_nameserver
   network_bridge = var.default_network_bridge
+  disk_size      = var.default_disk_size
   disk_storage   = var.default_disk_storage
 }
 
@@ -34,7 +34,6 @@ module "k3s_nodes" {
   ip_address     = each.value.ip_address
   gateway        = var.default_gateway
   role           = each.value.role
-  disk_size      = each.value.disk_size
 
   # Common configuration
   cicustom       = var.default_cicustom
@@ -42,5 +41,6 @@ module "k3s_nodes" {
   sshkeys        = var.default_sshkeys
   nameserver     = var.default_nameserver
   network_bridge = var.default_network_bridge
+  disk_size      = var.default_disk_size
   disk_storage   = var.default_disk_storage
 } 

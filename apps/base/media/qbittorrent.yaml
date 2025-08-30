@@ -26,6 +26,17 @@ spec:
       labels:
         app: qbittorrent
     spec:
+      affinity:
+        podAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values: ["nzbget", "sonarr", "radarr"]
+              topologyKey: kubernetes.io/hostname
       containers:
         - name: qbittorrent
           image: linuxserver/qbittorrent:20.04.1

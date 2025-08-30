@@ -19,14 +19,14 @@ k3s_nodes = {
   "K3S-SRV01" = {
     target_node = "p1"
     ip_address  = "192.168.1.103"
-    cores       = 6
-    memory      = 6 * 1024
+    cores       = 8
+    memory      = 10 * 1024
     role        = "server"
   },
   "K3S-SRV02" = {
     target_node = "p2"
     ip_address  = "192.168.1.104"
-    cores       = 6
+    cores       = 4
     memory      = 6 * 1024
     role        = "server"
   },

@@ -13,9 +13,9 @@ spec:
         image: busybox
         command: ["/bin/sh", "-c"]
         args:
-        - mkdir -p /media/movies /media/tv && 
-          chmod -R 777 /media/movies /media/tv && 
-          echo "Media directories created successfully"
+        - mkdir -p /data/movies /media/tv && 
+          chmod -R 777 /data/movies /media/tv && 
+          echo "data directories created successfully"
         volumeMounts:
         - name: media-volume
           mountPath: /media

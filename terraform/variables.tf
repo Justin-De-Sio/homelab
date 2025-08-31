@@ -71,6 +71,7 @@ variable "load_balancers" {
     cores       = number
     memory      = number
     ip_address  = string
+    disk_size   = string
   }))
 }
 
@@ -82,5 +83,6 @@ variable "k3s_nodes" {
     memory      = number
     ip_address  = string
     role        = string # "server" or "agent"
+    disk_size   = string
   }))
 } 

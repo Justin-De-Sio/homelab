@@ -1,0 +1,25 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: n8n-database
+  namespace: n8n
+spec:
+  imageName: ghcr.io/cloudnative-pg/postgresql:16.1
+  instances: 3
+
+  primaryUpdateStrategy: unsupervised
+
+  monitoring:
+    enablePodMonitor: true
+
+  
+  storage:
+    size: 10Gi
+    storageClass: longhorn-postgres
+
+  # CloudNativePG affinity configuration to ensure instances are distributed across different nodes
+  # This works with Longhorn strict-local data locality for optimal storage performance
+  affinity:
+    enablePodAntiAffinity: true
+    topologyKey: kubernetes.io/hostname
+    podAntiAffinityType: required

@@ -6,6 +6,10 @@ metadata:
   name: n8n
 spec:
   ingressClassName: traefik
+  tls:
+  - hosts:
+    - n8n.justindesio.com
+    secretName: n8n-tls
   rules:
     - host: n8n.justindesio.com
       http:

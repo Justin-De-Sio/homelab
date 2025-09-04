@@ -39,6 +39,17 @@ spec:
           volumeMounts:
             - mountPath: /home/node/.n8n
               name: n8n-data
+          env:
+          - name: DB_POSTGRESDB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: n8n-database-app
+                key: password
+          - name: DB_POSTGRESDB_USER
+            valueFrom:
+              secretKeyRef:
+                name: n8n-database-app
+                key: username
 
       restartPolicy: Always
 

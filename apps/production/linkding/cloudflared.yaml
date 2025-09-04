@@ -76,8 +76,5 @@ data:
     - hostname: dashboard.justindesio.com
       service: http://homarr.dashboard.svc.cluster.local:7575
 
-    - hostname: photos.justindesio.com
-      service: http://immich.immich.svc.cluster.local:2283
-
     # This rule matches any traffic which didn't match a previous rule, and responds with HTTP 404.
     - service: http_status:404

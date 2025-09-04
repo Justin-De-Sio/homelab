@@ -3,6 +3,7 @@ kind: Ingress
 metadata:
   annotations:
     external-dns.alpha.kubernetes.io/hostname: n8n.justindesio.com
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
   name: n8n
 spec:
   ingressClassName: traefik

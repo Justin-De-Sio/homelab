@@ -1,0 +1,107 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: homeassistant
+  namespace: homeassistant
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: app-template
+      version: 4.x.x
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: homeassistant
+  values:
+    controllers:
+      homeassistant:
+        containers:
+          app:
+            image:
+              repository: ghcr.io/home-assistant/home-assistant
+              tag: 2025.1.1
+              pullPolicy: IfNotPresent
+            
+            env:
+              TZ: "America/New_York"  # Adjust timezone as needed
+            
+            securityContext:
+              privileged: true  # Required for USB device access
+            
+            probes:
+              liveness:
+                enabled: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: 8123
+                  initialDelaySeconds: 60
+                  periodSeconds: 30
+                  timeoutSeconds: 10
+              readiness:
+                enabled: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: 8123
+                  initialDelaySeconds: 30
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+              startup:
+                enabled: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: 8123
+                  initialDelaySeconds: 30
+                  failureThreshold: 30
+                  periodSeconds: 10
+
+    service:
+      app:
+        controller: homeassistant
+        ports:
+          http:
+            port: 8123
+            targetPort: 8123
+            protocol: TCP
+
+    persistence:
+      config:
+        enabled: true
+        type: persistentVolumeClaim
+        accessMode: ReadWriteOnce
+        size: 5Gi
+        globalMounts:
+          - path: /config
+            readOnly: false
+      
+      # USB device access for Zigbee
+      usb-devices:
+        enabled: true
+        type: hostPath
+        hostPath: /dev
+        globalMounts:
+          - path: /dev
+            readOnly: false
+
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 0  # Home Assistant needs root for some integrations
+        runAsGroup: 0
+        fsGroup: 0
+        privileged: true  # Required for USB device access
+      hostNetwork: true  # Enable for device discovery (mDNS, etc.)
+      dnsPolicy: ClusterFirstWithHostNet
+      nodeSelector:
+        kubernetes.io/hostname: k3s-srv01  # Replace with your preferred node name
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                - k3s-srv01  # Replace with your preferred node name

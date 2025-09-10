@@ -73,21 +73,22 @@ graph TB
     CLIENT["kubectl client"]
     
     subgraph "Proxmox Host p1"
-        LB1["K3S-LB01<br/>1C/2GB"]
+        LB1["K3S-LB01<br/>1C/2GB<br/>(Keepalived)"]
         SRV1["K3S-SRV01<br/>6C/6GB<br/>server"]
     end
     
     subgraph "Proxmox Host p2"
-        LB2["K3S-LB02<br/>1C/2GB"]
+        LB2["K3S-LB02<br/>1C/2GB<br/>(Keepalived)"]
         SRV2["K3S-SRV02<br/>6C/6GB<br/>server"]
     end
 
     subgraph "Ubuntu bare metal"
         SRV3["K3S-SRV03<br/>4C/4GB<br/>server"]
     end
-    
-    CLIENT --> LB1
-    CLIENT --> LB2
+
+    CLIENT --> VIP["VIP (Keepalived)"]
+    VIP -.-> LB1
+    VIP -.-> LB2
     LB1 --> SRV1
     LB1 --> SRV2
     LB1 --> SRV3
@@ -96,6 +97,7 @@ graph TB
     LB2 --> SRV3
 
     style CLIENT fill:#e3f2fd
+    style VIP fill:#c8e6c9,stroke-dasharray: 5 5
     style LB1 fill:#fff3e0
     style LB2 fill:#fff3e0
     style SRV1 fill:#e8f5e8

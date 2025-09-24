@@ -16,6 +16,27 @@ spec:
   values:
     controllers:
       homeassistant:
+        initContainers:
+          config-setup:
+            image:
+              repository: busybox
+              tag: latest
+              pullPolicy: IfNotPresent
+            command:
+              - /bin/sh
+              - -c
+              - |
+                # Copy configuration from ConfigMap if it doesn't exist
+                if [ ! -f /config/configuration.yaml ]; then
+                  cp /tmp/config/configuration.yaml /config/configuration.yaml
+                fi
+                # Create empty files that Home Assistant expects
+                touch /config/automations.yaml /config/scripts.yaml /config/scenes.yaml
+            volumeMounts:
+              - name: ha-config
+                mountPath: /tmp/config
+              - name: config
+                mountPath: /config
         containers:
           app:
             image:
@@ -82,10 +103,11 @@ spec:
         enabled: true
         type: configMap
         name: homeassistant-config
-        globalMounts:
-          - path: /config/configuration.yaml
-            subPath: configuration.yaml
-            readOnly: true
+        advancedMounts:
+          homeassistant:
+            config-setup:
+              - path: /tmp/config
+                readOnly: true
       
       # USB device access for Zigbee
       usb-devices:

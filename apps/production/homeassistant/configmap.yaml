@@ -16,9 +16,10 @@ data:
     tts:
       - platform: google_translate
 
-    automation: !include automations.yaml
-    script: !include scripts.yaml
-    scene: !include scenes.yaml
+    # Inline empty configurations instead of includes to avoid file dependency issues
+    automation: []
+    script: {}
+    scene: []
 
     # HTTP configuration for reverse proxy
     http:

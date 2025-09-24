@@ -25,5 +25,9 @@ data:
       use_x_forwarded_for: true
       trusted_proxies:
         - 192.168.1.0/24      # Your cluster network
-        - 10.0.0.0/8           # Kubernetes internal network
+        - 10.0.0.0/8           # Kubernetes internal network (pods, services)
         - 172.16.0.0/12        # Docker network range
+        - 127.0.0.1            # Localhost
+        - ::1                  # IPv6 localhost
+        - 10.42.0.0/16         # K3s default pod network
+        - 10.43.0.0/16         # K3s default service network

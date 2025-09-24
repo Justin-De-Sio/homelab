@@ -77,6 +77,16 @@ spec:
           - path: /config
             readOnly: false
       
+      # Home Assistant configuration from ConfigMap
+      ha-config:
+        enabled: true
+        type: configMap
+        name: homeassistant-config
+        globalMounts:
+          - path: /config/configuration.yaml
+            subPath: configuration.yaml
+            readOnly: true
+      
       # USB device access for Zigbee
       usb-devices:
         enabled: true

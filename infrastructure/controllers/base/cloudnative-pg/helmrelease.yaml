@@ -5,6 +5,9 @@ metadata:
   name: cnpg-release
   namespace: cnpg-system
 spec:
+  dependsOn:
+    - name: kube-prometheus-stack
+      namespace: monitoring
   chart:
     spec:
       chart: cloudnative-pg

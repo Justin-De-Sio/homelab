@@ -10,7 +10,7 @@ output "k3s_server_nodes" {
   value = {
     for name, instance in module.k3s_nodes : name => {
       ip_address = instance.ip_address
-      vmid       = instance.vmid
+      vm_id      = instance.vm_id
     } if var.k3s_nodes[name].role == "server"
   }
 }
@@ -20,7 +20,7 @@ output "k3s_agent_nodes" {
   value = {
     for name, instance in module.k3s_nodes : name => {
       ip_address = instance.ip_address
-      vmid       = instance.vmid
+      vm_id      = instance.vm_id
     } if var.k3s_nodes[name].role == "agent"
   }
 } 

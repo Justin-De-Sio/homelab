@@ -1,6 +1,5 @@
 module "load_balancers" {
-  source = "./modules/load-balancer"
-
+  source   = "./modules/proxmox-vm"
   for_each = var.load_balancers
 
   name           = each.key
@@ -11,19 +10,17 @@ module "load_balancers" {
   ip_address     = each.value.ip_address
   gateway        = var.default_gateway
   disk_size      = each.value.disk_size
-
-  # Common configuration
-  cicustom       = var.default_cicustom
+  cicustom       = each.value.cicustom
   ciuser         = var.default_ciuser
   sshkeys        = var.default_sshkeys
   nameserver     = var.default_nameserver
   network_bridge = var.default_network_bridge
   disk_storage   = var.default_disk_storage
+  tags           = ["load-balancer", "haproxy", "keepalived", "k3s"]
 }
 
 module "k3s_nodes" {
-  source = "./modules/k3s-node"
-
+  source   = "./modules/proxmox-vm"
   for_each = var.k3s_nodes
 
   name           = each.key
@@ -33,14 +30,12 @@ module "k3s_nodes" {
   memory         = each.value.memory
   ip_address     = each.value.ip_address
   gateway        = var.default_gateway
-  role           = each.value.role
   disk_size      = each.value.disk_size
-
-  # Common configuration
   cicustom       = var.default_cicustom
   ciuser         = var.default_ciuser
   sshkeys        = var.default_sshkeys
   nameserver     = var.default_nameserver
   network_bridge = var.default_network_bridge
   disk_storage   = var.default_disk_storage
-} 
+  tags           = [each.value.role, "k3s"]
+}

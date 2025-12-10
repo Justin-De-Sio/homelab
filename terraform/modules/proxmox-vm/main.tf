@@ -4,43 +4,37 @@ resource "proxmox_vm_qemu" "this" {
   clone       = var.clone_template
   full_clone  = true
   agent       = 1
-  
-  # v3.x specific settings
+
   scsihw           = "virtio-scsi-single"
   boot             = "order=scsi0"
   vm_state         = "running"
   automatic_reboot = true
   onboot           = true
-  
-  # CPU configuration
+
   cpu {
     cores = var.cores
   }
 
   memory = var.memory
 
-  # Cloud-init configuration
-  ciupgrade   = true
-  cicustom    = var.cicustom
-  ciuser      = var.ciuser
-  sshkeys     = var.sshkeys
-  ipconfig0   = "ip=${var.ip_address}/24,gw=${var.gateway}"
-  nameserver  = var.nameserver
-  skip_ipv6   = true
+  ciupgrade  = true
+  cicustom   = var.cicustom
+  ciuser     = var.ciuser
+  sshkeys    = var.sshkeys
+  ipconfig0  = "ip=${var.ip_address}/24,gw=${var.gateway}"
+  nameserver = var.nameserver
+  skip_ipv6  = true
 
-  # Network configuration
   network {
     id     = 0
     model  = "virtio"
     bridge = var.network_bridge
   }
 
-  # Serial console
   serial {
     id = 0
   }
 
-  # Disk configuration
   disks {
     scsi {
       scsi0 {
@@ -61,6 +55,9 @@ resource "proxmox_vm_qemu" "this" {
     }
   }
 
-  # Tags
-  tags = "load-balancer,haproxy,keepalived,k3s"
-} 
+  lifecycle {
+    ignore_changes = [network]
+  }
+
+  tags = join(",", var.tags)
+}

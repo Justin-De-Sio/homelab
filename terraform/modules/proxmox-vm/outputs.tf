@@ -1,9 +1,9 @@
 output "vm_id" {
-  description = "The VM ID of the load balancer"
+  description = "VM ID"
   value       = proxmox_vm_qemu.this.vmid
 }
 
 output "ip_address" {
-  description = "The IP address of the load balancer"
+  description = "VM IP address"
   value       = var.ip_address
-} 
+}

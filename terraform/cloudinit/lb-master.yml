@@ -1,0 +1,107 @@
+#cloud-config
+package_update: true
+package_upgrade: true
+
+packages:
+  - haproxy
+  - keepalived
+  - qemu-guest-agent
+
+write_files:
+  - path: /etc/haproxy/haproxy.cfg
+    content: |
+      global
+        log /dev/log local0
+        chroot /var/lib/haproxy
+        stats socket /run/haproxy/admin.sock mode 660 level admin
+        stats timeout 30s
+        user haproxy
+        group haproxy
+        daemon
+
+      defaults
+        log global
+        mode tcp
+        option tcplog
+        option dontlognull
+        timeout connect 5000
+        timeout client  50000
+        timeout server  50000
+
+      frontend k3s_api
+        bind *:6443
+        default_backend k3s_servers
+
+      backend k3s_servers
+        balance roundrobin
+        option tcp-check
+        server k3s-srv01 192.168.1.103:6443 check
+        server k3s-srv02 192.168.1.104:6443 check
+        server k3s-srv03 192.168.1.105:6443 check
+
+      frontend http_ingress
+        bind *:80
+        default_backend k3s_http
+
+      backend k3s_http
+        balance roundrobin
+        option tcp-check
+        server k3s-agt01 192.168.1.106:80 check
+        server k3s-agt02 192.168.1.107:80 check
+
+      frontend https_ingress
+        bind *:443
+        default_backend k3s_https
+
+      backend k3s_https
+        balance roundrobin
+        option tcp-check
+        server k3s-agt01 192.168.1.106:443 check
+        server k3s-agt02 192.168.1.107:443 check
+
+      listen stats
+        bind *:8404
+        mode http
+        stats enable
+        stats uri /stats
+        stats refresh 10s
+
+  - path: /etc/keepalived/keepalived.conf
+    content: |
+      global_defs {
+        router_id LB_MASTER
+        script_user root
+        enable_script_security
+      }
+
+      vrrp_script check_haproxy {
+        script "/usr/bin/pgrep -x haproxy"
+        interval 2
+        weight 2
+      }
+
+      vrrp_instance VI_1 {
+        state MASTER
+        interface eth0
+        virtual_router_id 51
+        priority 101
+        advert_int 1
+        authentication {
+          auth_type PASS
+          auth_pass k3slb2024
+        }
+        virtual_ipaddress {
+          192.168.1.8/24
+        }
+        track_script {
+          check_haproxy
+        }
+      }
+
+runcmd:
+  - systemctl enable qemu-guest-agent
+  - systemctl start qemu-guest-agent
+  - systemctl enable haproxy
+  - systemctl restart haproxy
+  - systemctl enable keepalived
+  - systemctl restart keepalived

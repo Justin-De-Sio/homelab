@@ -1,7 +1,7 @@
 variable "proxmox_api_url" {
   description = "Proxmox API URL"
   type        = string
-  default     = "https://p1.justindesio.com:8006/api2/json"
+  default     = "https://p2.justindesio.com:8006/api2/json"
 }
 
 variable "proxmox_tls_insecure" {
@@ -19,7 +19,7 @@ variable "default_clone_template" {
 variable "default_gateway" {
   description = "Default gateway IP address"
   type        = string
-  default     = "192.168.1.254"
+  default     = "192.168.1.1"
 }
 
 variable "default_cicustom" {
@@ -72,6 +72,7 @@ variable "load_balancers" {
     memory      = number
     ip_address  = string
     disk_size   = string
+    cicustom    = string
   }))
 }
 
@@ -85,4 +86,5 @@ variable "k3s_nodes" {
     role        = string # "server" or "agent"
     disk_size   = string
   }))
-} 
+}
+

@@ -1,40 +1,40 @@
 variable "name" {
-  description = "Name of the VM"
+  description = "VM name"
   type        = string
 }
 
 variable "target_node" {
-  description = "Proxmox node to deploy to"
+  description = "Proxmox node"
   type        = string
 }
 
 variable "clone_template" {
-  description = "Template to clone from"
+  description = "Template to clone"
   type        = string
 }
 
 variable "cores" {
-  description = "Number of CPU cores"
+  description = "CPU cores"
   type        = number
 }
 
 variable "memory" {
-  description = "Amount of memory in MB"
+  description = "Memory in MB"
   type        = number
 }
 
 variable "ip_address" {
-  description = "IP address for the VM"
+  description = "IP address"
   type        = string
 }
 
 variable "gateway" {
-  description = "Gateway IP address"
+  description = "Gateway IP"
   type        = string
 }
 
 variable "cicustom" {
-  description = "Cloud-init custom configuration"
+  description = "Cloud-init custom config"
   type        = string
 }
 
@@ -49,32 +49,27 @@ variable "sshkeys" {
 }
 
 variable "nameserver" {
-  description = "Nameserver configuration"
+  description = "DNS nameservers"
   type        = string
 }
 
 variable "network_bridge" {
-  description = "Network bridge to use"
+  description = "Network bridge"
   type        = string
 }
 
 variable "disk_size" {
   description = "Disk size"
   type        = string
-  default     = "100G"
 }
 
 variable "disk_storage" {
-  description = "Storage for the disk"
+  description = "Storage backend"
   type        = string
-  default     = "local-lvm"
 }
 
-variable "role" {
-  description = "Role of the node (server or agent)"
-  type        = string
-  validation {
-    condition     = contains(["server", "agent"], var.role)
-    error_message = "Role must be either 'server' or 'agent'."
-  }
-} 
+variable "tags" {
+  description = "VM tags"
+  type        = list(string)
+  default     = []
+}

@@ -4,10 +4,10 @@ metadata:
   name: monitoring-controllers
   namespace: flux-system
 spec:
-  interval: 1m0s
+  interval: 10m
   dependsOn:
     - name: infrastructure-configs
-  retryInterval: 1m
+  retryInterval: 2m
   timeout: 5m
   sourceRef:
     kind: GitRepository
@@ -21,10 +21,10 @@ metadata:
   name: monitoring-configs
   namespace: flux-system
 spec:
-  interval: 1m0s
+  interval: 10m
   dependsOn:
     - name: monitoring-controllers
-  retryInterval: 1m
+  retryInterval: 2m
   timeout: 5m
   sourceRef:
     kind: GitRepository

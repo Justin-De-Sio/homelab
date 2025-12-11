@@ -10,9 +10,13 @@ spec:
     grafana:
       adminPassword: password
       ingress:
+        enabled: true
+        ingressClassName: traefik
         annotations:
           cert-manager.io/cluster-issuer: "letsencrypt-prod"
+        hosts:
+          - monitoring.justindesio.com
         tls:
           - secretName: monitoring-tls
             hosts:
-            - monitoring.justindesio.com 
+              - monitoring.justindesio.com 

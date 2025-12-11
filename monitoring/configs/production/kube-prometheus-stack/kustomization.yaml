@@ -3,5 +3,5 @@ kind: Kustomization
 namespace: monitoring
 resources:
   - ../../../controllers/base/kube-prometheus-stack
-patchesStrategicMerge:
-  - helmrelease-patch.yaml
+patches:
+  - path: helmrelease-patch.yaml

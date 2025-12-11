@@ -1,18 +1,4 @@
 ---
-apiVersion: longhorn.io/v1beta2
-kind: Node
-metadata:
-  name: k3s-srv00
-  namespace: longhorn-system
-spec:
-  disks:
-    ssd1:
-      path: /mnt/ssd1
-      allowScheduling: true
-      tags:
-        - ssd
-        - performance
----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
@@ -23,17 +9,6 @@ provisioner: driver.longhorn.io
 allowVolumeExpansion: true
 parameters:
   diskSelector: "ssd,performance"
----
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: longhorn-capacity
-  annotations:
-    storageclass.kubernetes.io/is-default-class: "false"
-provisioner: driver.longhorn.io
-allowVolumeExpansion: true
-parameters:
-  diskSelector: "hdd,capacity"
 ---
 # Dedicated storage class for CloudNativePG with strict-local data locality
 # This ensures data resiliency through PostgreSQL clustering while avoiding write amplification

@@ -125,5 +125,3 @@ spec:
         fsGroup: 0
       hostNetwork: true  # Enable for device discovery (mDNS, etc.)
       dnsPolicy: ClusterFirstWithHostNet
-      nodeSelector:
-        kubernetes.io/hostname: k3s-srv00

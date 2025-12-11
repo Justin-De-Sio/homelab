@@ -4,6 +4,7 @@ metadata:
   name: kube-prometheus-stack
   namespace: monitoring
 spec:
+  suspend: true  # Prevent auto-reconciliation loop - manually reconcile with: flux reconcile hr kube-prometheus-stack -n monitoring
   interval: 30m
   chart:
     spec:

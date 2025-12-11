@@ -1,0 +1,39 @@
+---
+# Playbook to install NFS client utilities on all K3s nodes
+# Required for NFS-based storage provisioners (nfs-subdir-external-provisioner)
+#
+# Usage: ansible-playbook -i inventory.yml ansible/playbooks/install-nfs-common.yml
+
+- name: Install NFS client utilities
+  hosts: k3s_cluster
+  become: true
+  gather_facts: true
+
+  tasks:
+    - name: Install nfs-common (Debian/Ubuntu)
+      ansible.builtin.apt:
+        name: nfs-common
+        state: present
+        update_cache: true
+      when: ansible_os_family == "Debian"
+
+    - name: Install nfs-utils (RHEL/Rocky/Alma)
+      ansible.builtin.dnf:
+        name: nfs-utils
+        state: present
+      when: ansible_os_family == "RedHat"
+
+    - name: Install nfs-utils (Arch Linux)
+      community.general.pacman:
+        name: nfs-utils
+        state: present
+      when: ansible_os_family == "Archlinux"
+
+    - name: Verify NFS mount command is available
+      ansible.builtin.command: which mount.nfs
+      register: nfs_check
+      changed_when: false
+
+    - name: Display NFS installation status
+      ansible.builtin.debug:
+        msg: "NFS client installed successfully: {{ nfs_check.stdout }}"

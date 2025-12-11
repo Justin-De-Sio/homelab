@@ -6,9 +6,7 @@ metadata:
 spec:
   values:
     nfs:
-      server: 192.168.1.100
-      path: /mnt/hdd1
+      server: 192.168.1.25
+      path: /mnt/MyBigPool/apps/k8s
     storageClass:
       defaultClass: false
-
-

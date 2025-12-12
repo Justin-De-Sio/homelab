@@ -16,7 +16,7 @@ spec:
         namespace: dashboard
       interval: 12h
   values:
-    env: 
+    env:
       TZ: "Europe/Paris"
     persistence:
       homarrDatabase:
@@ -25,8 +25,9 @@ spec:
         size: "1Gi"
     resources:
       requests:
-        memory: "128Mi"
-        cpu: "50m"
-      limits:
         memory: "256Mi"
-        cpu: "200m"
+        cpu: "100m"
+      limits:
+        memory: "512Mi"
+        cpu: "500m"
+

@@ -10,3 +10,5 @@ data:
   DB_POSTGRESDB_PORT: "5432"
   DB_POSTGRESDB_DATABASE: "app"
   N8N_SECURE_COOKIE: "false"
+  N8N_HOST: "n8n.justindesio.com"
+  WEBHOOK_URL: "https://n8n.justindesio.com"

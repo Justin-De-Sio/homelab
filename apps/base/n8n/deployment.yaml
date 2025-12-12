@@ -4,6 +4,8 @@ metadata:
   name: n8n
 spec:
   replicas: 1
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       app: n8n
@@ -40,16 +42,16 @@ spec:
             - mountPath: /home/node/.n8n
               name: n8n-data
           env:
-          - name: DB_POSTGRESDB_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: n8n-database-app
-                key: password
-          - name: DB_POSTGRESDB_USER
-            valueFrom:
-              secretKeyRef:
-                name: n8n-database-app
-                key: username
+            - name: DB_POSTGRESDB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: n8n-database-app
+                  key: password
+            - name: DB_POSTGRESDB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: n8n-database-app
+                  key: username
 
       restartPolicy: Always
 

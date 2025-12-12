@@ -32,11 +32,6 @@ spec:
                 fi
                 # Create empty files that Home Assistant expects
                 touch /config/automations.yaml /config/scripts.yaml /config/scenes.yaml
-            volumeMounts:
-              - name: ha-config
-                mountPath: /tmp/config
-              - name: config
-                mountPath: /config
         containers:
           app:
             image:
@@ -94,9 +89,14 @@ spec:
         type: persistentVolumeClaim
         accessMode: ReadWriteOnce
         size: 5Gi
-        globalMounts:
-          - path: /config
-            readOnly: false
+        advancedMounts:
+          homeassistant:
+            config-setup:
+              - path: /config
+                readOnly: false
+            app:
+              - path: /config
+                readOnly: false
       
       # Home Assistant configuration from ConfigMap
       ha-config:

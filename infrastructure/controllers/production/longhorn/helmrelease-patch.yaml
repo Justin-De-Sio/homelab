@@ -8,7 +8,7 @@ spec:
   interval: 1m0s
   values:
     persistence:
-      defaultClass: longhorn-performance
+      defaultClass: longhorn
       defaultClassReplicaCount: 3
     ingress:
       enabled: true

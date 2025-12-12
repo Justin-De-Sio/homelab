@@ -15,7 +15,7 @@ spec:
   
   storage:
     size: 10Gi
-    storageClass: longhorn-postgres
+    storageClass: local-path
 
   # CloudNativePG affinity configuration to ensure instances are distributed across different nodes
   # This works with Longhorn strict-local data locality for optimal storage performance

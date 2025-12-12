@@ -3,8 +3,7 @@ kind: Kustomization
 
 namespace: longhorn-system
 
-resources:
-  - storage-class-config.yaml
+resources: []
 
 commonLabels:
   app.kubernetes.io/part-of: longhorn-storage

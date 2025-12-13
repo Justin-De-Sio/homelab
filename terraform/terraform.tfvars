@@ -24,7 +24,7 @@ k3s_nodes = {
     target_node = "p2"
     ip_address  = "192.168.1.103"
     cores       = 2
-    memory      = 3 * 1024
+    memory      = 2 * 1024
     disk_size   = "50G"
     role        = "server"
   },
@@ -32,7 +32,7 @@ k3s_nodes = {
     target_node = "p2"
     ip_address  = "192.168.1.104"
     cores       = 2
-    memory      = 3 * 1024
+    memory      = 2 * 1024
     disk_size   = "50G"
     role        = "server"
   },
@@ -40,24 +40,24 @@ k3s_nodes = {
     target_node = "p2"
     ip_address  = "192.168.1.105"
     cores       = 2
-    memory      = 3 * 1024
+    memory      = 2 * 1024
     disk_size   = "50G"
     role        = "server"
   },
   "K3S-AGT01" = {
     target_node = "p2"
     ip_address  = "192.168.1.106"
-    cores       = 2
-    memory      = 5 * 1024
-    disk_size   = "50G"
+    cores       = 6
+    memory      = 11 * 1024
+    disk_size   = "100G"
     role        = "agent"
   },
   "K3S-AGT02" = {
     target_node = "p2"
     ip_address  = "192.168.1.107"
-    cores       = 2
-    memory      = 5 * 1024
-    disk_size   = "50G"
+    cores       = 6
+    memory      = 11 * 1024
+    disk_size   = "100G"
     role        = "agent"
   }
 }

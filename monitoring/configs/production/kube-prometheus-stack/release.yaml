@@ -5,9 +5,24 @@ metadata:
   name: kube-prometheus-stack
   namespace: monitoring
 spec:
+  suspend: false
   interval: 30m
+  chart:
+    spec:
+      chart: kube-prometheus-stack
+      version: "70.x"
+      sourceRef:
+        kind: HelmRepository
+        name: kube-prometheus-stack
+        namespace: monitoring
+      interval: 12h
+  install:
+    crds: Create
+  upgrade:
+    crds: CreateReplace
   values:
     grafana:
+      adminPassword: password
       persistence:
         enabled: true
         type: sts
@@ -17,7 +32,6 @@ spec:
         size: 1Gi
         finalizers:
           - kubernetes.io/pvc-protection
-      adminPassword: password
       ingress:
         enabled: true
         ingressClassName: traefik

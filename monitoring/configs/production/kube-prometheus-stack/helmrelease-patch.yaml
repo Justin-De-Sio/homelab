@@ -8,6 +8,15 @@ spec:
   interval: 30m
   values:
     grafana:
+      persistence:
+        enabled: true
+        type: sts
+        storageClassName: "longhorn"
+        accessModes:
+          - ReadWriteOnce
+        size: 1Gi
+        finalizers:
+          - kubernetes.io/pvc-protection
       adminPassword: password
       ingress:
         enabled: true
@@ -19,4 +28,4 @@ spec:
         tls:
           - secretName: monitoring-tls
             hosts:
-              - monitoring.justindesio.com 
+              - monitoring.justindesio.com

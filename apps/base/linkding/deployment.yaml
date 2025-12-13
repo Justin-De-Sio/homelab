@@ -10,6 +10,8 @@ spec:
     metadata:
       labels:
         app: linkding
+  strategy:
+    type: Recreate
     spec:
       securityContext:
         fsGroup: 33

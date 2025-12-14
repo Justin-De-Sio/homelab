@@ -17,6 +17,8 @@ spec:
           image: cloudflare/cloudflared:2025.9.1
           args:
             - tunnel
+            - --credentials-file
+            - /etc/cloudflared/creds/credentials.json
             - run
             - homelab
           livenessProbe:

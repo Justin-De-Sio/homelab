@@ -4,7 +4,7 @@ metadata:
   name: cloudflared
 data:
   config.yaml: |
-    tunnel: linkding
+    tunnel: homelab
 
     credentials-file: /etc/cloudflared/creds/credentials.json
 

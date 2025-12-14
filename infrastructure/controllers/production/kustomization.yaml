@@ -6,3 +6,4 @@ resources:
   - cloudnative-pg
   - cert-manager
   - nfs-provisioner
+  - cloudflared

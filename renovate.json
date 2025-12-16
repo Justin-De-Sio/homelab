@@ -3,6 +3,14 @@
   "flux": {
     "managerFilePatterns": [".*ya?ml$"]
   },
+  "hostRules": [
+    {
+      "matchHost": "registry.gitlab.com",
+      "hostType": "docker",
+      "username": "${DOCKER_REGISTRY_GITLAB_COM_USERNAME}",
+      "password": "${DOCKER_REGISTRY_GITLAB_COM_PASSWORD}"
+    }
+  ],
   "packageRules": [
     {
       "matchUpdateTypes": ["minor", "patch", "pin", "digest"],

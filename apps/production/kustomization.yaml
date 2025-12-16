@@ -9,3 +9,4 @@ resources:
   # - immich
   - n8n
   - homeassistant
+  - 990prep

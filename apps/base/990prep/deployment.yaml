@@ -5,7 +5,7 @@ metadata:
     app: app-990prep
   name: app-990prep
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: app-990prep

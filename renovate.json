@@ -20,8 +20,7 @@
     {
       "fileMatch": [".*\\.ya?ml$"],
       "matchStrings": [
-        "image:\\s*(?<depName>[^:\\s]+(?:/[^:\\s]+)*):(?<currentValue>[^\\s]+)",
-        "image:\\s*(?<depName>[^@\\s]+)@(?<currentDigestAlgo>sha256):(?<currentDigestValue>[a-f0-9]{64})"
+        "image:\\s*(?<depName>[^:\\s]+(?:/[^:\\s]+)*):(?<currentValue>[^@\\s]+)(?:@sha256:(?<currentDigest>[a-f0-9]{64}))?"
       ],
       "datasourceTemplate": "docker"
     }

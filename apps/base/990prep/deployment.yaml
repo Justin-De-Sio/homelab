@@ -16,7 +16,7 @@ spec:
         app: app-990prep
     spec:
       containers:
-        - image: registry.gitlab.com/justin-de-sio/990prep:latest@sha256:e69a32582e78af8907c74a3f440f6ddbbf709265decc94801947eb03c5ca761f
+        - image: registry.gitlab.com/justin-de-sio/990prep:latest@sha256:2950c2ef2364da97986a729a3937fb7142d1d8f8d50b555ff95379969fb3d61e
           name: app-990prep
           envFrom:
             - secretRef:

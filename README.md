@@ -76,7 +76,7 @@ homelab/
 
 ### Database Architecture
 
-<img width="932" height="629" alt="image" src="https://github.com/user-attachments/assets/d87bcb9d-97cf-4174-978f-396afd4f3ab4" />
+<img width="932" height="629" alt="image" src="https://github.com/user-attachments/assets/0f724156-fdd3-483e-bb5b-879db64e7a66" />
 
 
 
@@ -120,6 +120,7 @@ graph TD
 ```bash
 terraform apply
 
+ansible-playbook ansible/playbooks/install-nfs-common.yml -i inventory.yml
 ansible-playbook k3s.orchestration.site -i inventory.yml
 
 flux bootstrap github \

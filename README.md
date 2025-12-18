@@ -66,44 +66,19 @@ homelab/
 └── renovate.json         # Dependency automation
 ```
 
-### 🖥️ Infrastructure Nodes
+### Infrastructure Nodes Architecture
 
-```mermaid
-graph TB
-    CLIENT["kubectl client"]
-    
-    subgraph "Proxmox Host p1"
-        LB1["K3S-LB01<br/>1C/2GB<br/>(Keepalived)"]
-        SRV1["K3S-SRV01<br/>6C/6GB<br/>server"]
-    end
-    
-    subgraph "Proxmox Host p2"
-        LB2["K3S-LB02<br/>1C/2GB<br/>(Keepalived)"]
-        SRV2["K3S-SRV02<br/>6C/6GB<br/>server"]
-    end
+<img width="919" height="378" alt="image" src="https://github.com/user-attachments/assets/b113ccef-67a8-49a8-96ca-fe72043376ea" />
 
-    subgraph "Ubuntu bare metal"
-        SRV3["K3S-SRV03<br/>4C/4GB<br/>server"]
-    end
+### Automated media stack Architecture
 
-    CLIENT --> VIP["VIP (Keepalived)"]
-    VIP -.-> LB1
-    VIP -.-> LB2
-    LB1 --> SRV1
-    LB1 --> SRV2
-    LB1 --> SRV3
-    LB2 --> SRV1
-    LB2 --> SRV2
-    LB2 --> SRV3
+<img width="1651" height="1531" alt="image" src="https://github.com/user-attachments/assets/f5338caf-e990-4bc9-90df-229c214a1882" />
 
-    style CLIENT fill:#e3f2fd
-    style VIP fill:#c8e6c9,stroke-dasharray: 5 5
-    style LB1 fill:#fff3e0
-    style LB2 fill:#fff3e0
-    style SRV1 fill:#e8f5e8
-    style SRV2 fill:#e8f5e8
-    style SRV3 fill:#e8f5e8
-```
+### Database Architecture
+
+<img width="932" height="629" alt="image" src="https://github.com/user-attachments/assets/d87bcb9d-97cf-4174-978f-396afd4f3ab4" />
+
+
 
 ### 🔄 GitOps Flow & Dependencies
 
@@ -111,11 +86,11 @@ Flux CD orchestrates the deployment in a layered approach with proper dependenci
 
 ```mermaid
 graph TD
-    A[🚀 infrastructure-controllers<br/>Longhorn, cert-manager, CloudNative-PG] 
-    B[⚙️ infrastructure-configs<br/>Storage Classes, Node Config, Cluster Issuers]
-    C[📊 monitoring-controllers<br/>Prometheus, Grafana]
-    D[📈 monitoring-configs<br/>Dashboards, Alerts, Ingress]
-    E[🔧 apps<br/>Nextcloud, Media Stack, pgAdmin]
+    A[infrastructure-controllers<br/>Longhorn, cert-manager, CloudNative-PG] 
+    B[infrastructure-configs<br/>Storage Classes, Node Config, Cluster Issuers]
+    C[monitoring-controllers<br/>Prometheus, Grafana]
+    D[monitoring-configs<br/>Dashboards, Alerts, Ingress]
+    E[apps<br/>Nextcloud, Media Stack, pgAdmin]
 
     A --> B
     B --> C

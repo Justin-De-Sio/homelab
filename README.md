@@ -72,7 +72,8 @@ homelab/
 
 ### Automated media stack Architecture
 
-<img width="1651" height="1531" alt="image" src="https://github.com/user-attachments/assets/f5338caf-e990-4bc9-90df-229c214a1882" />
+<img width="1651" height="1531" alt="image" src="https://github.com/user-attachments/assets/6b290235-7d2e-4e80-82d1-37afd174616e" />
+
 
 ### Database Architecture
 

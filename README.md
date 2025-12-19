@@ -20,7 +20,7 @@ A personal homelab infrastructure managed through GitOps principles using Flux C
 | **Networking** | Traefik + Cloudflare | SSL termination and secure external access |
 | **Security** | cert-manager + age encryption | Automated certificates and encrypted secrets |
 
-## 📱 Applications
+## Applications
 
 ### **Dashboard & Management**
 - **[Homarr](https://homarr.dev/)** - Customizable homepage and dashboard for homelab services

@@ -106,7 +106,7 @@ graph TD
 ```
 
 
-## 🔄 Backup & Recovery
+## Backup & Recovery
 
 ### **Storage (Longhorn)**
 - Automated backups to **Backblaze B2** 

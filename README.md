@@ -1,4 +1,4 @@
-# 🏠 Homelab GitOps Infrastructure
+# Homelab GitOps Infrastructure
 
 [![Flux](https://img.shields.io/badge/GitOps-Flux-5C7CFA.svg)](https://fluxcd.io/)
 [![SOPS](https://img.shields.io/badge/Secrets-SOPS-orange.svg)](https://github.com/mozilla/sops)
@@ -7,9 +7,9 @@
 
 A personal homelab infrastructure managed through GitOps principles using Flux CD. This repository contains my ongoing configuration for a Kubernetes-based homelab running media services, cloud storage, and monitoring.
 
-> **🏗️ Work in Progress:** Personal homelab setup that's constantly evolving and being improved.
+> **Work in Progress:** Personal homelab setup that's constantly evolving and being improved.
 
-## 📋 Quick Overview
+## Quick Overview
 
 | **Component** | **Technology** | **Purpose** |
 |---------------|----------------|-------------|
@@ -22,17 +22,17 @@ A personal homelab infrastructure managed through GitOps principles using Flux C
 
 ## 📱 Applications
 
-### **🏠 Dashboard & Management**
+### **Dashboard & Management**
 - **[Homarr](https://homarr.dev/)** - Customizable homepage and dashboard for homelab services
 
-### **☁️ Cloud & Storage**
+### **Cloud & Storage**
 - **[Nextcloud](https://nextcloud.com/)** - Self-hosted cloud storage, file sync, and collaboration platform
 - **[Immich](https://immich.app/)** - High-performance photo and video backup solution (Google Photos alternative)
 
-### **🔖 Productivity**
+### **Productivity**
 - **[Linkding](https://github.com/sissbruecker/linkding)** - Self-hosted bookmark manager with full-text search
 
-### **🎬 Media Stack**
+### **Media Stack**
 - **[Jellyfin](https://jellyfin.org/)** - Media server for streaming movies, TV shows, and music
 - **[Jellyfin Vue](https://github.com/jellyfin/jellyfin-vue)** - Modern web client for Jellyfin
 - **[Sonarr](https://sonarr.tv/)** - TV series collection manager with automatic downloading
@@ -42,14 +42,14 @@ A personal homelab infrastructure managed through GitOps principles using Flux C
 - **[qBittorrent](https://www.qbittorrent.org/)** - BitTorrent client with web interface
 - **[NZBGet](https://nzbget.net/)** - Usenet downloader
 
-### **🗄️ Database Management**
+### **Database Management**
 - **[pgAdmin](https://www.pgadmin.org/)** - Web-based PostgreSQL administration tool
 
 
 
 ## ️ Architecture
 
-### 📁 Repository Structure
+### Repository Structure
 ```
 homelab/
 ├── apps/                    # Application definitions

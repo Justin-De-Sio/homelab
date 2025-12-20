@@ -30,6 +30,10 @@ spec:
                 name: secret-env
             - configMapRef:
                 name: env-var
-          resources: {}
+          resources:
+            requests:
+              memory: "64Mi"
+            limits:
+              memory: "256Mi"
       imagePullSecrets:
         - name: gitlab-registry-secret

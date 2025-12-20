@@ -5,7 +5,7 @@ metadata:
     app: app-990prep
   name: app-990prep
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
       app: app-990prep
@@ -16,8 +16,15 @@ spec:
         app: app-990prep
     spec:
       containers:
-        - image: registry.gitlab.com/justin-de-sio/990prep:latest@sha256:801611d36cd37ee04a3f28b9625b30a7fdb16832da48df7e029f1615adfc6baf
+        - image: registry.gitlab.com/justin-de-sio/990prep:latest@sha256:dfc4816b5b19cb55749ed9533de0e43c11da53e594e22bfadd397cdf202a5919
           name: app-990prep
+          readinessProbe:
+            httpGet:
+              path: /heath
+              port: 8080
+            initialDelaySeconds: 1
+            periodSeconds: 5
+            timeoutSeconds: 1
           envFrom:
             - secretRef:
                 name: secret-env

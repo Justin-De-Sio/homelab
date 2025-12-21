@@ -61,3 +61,11 @@ k3s_nodes = {
     role        = "agent"
   }
 }
+
+vpn_server = {
+  target_node = "p2"
+  ip_address  = "192.168.1.2"
+  cores       = 1
+  memory      = 512
+  disk_size   = "10G"
+}

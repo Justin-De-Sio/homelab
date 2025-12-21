@@ -88,3 +88,14 @@ variable "k3s_nodes" {
   }))
 }
 
+variable "vpn_server" {
+  description = "Configuration for Tailscale VPN server"
+  type = object({
+    target_node = string
+    cores       = number
+    memory      = number
+    ip_address  = string
+    disk_size   = string
+  })
+}
+

@@ -6,8 +6,12 @@ metadata:
   namespace: flux-system
 spec:
   digestReflectionPolicy: Always
+  interval: 5m0s
   filterTags:
     extract: ""
     pattern: ^latest$
   imageRepositoryRef:
     name: 990prep-app
+  policy:
+    alphabetical:
+      order: desc

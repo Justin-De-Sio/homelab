@@ -11,7 +11,7 @@ spec:
     branch: main
   secretRef:
     name: flux-system
-  url: https://github.com/Justin-De-Sio/homelab.git
+  url: ssh://git@github.com/Justin-De-Sio/homelab
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization

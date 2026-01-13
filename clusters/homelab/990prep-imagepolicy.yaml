@@ -1,0 +1,11 @@
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImageRepository
+metadata:
+  name: 990prep-app
+  namespace: flux-system
+spec:
+  image: registry.gitlab.com/justin-de-sio/990prep
+  interval: 5m0s
+  secretRef:
+    name: gitlab-registry-secret

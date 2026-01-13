@@ -5,5 +5,6 @@ resources:
   - namespace.yaml
   - configmap.yaml
   - secret.yaml
+  - gitlab-registry-secret.yaml
   - deployment.yaml
   - service.yaml

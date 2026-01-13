@@ -1,0 +1,13 @@
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImagePolicy
+metadata:
+  name: 990prep-app
+  namespace: flux-system
+spec:
+  digestReflectionPolicy: Always
+  filterTags:
+    extract: ""
+    pattern: ^latest$
+  imageRepositoryRef:
+    name: 990prep-app

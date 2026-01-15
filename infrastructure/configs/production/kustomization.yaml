@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - longhorn
   - cert-manager
+  - 990prep-registry-secret.yaml

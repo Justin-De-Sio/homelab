@@ -5,3 +5,5 @@ resources:
   - longhorn
   - cert-manager
   - 990prep-registry-secret.yaml
+  - 990prep-image-repository.yaml
+  - 990prep-image-policy.yaml

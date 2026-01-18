@@ -16,7 +16,7 @@ spec:
         app: app-990prep
     spec:
       containers:
-        - image: registry.gitlab.com/justin-de-sio/990prep:latest@sha256:5b8c9cbca1398116ed734f9972607ce3d9106dc5d7709c58a35d0a372319f0a4 # {"$imagepolicy": "flux-system:990prep-app"}
+        - image: registry.gitlab.com/justin-de-sio/990prep:latest@sha256:74422f34ea395b73fae642946d41c118fbd2880a866b567424a94f899ddb713e # {"$imagepolicy": "flux-system:990prep-app"}
           name: app-990prep
           readinessProbe:
             httpGet:

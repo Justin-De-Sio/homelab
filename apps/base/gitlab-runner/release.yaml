@@ -24,3 +24,22 @@ spec:
         [[runners]]
           [runners.kubernetes]
             privileged = true
+            image = "docker:27.3.1"
+            helper_image = "gitlab/gitlab-runner-helper:x86_64-latest"
+          [runners.kubernetes.pod_security_context]
+            fs_group = 1000
+          [[runners.kubernetes.services]]
+            name = "docker"
+            alias = "docker"
+            image = "docker:27.3.1-dind"
+            command = ["--tls=false"]
+          [[runners.kubernetes.volumes.empty_dir]]
+            name = "docker-certs"
+            mount_path = "/certs/client"
+            medium = "Memory"
+          [[runners.kubernetes.env]]
+            name = "DOCKER_HOST"
+            value = "tcp://docker:2375"
+          [[runners.kubernetes.env]]
+            name = "DOCKER_TLS_CERTDIR"
+            value = ""

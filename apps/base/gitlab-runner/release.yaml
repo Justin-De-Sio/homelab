@@ -20,3 +20,7 @@ spec:
       create: true
     runners:
       secret: gitlab-runner-secret
+      config: |
+        [[runners]]
+          [runners.kubernetes]
+            privileged = true

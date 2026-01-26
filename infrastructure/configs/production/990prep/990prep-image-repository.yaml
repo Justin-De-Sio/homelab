@@ -6,6 +6,6 @@ metadata:
   namespace: flux-system
 spec:
   image: registry.gitlab.com/justin-de-sio/990prep
-  interval: 5m0s
+  interval: 1m0s
   secretRef:
     name: gitlab-registry-secret

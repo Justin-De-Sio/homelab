@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   digestReflectionPolicy: Always
-  interval: 5m0s
+  interval: 1m0s
   filterTags:
     extract: ""
     pattern: ^latest$

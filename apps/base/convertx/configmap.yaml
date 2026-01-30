@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: convertx-config
+data:
+  ACCOUNT_REGISTRATION: "true"
+  HTTP_ALLOWED: "true"

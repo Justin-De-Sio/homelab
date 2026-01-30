@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: convertx
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: convertx
+  template:
+    metadata:
+      labels:
+        app: convertx
+    spec:
+      securityContext:
+        fsGroup: 1000
+        runAsUser: 1000
+        runAsGroup: 1000
+      containers:
+        - name: convertx
+          image: ghcr.io/c4illin/convertx:latest
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "4Gi"
+              cpu: "2000m"
+          ports:
+            - containerPort: 3000
+          envFrom:
+            - configMapRef:
+                name: convertx-config
+            - secretRef:
+                name: convertx-secret
+          volumeMounts:
+            - name: convertx-data
+              mountPath: /app/data
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 5
+      volumes:
+        - name: convertx-data
+          persistentVolumeClaim:
+            claimName: convertx-data-pvc

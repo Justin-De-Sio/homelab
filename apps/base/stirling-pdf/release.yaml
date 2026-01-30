@@ -43,15 +43,11 @@ spec:
         cpu: "1000m"
     ingress:
       enabled: true
-      className: "traefik"
+      ingressClassName: "traefik"
       annotations:
         cert-manager.io/cluster-issuer: "letsencrypt-prod"
       hosts:
-        - host: pdf.justindesio.com
-          paths:
-            - path: /
-              pathType: Prefix
-      tls:
-        - hosts:
-            - pdf.justindesio.com
-          secretName: stirling-pdf-tls
+        - name: pdf.justindesio.com
+          path: /
+          tls: true
+          tlsSecret: stirling-pdf-tls

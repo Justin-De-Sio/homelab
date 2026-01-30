@@ -12,3 +12,4 @@ resources:
   - 990prep
   - gitlab-runner
   - stirling-pdf
+  - convertx

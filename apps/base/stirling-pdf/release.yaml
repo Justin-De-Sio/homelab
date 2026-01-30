@@ -18,6 +18,15 @@ spec:
     envsFrom:
       - secretRef:
           name: stirling-pdf-credentials
+    probes:
+      liveness:
+        initialDelaySeconds: 60
+        periodSeconds: 10
+        failureThreshold: 5
+      readiness:
+        initialDelaySeconds: 60
+        periodSeconds: 10
+        failureThreshold: 5
     persistence:
       enabled: true
       accessMode: ReadWriteOnce

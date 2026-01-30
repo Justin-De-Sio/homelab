@@ -4,3 +4,4 @@ namespace: dashboard
 resources:
   - ../../base/homarr
   - secret.yaml
+  - ingress.yaml

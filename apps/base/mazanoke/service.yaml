@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mazanoke
+  namespace: mazanoke
+spec:
+  type: ClusterIP
+  selector:
+    app: mazanoke
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP

@@ -13,3 +13,4 @@ resources:
   - gitlab-runner
   - stirling-pdf
   - convertx
+  - mazanoke

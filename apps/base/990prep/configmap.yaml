@@ -8,6 +8,7 @@ data:
   PUBLIC_POSTHOG_KEY: phc_TkDz9rn7gojZJvDWNgjdxbnN4T2TKPVomcOf8XjpZXY
   PUBLIC_POSTHOG_HOST: https://omega.justindesio.com
   PUBLIC_TIKTOK_PIXEL_ID: D5KFD7RC77UDR18JCSP0
+  BREVO_USER_LIST_ID: "13"
   NODE_ENV: production
   PORT: "8080"
   ORIGIN: https://990prep.com

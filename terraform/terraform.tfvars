@@ -69,3 +69,11 @@ vpn_server = {
   memory      = 512
   disk_size   = "10G"
 }
+
+openclaw_server = {
+  target_node = "p2"
+  ip_address  = "192.168.1.111"
+  cores       = 4
+  memory      = 4 * 1024
+  disk_size   = "20G"
+}

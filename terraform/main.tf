@@ -59,3 +59,23 @@ module "vpn_server" {
   disk_storage   = var.default_disk_storage
   tags           = ["vpn", "tailscale"]
 }
+
+module "openclaw_server" {
+  source = "./modules/proxmox-vm"
+
+  name           = "OpenClaw"
+  target_node    = var.openclaw_server.target_node
+  clone_template = var.default_clone_template
+  cores          = var.openclaw_server.cores
+  memory         = var.openclaw_server.memory
+  ip_address     = var.openclaw_server.ip_address
+  gateway        = var.default_gateway
+  disk_size      = var.openclaw_server.disk_size
+  cicustom       = var.default_cicustom
+  ciuser         = var.default_ciuser
+  sshkeys        = var.default_sshkeys
+  nameserver     = var.default_nameserver
+  network_bridge = var.default_network_bridge
+  disk_storage   = var.default_disk_storage
+  tags           = ["openclaw", "game"]
+}

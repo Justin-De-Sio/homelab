@@ -56,7 +56,11 @@ resource "proxmox_vm_qemu" "this" {
   }
 
   lifecycle {
-    ignore_changes = [network]
+    ignore_changes = [
+      network,
+      clone,      # Only used at creation time
+      full_clone, # Only used at creation time
+    ]
   }
 
   tags = join(",", var.tags)

@@ -99,3 +99,14 @@ variable "vpn_server" {
   })
 }
 
+variable "openclaw_server" {
+  description = "Configuration for OpenClaw server"
+  type = object({
+    target_node = string
+    cores       = number
+    memory      = number
+    ip_address  = string
+    disk_size   = string
+  })
+}
+

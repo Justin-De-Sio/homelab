@@ -5,6 +5,7 @@ metadata:
   name: 990prep-app
   namespace: flux-system
 spec:
+  suspend: true
   digestReflectionPolicy: Always
   interval: 1m0s
   filterTags:

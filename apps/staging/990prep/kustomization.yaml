@@ -1,6 +1,8 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: app-990prep
+namespace: app-990prep-staging
 resources:
   - ../../base/990prep
   - namespace.yaml
+patches:
+  - path: configmap-patch.yaml

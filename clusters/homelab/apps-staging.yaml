@@ -1,0 +1,21 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: apps-staging
+  namespace: flux-system
+spec:
+  suspend: false
+  interval: 1m0s
+  dependsOn:
+    - name: infrastructure-configs
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./apps/staging
+  prune: true
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age

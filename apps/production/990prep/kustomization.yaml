@@ -4,3 +4,6 @@ namespace: app-990prep
 resources:
   - ../../base/990prep
   - namespace.yaml
+images:
+  - name: registry.gitlab.com/justin-de-sio/990prep
+    newTag: "v0.0.0"

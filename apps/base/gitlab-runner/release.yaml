@@ -35,7 +35,7 @@ spec:
             service_cpu_request = "500m"
             service_cpu_limit = "2"
             service_memory_request = "1Gi"
-            service_memory_limit = "2Gi"
+            service_memory_limit = "6Gi"
           [runners.kubernetes.pod_security_context]
             fs_group = 1000
           [[runners.kubernetes.services]]

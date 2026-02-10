@@ -1,0 +1,118 @@
+@startuml
+title <size:24>990prep - Production Deployment</size>\n<size:24>Shows how 990prep is deployed in the Kubernetes homelab</size>
+
+set separator none
+top to bottom direction
+skinparam ranksep 60
+skinparam nodesep 30
+hide stereotype
+
+<style>
+  root {
+    BackgroundColor: #ffffff;
+    FontColor: #444444;
+  }
+  // Element,Container,API
+  .Element-RWxlbWVudCxDb250YWluZXIsQVBJ {
+    BackgroundColor: #438dd5;
+    LineColor: #2e6295;
+    LineStyle: 0;
+    LineThickness: 2;
+    FontColor: #ffffff;
+    FontSize: 24;
+    HorizontalAlignment: center;
+    Shadowing: 0;
+    MaximumWidth: 450;
+  }
+  // Element,Container,Web Browser
+  .Element-RWxlbWVudCxDb250YWluZXIsV2ViIEJyb3dzZXI= {
+    BackgroundColor: #438dd5;
+    LineColor: #2e6295;
+    LineStyle: 0;
+    LineThickness: 2;
+    FontColor: #ffffff;
+    FontSize: 24;
+    HorizontalAlignment: center;
+    Shadowing: 0;
+    MaximumWidth: 450;
+  }
+  // Element,Infrastructure Node
+  .Element-RWxlbWVudCxJbmZyYXN0cnVjdHVyZSBOb2Rl {
+    BackgroundColor: #ffffff;
+    LineColor: #b2b2b2;
+    LineStyle: 0;
+    LineThickness: 2;
+    RoundCorner: 20;
+    FontColor: #444444;
+    FontSize: 24;
+    HorizontalAlignment: center;
+    Shadowing: 0;
+    MaximumWidth: 450;
+  }
+  // Element,Software System,External System
+  .Element-RWxlbWVudCxTb2Z0d2FyZSBTeXN0ZW0sRXh0ZXJuYWwgU3lzdGVt {
+    BackgroundColor: #999999;
+    LineColor: #6b6b6b;
+    LineStyle: 0;
+    LineThickness: 2;
+    RoundCorner: 20;
+    FontColor: #ffffff;
+    FontSize: 24;
+    HorizontalAlignment: center;
+    Shadowing: 0;
+    MaximumWidth: 450;
+  }
+  // Relationship
+  .Relationship-UmVsYXRpb25zaGlw {
+    LineThickness: 2;
+    LineStyle: 10-10;
+    LineColor: #444444;
+    FontColor: #444444;
+    FontSize: 24;
+  }
+  // Element
+  .DeploymentNode-RWxlbWVudA== {
+    BackgroundColor: #ffffff;
+    LineColor: #444444;
+    LineStyle: 0;
+    LineThickness: 2;
+    FontColor: #444444;
+    FontSize: 24;
+    HorizontalAlignment: center;
+    Shadowing: 0;
+  }
+</style>
+
+rectangle "Kubernetes Cluster\n<size:16>[Deployment Node: Kubernetes]</size>" <<DeploymentNode-RWxlbWVudA==>> as Production.KubernetesCluster {
+  rectangle "app-990prep namespace\n<size:16>[Deployment Node: Namespace]</size>" <<DeploymentNode-RWxlbWVudA==>> as Production.KubernetesCluster.app990prepnamespace {
+    rectangle "990prep Deployment\n<size:16>[Deployment Node: Deployment]</size>" <<DeploymentNode-RWxlbWVudA==>> as Production.KubernetesCluster.app990prepnamespace.990prepDeployment {
+      rectangle "==Web Application\n<size:16>[Container: SvelteKit / Node.js]</size>\n\nProvides Form 990 preparation UI, data entry wizards, and document management" <<Element-RWxlbWVudCxDb250YWluZXIsV2ViIEJyb3dzZXI=>> as Production.KubernetesCluster.app990prepnamespace.990prepDeployment.WebApplication_1
+      hexagon "==API Layer\n<size:16>[Container: SvelteKit Server / Node.js]</size>\n\nHandles business logic, form validation, and orchestrates external service calls" <<Element-RWxlbWVudCxDb250YWluZXIsQVBJ>> as Production.KubernetesCluster.app990prepnamespace.990prepDeployment.APILayer_1
+    }
+
+  }
+
+  rectangle "flux-system namespace\n<size:16>[Deployment Node: Namespace]</size>" <<DeploymentNode-RWxlbWVudA==>> as Production.KubernetesCluster.fluxsystemnamespace {
+    rectangle "==Flux CD\n<size:16>[Infrastructure Node: Flux]</size>\n\nGitOps continuous delivery" <<Element-RWxlbWVudCxJbmZyYXN0cnVjdHVyZSBOb2Rl>> as Production.KubernetesCluster.fluxsystemnamespace.FluxCD
+  }
+
+  rectangle "ingress-nginx namespace\n<size:16>[Deployment Node: Namespace]</size>" <<DeploymentNode-RWxlbWVudA==>> as Production.KubernetesCluster.ingressnginxnamespace {
+    rectangle "==Ingress Controller\n<size:16>[Infrastructure Node: NGINX]</size>\n\nRoutes external traffic" <<Element-RWxlbWVudCxJbmZyYXN0cnVjdHVyZSBOb2Rl>> as Production.KubernetesCluster.ingressnginxnamespace.IngressController
+  }
+
+}
+
+rectangle "Supabase Cloud\n<size:16>[Deployment Node: Supabase]</size>" <<DeploymentNode-RWxlbWVudA==>> as Production.SupabaseCloud {
+  rectangle "==Supabase\n<size:16>[Software System]</size>\n\nBackend-as-a-Service providing PostgreSQL database and authentication" <<Element-RWxlbWVudCxTb2Z0d2FyZSBTeXN0ZW0sRXh0ZXJuYWwgU3lzdGVt>> as Production.SupabaseCloud.Supabase_1
+}
+
+rectangle "Stripe Cloud\n<size:16>[Deployment Node: Stripe]</size>" <<DeploymentNode-RWxlbWVudA==>> as Production.StripeCloud {
+  rectangle "==Stripe\n<size:16>[Software System]</size>\n\nPayment processing platform for subscription billing" <<Element-RWxlbWVudCxTb2Z0d2FyZSBTeXN0ZW0sRXh0ZXJuYWwgU3lzdGVt>> as Production.StripeCloud.Stripe_1
+}
+
+Production.KubernetesCluster.app990prepnamespace.990prepDeployment.WebApplication_1 --> Production.KubernetesCluster.app990prepnamespace.990prepDeployment.APILayer_1 <<Relationship-UmVsYXRpb25zaGlw>> : "Makes API calls\n<size:16>[HTTPS/JSON]</size>"
+Production.KubernetesCluster.app990prepnamespace.990prepDeployment.APILayer_1 --> Production.SupabaseCloud.Supabase_1 <<Relationship-UmVsYXRpb25zaGlw>> : "Reads/writes organization data, form drafts, user accounts\n<size:16>[HTTPS/PostgreSQL]</size>"
+Production.KubernetesCluster.app990prepnamespace.990prepDeployment.APILayer_1 --> Production.SupabaseCloud.Supabase_1 <<Relationship-UmVsYXRpb25zaGlw>> : "CRUD operations on forms, orgs, users\n<size:16>[Supabase Client]</size>"
+Production.KubernetesCluster.app990prepnamespace.990prepDeployment.APILayer_1 --> Production.StripeCloud.Stripe_1 <<Relationship-UmVsYXRpb25zaGlw>> : "Creates checkout sessions, manages subscriptions\n<size:16>[Stripe API]</size>"
+
+@enduml

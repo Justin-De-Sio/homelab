@@ -6,4 +6,4 @@ resources:
   - namespace.yaml
 images:
   - name: registry.gitlab.com/justin-de-sio/990prep
-    newTag: "v1.2.1"
+    newTag: "v1.2.6"

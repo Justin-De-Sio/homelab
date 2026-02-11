@@ -38,7 +38,7 @@ spec:
             cpu_request = "500m"
             cpu_limit = "4"
             memory_request = "512Mi"
-            memory_limit = "1Gi"
+            memory_limit = "2Gi"
             # DinD sidecar resources (where docker build runs)
             service_cpu_request = "500m"
             service_cpu_limit = "2"

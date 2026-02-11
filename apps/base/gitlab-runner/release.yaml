@@ -34,16 +34,16 @@ spec:
             privileged = true
             image = "docker:27.3.1"
             helper_image = "gitlab/gitlab-runner-helper:x86_64-latest"
-            # Build container resources
+            # Build container resources (docker CLI only)
             cpu_request = "500m"
             cpu_limit = "4"
-            memory_request = "2Gi"
-            memory_limit = "4Gi"
-            # DinD sidecar resources
+            memory_request = "512Mi"
+            memory_limit = "1Gi"
+            # DinD sidecar resources (where docker build runs)
             service_cpu_request = "500m"
             service_cpu_limit = "2"
-            service_memory_request = "1Gi"
-            service_memory_limit = "6Gi"
+            service_memory_request = "2Gi"
+            service_memory_limit = "8Gi"
           [runners.kubernetes.pod_security_context]
             fs_group = 1000
           [[runners.kubernetes.services]]

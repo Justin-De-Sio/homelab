@@ -4,6 +4,7 @@ metadata:
   name: monitoring-controllers
   namespace: flux-system
 spec:
+  suspend: true
   interval: 10m
   dependsOn:
     - name: infrastructure-configs

@@ -8,7 +8,7 @@ resources:
   - pgadmin
   # - immich
   - n8n
-  - homeassistant
+  # - homeassistant
   - 990prep
   - gitlab-runner
   - stirling-pdf

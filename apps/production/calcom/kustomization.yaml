@@ -1,0 +1,11 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: calcom
+resources:
+  - ../../base/calcom/
+  - ingress.yaml
+  - secret.yaml
+  - configmap.yaml
+images:
+  - name: calcom/cal.com
+    newTag: v6.1.16

@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: calcom
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: calcom
+  template:
+    metadata:
+      labels:
+        app: calcom
+    spec:
+      initContainers:
+        - name: prisma-migrate
+          image: calcom/cal.com:latest
+          command: ["npx", "prisma", "migrate", "deploy"]
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: calcom-database-app
+                  key: uri
+            - name: DATABASE_DIRECT_URL
+              valueFrom:
+                secretKeyRef:
+                  name: calcom-database-app
+                  key: uri
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "1Gi"
+              cpu: "500m"
+      containers:
+        - name: calcom
+          image: calcom/cal.com:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: calcom-database-app
+                  key: uri
+            - name: DATABASE_DIRECT_URL
+              valueFrom:
+                secretKeyRef:
+                  name: calcom-database-app
+                  key: uri
+          envFrom:
+            - secretRef:
+                name: calcom-secret
+            - configMapRef:
+                name: calcom-configmap
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "1Gi"
+              cpu: "500m"

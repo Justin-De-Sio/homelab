@@ -9,4 +9,4 @@ patches:
   - path: deployment-patch.yaml
 images:
   - name: registry.gitlab.com/justin-de-sio/990prep
-    newTag: "staging-6b7253e5"
+    newTag: "staging-2f7c2780"

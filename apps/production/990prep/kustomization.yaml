@@ -4,6 +4,8 @@ namespace: app-990prep
 resources:
   - ../../base/990prep
   - namespace.yaml
+patches:
+  - path: secret-patch.yaml
 images:
   - name: registry.gitlab.com/justin-de-sio/990prep
     newTag: "v1.50.2"

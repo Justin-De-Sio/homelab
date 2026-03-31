@@ -24,7 +24,7 @@ spec:
             - --protocol
             - http2
             - run
-            - 11393bce-e4fa-4ef4-85f0-8ecd226d728f
+            - vps
           livenessProbe:
             httpGet:
               path: /ready

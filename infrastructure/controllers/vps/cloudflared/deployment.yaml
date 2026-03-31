@@ -22,7 +22,7 @@ spec:
             - --metrics
             - 0.0.0.0:2000
             - run
-            - vps
+            - 11393bce-e4fa-4ef4-85f0-8ecd226d728f
           livenessProbe:
             httpGet:
               path: /ready

@@ -1,0 +1,110 @@
+---
+# Bootstrap K3S + Flux on the VPS for 990prep production
+#
+# Prerequisites:
+#   - GitHub personal access token (GITHUB_TOKEN env var)
+#   - SOPS age private key (SOPS_AGE_KEY env var)
+#
+# Usage:
+#   GITHUB_TOKEN=ghp_xxx SOPS_AGE_KEY=AGE-SECRET-KEY-xxx \
+#     ansible-playbook -i inventory.yml ansible/playbooks/bootstrap-vps.yml
+
+- name: Bootstrap VPS with K3S and Flux
+  hosts: vps
+  become: true
+  gather_facts: true
+
+  environment:
+    KUBECONFIG: /etc/rancher/k3s/k3s.yaml
+
+  vars:
+    github_owner: Justin-De-Sio
+    github_repo: homelab
+    flux_path: clusters/vps
+    flux_branch: main
+
+  tasks:
+    - name: Validate required environment variables
+      ansible.builtin.assert:
+        that:
+          - lookup('env', 'GITHUB_TOKEN') | length > 0
+          - lookup('env', 'SOPS_AGE_KEY') | length > 0
+        fail_msg: "GITHUB_TOKEN and SOPS_AGE_KEY environment variables are required"
+
+    # --- K3S ---
+
+    - name: Check if K3S is already installed
+      ansible.builtin.stat:
+        path: /usr/local/bin/k3s
+      register: k3s_binary
+
+    - name: Install K3S
+      ansible.builtin.shell: curl -sfL https://get.k3s.io | sh -
+      when: not k3s_binary.stat.exists
+
+    - name: Wait for K3S to be ready
+      ansible.builtin.command: k3s kubectl get nodes
+      register: k3s_ready
+      retries: 12
+      delay: 5
+      until: k3s_ready.rc == 0
+      changed_when: false
+
+    # --- Flux ---
+
+    - name: Check if Flux CLI is installed
+      ansible.builtin.command: which flux
+      register: flux_check
+      ignore_errors: true
+      changed_when: false
+
+    - name: Install Flux CLI
+      ansible.builtin.shell: curl -s https://fluxcd.io/install.sh | bash
+      when: flux_check.rc != 0
+
+    - name: Check if Flux is already bootstrapped
+      ansible.builtin.command: k3s kubectl get namespace flux-system
+      register: flux_ns
+      ignore_errors: true
+      changed_when: false
+
+    - name: Bootstrap Flux
+      ansible.builtin.command: >
+        flux bootstrap github
+        --owner={{ github_owner }}
+        --repository={{ github_repo }}
+        --branch={{ flux_branch }}
+        --path={{ flux_path }}
+        --personal
+      environment:
+        GITHUB_TOKEN: "{{ lookup('env', 'GITHUB_TOKEN') }}"
+      when: flux_ns.rc != 0
+
+    # --- SOPS ---
+
+    - name: Check if SOPS age secret exists
+      ansible.builtin.command: k3s kubectl get secret sops-age -n flux-system
+      register: sops_secret
+      ignore_errors: true
+      changed_when: false
+
+    - name: Create SOPS age secret
+      ansible.builtin.command: >
+        k3s kubectl create secret generic sops-age
+        -n flux-system
+        --from-literal=age.agekey={{ lookup('env', 'SOPS_AGE_KEY') }}
+      when: sops_secret.rc != 0
+
+    # --- Verification ---
+
+    - name: Wait for Flux reconciliation
+      ansible.builtin.command: flux get kustomizations
+      register: flux_status
+      retries: 24
+      delay: 10
+      until: "'Ready' in flux_status.stdout"
+      changed_when: false
+
+    - name: Display Flux status
+      ansible.builtin.debug:
+        msg: "{{ flux_status.stdout_lines }}"

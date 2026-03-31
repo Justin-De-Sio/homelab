@@ -3,14 +3,6 @@ kind: Kustomization
 namespace: cloudflared
 
 resources:
-  - ../../base/cloudflared
-
-patches:
-  - path: deployment-patch.yaml
-    target:
-      kind: Deployment
-      name: cloudflared
-  - path: secret.yaml
-    target:
-      kind: Secret
-      name: tunnel-credentials
+  - namespace.yaml
+  - deployment.yaml
+  - secret.yaml

@@ -2,3 +2,16 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - 990prep
+  - linkding
+  - media
+  - homarr
+  # - nextcloud
+  # - immich
+  - pgadmin
+  - n8n
+  # - homeassistant
+  - gitlab-runner
+  - stirling-pdf
+  - convertx
+  - mazanoke
+  - calcom

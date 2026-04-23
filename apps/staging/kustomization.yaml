@@ -9,6 +9,7 @@ resources:
   # - immich
   - pgadmin
   - n8n
+  - nocodb
   # - homeassistant
   - gitlab-runner
   - stirling-pdf

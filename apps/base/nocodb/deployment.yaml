@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nocodb
+spec:
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: nocodb
+  template:
+    metadata:
+      labels:
+        app: nocodb
+    spec:
+      containers:
+        - name: nocodb
+          image: nocodb/nocodb:2026.04.3
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "200m"
+            limits:
+              memory: "1Gi"
+              cpu: "1000m"
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: nocodb-data
+              mountPath: /usr/app/data
+          env:
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: nocodb-database-app
+                  key: username
+            - name: DB_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: nocodb-database-app
+                  key: password
+            - name: NC_DB_JSON
+              value: '{"client":"pg","connection":{"host":"nocodb-database-rw","port":5432,"user":"$(DB_USER)","password":"$(DB_PASS)","database":"app"}}'
+          envFrom:
+            - secretRef:
+                name: nocodb-credentials
+            - configMapRef:
+                name: nocodb-configmap
+      volumes:
+        - name: nocodb-data
+          persistentVolumeClaim:
+            claimName: nocodb-data-pvc

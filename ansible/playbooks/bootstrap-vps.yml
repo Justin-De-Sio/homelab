@@ -50,6 +50,13 @@
       until: k3s_ready.rc == 0
       changed_when: false
 
+    - name: Set KUBECONFIG in bashrc
+      ansible.builtin.lineinfile:
+        path: /root/.bashrc
+        line: export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
+        regexp: ^export KUBECONFIG=
+        state: present
+
     # --- Flux ---
 
     - name: Check if Flux CLI is installed

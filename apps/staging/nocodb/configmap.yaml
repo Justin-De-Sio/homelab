@@ -5,3 +5,7 @@ metadata:
 data:
   NC_PUBLIC_URL: https://nocodb.justindesio.com
   NC_DISABLE_TELE: "true"
+  NC_SMTP_HOST: smtp-relay.brevo.com
+  NC_SMTP_PORT: "587"
+  NC_SMTP_SECURE: "false"
+  NC_SMTP_FROM: admin@justindesio.com

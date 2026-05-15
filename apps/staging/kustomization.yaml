@@ -10,7 +10,7 @@ resources:
   - pgadmin
   - n8n
   - nocodb
-  # - homeassistant
+  - homeassistant
   - gitlab-runner
   - stirling-pdf
   - convertx

@@ -40,7 +40,7 @@ spec:
               pullPolicy: IfNotPresent
             
             env:
-              TZ: "America/New_York"  # Adjust timezone as needed
+              TZ: "Europe/Paris"
             
             securityContext:
               privileged: true  # Required for USB device access

@@ -73,3 +73,12 @@ variable "tags" {
   type        = list(string)
   default     = []
 }
+
+variable "usb_devices" {
+  description = "USB devices to passthrough (vendor:product host id, e.g. \"10c4:ea60\")"
+  type = list(object({
+    host = string
+    usb3 = optional(bool, false)
+  }))
+  default = []
+}

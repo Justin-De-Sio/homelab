@@ -27,6 +27,11 @@ k3s_nodes = {
     memory      = 2 * 1024
     disk_size   = "50G"
     role        = "server"
+    # Sonoff/CP210x Zigbee dongle physically plugged on p2 — Home Assistant is
+    # pinned to this node (nodeSelector) so the device is reachable inside the pod.
+    usb_devices = [
+      { host = "10c4:ea60", usb3 = false },
+    ]
   },
   "K3S-SRV02" = {
     target_node = "p2"

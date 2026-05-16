@@ -85,6 +85,10 @@ variable "k3s_nodes" {
     ip_address  = string
     role        = string # "server" or "agent"
     disk_size   = string
+    usb_devices = optional(list(object({
+      host = string
+      usb3 = optional(bool, false)
+    })), [])
   }))
 }
 

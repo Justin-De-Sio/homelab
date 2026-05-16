@@ -35,6 +35,15 @@ resource "proxmox_vm_qemu" "this" {
     id = 0
   }
 
+  dynamic "usb" {
+    for_each = var.usb_devices
+    content {
+      id   = usb.key
+      host = usb.value.host
+      usb3 = usb.value.usb3
+    }
+  }
+
   disks {
     scsi {
       scsi0 {

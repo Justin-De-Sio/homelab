@@ -37,6 +37,7 @@ module "k3s_nodes" {
   nameserver     = var.default_nameserver
   network_bridge = var.default_network_bridge
   disk_storage   = var.default_disk_storage
+  usb_devices    = each.value.usb_devices
   tags           = [each.value.role, "k3s"]
 }
 

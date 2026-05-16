@@ -125,3 +125,7 @@ spec:
         fsGroup: 0
       hostNetwork: true  # Enable for device discovery (mDNS, etc.)
       dnsPolicy: ClusterFirstWithHostNet
+      # Pinned to k3s-srv01 because the Sonoff Zigbee dongle is USB-passthrough'd
+      # to this VM only (see terraform/terraform.tfvars usb_devices on K3S-SRV01).
+      nodeSelector:
+        kubernetes.io/hostname: k3s-srv01

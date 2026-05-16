@@ -92,19 +92,8 @@ variable "k3s_nodes" {
   }))
 }
 
-variable "vpn_server" {
-  description = "Configuration for Tailscale VPN server"
-  type = object({
-    target_node = string
-    cores       = number
-    memory      = number
-    ip_address  = string
-    disk_size   = string
-  })
-}
-
-variable "openclaw_server" {
-  description = "Configuration for OpenClaw server"
+variable "ai_agent_server" {
+  description = "Configuration for AI agent server"
   type = object({
     target_node = string
     cores       = number

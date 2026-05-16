@@ -25,10 +25,3 @@ output "k3s_agent_nodes" {
   }
 }
 
-output "vpn_server" {
-  description = "Tailscale VPN server details"
-  value = {
-    ip_address = module.vpn_server.ip_address
-    vm_id      = module.vpn_server.vm_id
-  }
-} 

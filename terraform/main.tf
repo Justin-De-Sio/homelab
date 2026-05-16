@@ -41,42 +41,22 @@ module "k3s_nodes" {
   tags           = [each.value.role, "k3s"]
 }
 
-module "vpn_server" {
+module "ai_agent_server" {
   source = "./modules/proxmox-vm"
 
-  name           = "VPN-Tailscale"
-  target_node    = var.vpn_server.target_node
+  name           = "ai-agent"
+  target_node    = var.ai_agent_server.target_node
   clone_template = var.default_clone_template
-  cores          = var.vpn_server.cores
-  memory         = var.vpn_server.memory
-  ip_address     = var.vpn_server.ip_address
+  cores          = var.ai_agent_server.cores
+  memory         = var.ai_agent_server.memory
+  ip_address     = var.ai_agent_server.ip_address
   gateway        = var.default_gateway
-  disk_size      = var.vpn_server.disk_size
+  disk_size      = var.ai_agent_server.disk_size
   cicustom       = var.default_cicustom
   ciuser         = var.default_ciuser
   sshkeys        = var.default_sshkeys
   nameserver     = var.default_nameserver
   network_bridge = var.default_network_bridge
   disk_storage   = var.default_disk_storage
-  tags           = ["vpn", "tailscale"]
-}
-
-module "openclaw_server" {
-  source = "./modules/proxmox-vm"
-
-  name           = "OpenClaw"
-  target_node    = var.openclaw_server.target_node
-  clone_template = var.default_clone_template
-  cores          = var.openclaw_server.cores
-  memory         = var.openclaw_server.memory
-  ip_address     = var.openclaw_server.ip_address
-  gateway        = var.default_gateway
-  disk_size      = var.openclaw_server.disk_size
-  cicustom       = var.default_cicustom
-  ciuser         = var.default_ciuser
-  sshkeys        = var.default_sshkeys
-  nameserver     = var.default_nameserver
-  network_bridge = var.default_network_bridge
-  disk_storage   = var.default_disk_storage
-  tags           = ["openclaw", "game"]
+  tags           = ["ai-agent"]
 }

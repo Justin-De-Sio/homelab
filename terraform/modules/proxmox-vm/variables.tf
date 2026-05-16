@@ -75,6 +75,12 @@ variable "tags" {
 }
 
 variable "usb_devices" {
+  # NOTE: Proxmox restricts USB passthrough of real devices to the root@pam
+  # user — an API token (even from root) gets back HTTP 500 "only root can set
+  # 'usbN' config for real devices". Until the provider/Proxmox lifts this,
+  # the bloc here will fail to apply via Terraform and must be set manually
+  # with `qm set <vmid> -usbN host=<vendor:product>` on the Proxmox node.
+  # The declaration is kept for documentation and drift detection.
   description = "USB devices to passthrough (vendor:product host id, e.g. \"10c4:ea60\")"
   type = list(object({
     host = string

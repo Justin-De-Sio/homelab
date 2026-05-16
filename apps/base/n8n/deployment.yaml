@@ -33,6 +33,8 @@ spec:
           envFrom:
             - configMapRef:
                 name: n8n-configmap
+            - secretRef:
+                name: n8n-smtp
 
           ports:
             - containerPort: 3008

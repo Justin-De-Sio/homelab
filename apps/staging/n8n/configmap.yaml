@@ -12,3 +12,8 @@ data:
   N8N_SECURE_COOKIE: "false"
   N8N_HOST: "n8n.justindesio.com"
   WEBHOOK_URL: "https://n8n.justindesio.com"
+  N8N_EMAIL_MODE: "smtp"
+  N8N_SMTP_HOST: "smtp-relay.brevo.com"
+  N8N_SMTP_PORT: "587"
+  N8N_SMTP_SSL: "false"
+  N8N_SMTP_SENDER: "admin@justindesio.com"

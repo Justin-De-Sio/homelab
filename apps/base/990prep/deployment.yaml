@@ -32,8 +32,8 @@ spec:
                 name: env-var
           resources:
             requests:
-              memory: "64Mi"
-            limits:
               memory: "256Mi"
+            limits:
+              memory: "512Mi"
       imagePullSecrets:
         - name: gitlab-registry-secret

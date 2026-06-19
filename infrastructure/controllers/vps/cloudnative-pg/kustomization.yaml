@@ -1,0 +1,17 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../base/cloudnative-pg
+# VPS is a single-node k3s without the monitoring stack: drop the
+# kube-prometheus-stack dependency and disable the operator PodMonitor.
+patches:
+  - target:
+      kind: HelmRelease
+      name: cnpg-release
+    patch: |
+      - op: remove
+        path: /spec/dependsOn
+      - op: replace
+        path: /spec/values/monitoring/podMonitorEnabled
+        value: false

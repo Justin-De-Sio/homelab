@@ -13,4 +13,4 @@ patches:
     patch: |
       - op: replace
         path: /spec/values/env/FRONTEND_URL
-        value: https://chat.staging.990prep.com
+        value: https://chat-staging.990prep.com

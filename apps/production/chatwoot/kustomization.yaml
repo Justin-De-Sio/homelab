@@ -1,0 +1,67 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: chatwoot
+resources:
+  - ../../base/chatwoot
+  - secret.yaml
+patches:
+  # Production runs on the single-node VPS k3s: shrink the database to one
+  # instance, drop pod anti-affinity (nothing to spread onto), disable the
+  # PodMonitor (no Prometheus operator on the VPS) and cap its memory.
+  - target:
+      kind: Cluster
+      name: chatwoot-database
+    patch: |
+      - op: replace
+        path: /spec/instances
+        value: 1
+      - op: replace
+        path: /spec/monitoring/enablePodMonitor
+        value: false
+      - op: replace
+        path: /spec/affinity/enablePodAntiAffinity
+        value: false
+      - op: add
+        path: /spec/resources
+        value:
+          requests:
+            cpu: 50m
+            memory: 128Mi
+          limits:
+            memory: 256Mi
+  # Tighten the app + redis footprint to fit the ~1.4Gi of free RAM the VPS has
+  # alongside the existing 990prep production workload.
+  - target:
+      kind: HelmRelease
+      name: chatwoot
+    patch: |
+      - op: replace
+        path: /spec/values/web/resources
+        value:
+          requests:
+            cpu: 100m
+            memory: 384Mi
+          limits:
+            memory: 640Mi
+      - op: replace
+        path: /spec/values/worker/resources
+        value:
+          requests:
+            cpu: 50m
+            memory: 256Mi
+          limits:
+            memory: 512Mi
+      - op: add
+        path: /spec/values/env/WEB_CONCURRENCY
+        value: "1"
+      - op: add
+        path: /spec/values/env/RAILS_MAX_THREADS
+        value: "3"
+      - op: add
+        path: /spec/values/redis/master/resources
+        value:
+          requests:
+            cpu: 25m
+            memory: 32Mi
+          limits:
+            memory: 128Mi

@@ -1,0 +1,16 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: chatwoot
+resources:
+  - ../../base/chatwoot
+  - secret.yaml
+patches:
+  # Staging runs on the homelab cluster (3 nodes); base defaults already fit
+  # (2 PG instances, pod anti-affinity). Only the public URL differs.
+  - target:
+      kind: HelmRelease
+      name: chatwoot
+    patch: |
+      - op: replace
+        path: /spec/values/env/FRONTEND_URL
+        value: https://chat.staging.990prep.com

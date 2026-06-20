@@ -1,0 +1,48 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: chatwoot-database
+  namespace: chatwoot
+spec:
+  # "standard" flavour bundles the pgvector extension that Chatwoot requires.
+  imageName: ghcr.io/cloudnative-pg/postgresql:17.5-standard-bookworm
+  instances: 2
+
+  primaryUpdateStrategy: unsupervised
+
+  monitoring:
+    enablePodMonitor: true
+
+  bootstrap:
+    initdb:
+      database: chatwoot
+      owner: chatwoot
+      # Pre-create pgvector as superuser at init time. Chatwoot's migration runs
+      # "CREATE EXTENSION IF NOT EXISTS vector" as the unprivileged app user,
+      # which would otherwise fail (vector is not a "trusted" extension).
+      postInitApplicationSQL:
+        - CREATE EXTENSION IF NOT EXISTS vector;
+
+  backup:
+    barmanObjectStore:
+      destinationPath: s3://cloudnativepg-homelab-backup/chatwoot-database
+      endpointURL: https://s3.eu-central-003.backblazeb2.com
+      s3Credentials:
+        accessKeyId:
+          name: cloudnativepg-backup-secret
+          key: ACCESS_KEY_ID
+        secretAccessKey:
+          name: cloudnativepg-backup-secret
+          key: ACCESS_SECRET_KEY
+      wal:
+        compression: gzip
+    retentionPolicy: "7d"
+
+  storage:
+    size: 10Gi
+    storageClass: local-path
+
+  affinity:
+    enablePodAntiAffinity: true
+    topologyKey: kubernetes.io/hostname
+    podAntiAffinityType: required

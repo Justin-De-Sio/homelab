@@ -38,6 +38,12 @@ spec:
       migrate:
         hookAnnotation: "pre-install,pre-upgrade"
 
+    # Use the namespace "default" SA: the chart's own SA is created in the main
+    # phase, too late for the pre-install migration hook (fresh install fails).
+    # Chatwoot pods need no k8s API access.
+    serviceAccount:
+      create: false
+
     # SECRET_KEY_BASE (+ optional SMTP_*) come from a SOPS-encrypted secret
     # supplied by each overlay.
     existingEnvSecret: chatwoot-secret

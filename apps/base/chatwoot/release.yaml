@@ -99,9 +99,13 @@ spec:
         limits:
           memory: 768Mi
 
-    service:
+    # Chart key is "services" (plural); the Cloudflare Tunnel hits this service
+    # on :80, forwarded to the Puma container on 3000.
+    services:
+      name: chatwoot
       type: ClusterIP
-      port: 80
+      internalPort: 80
+      targetPort: 3000
 
     # Exposed via Cloudflare Tunnel (dashboard-managed), not a k8s Ingress.
     ingress:

@@ -6,5 +6,3 @@ resources:
   - repository.yaml
   - release.yaml
   - database.yaml
-  - backup-secret.yaml
-  - scheduled-backup.yaml

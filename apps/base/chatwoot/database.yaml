@@ -13,36 +13,22 @@ spec:
   monitoring:
     enablePodMonitor: true
 
+  # pg_stat_statements (declared by Chatwoot's schema) must be preloaded.
+  postgresql:
+    shared_preload_libraries:
+      - pg_stat_statements
+
   bootstrap:
     initdb:
       database: chatwoot
       owner: chatwoot
-      # Pre-create as superuser at init time the extensions Chatwoot's schema
-      # declares. The app user is unprivileged, so the non-trusted ones (vector,
-      # pg_stat_statements) would otherwise fail on "CREATE EXTENSION".
+      # Pre-create as superuser the non-trusted extensions Chatwoot's schema
+      # declares (vector, pg_stat_statements); the app user can't CREATE them.
       postInitApplicationSQL:
         - CREATE EXTENSION IF NOT EXISTS vector;
         - CREATE EXTENSION IF NOT EXISTS pg_stat_statements;
         - CREATE EXTENSION IF NOT EXISTS pg_trgm;
         - CREATE EXTENSION IF NOT EXISTS pgcrypto;
-
-  backup:
-    barmanObjectStore:
-      destinationPath: s3://cloudnativepg-homelab-backup/chatwoot-database
-      # Fresh archive namespace for the rebuilt cluster; reusing the previous
-      # one (system identifier mismatch) would get WAL archiving rejected.
-      serverName: chatwoot-database-v2
-      endpointURL: https://s3.eu-central-003.backblazeb2.com
-      s3Credentials:
-        accessKeyId:
-          name: cloudnativepg-backup-secret
-          key: ACCESS_KEY_ID
-        secretAccessKey:
-          name: cloudnativepg-backup-secret
-          key: ACCESS_SECRET_KEY
-      wal:
-        compression: gzip
-    retentionPolicy: "7d"
 
   storage:
     size: 10Gi

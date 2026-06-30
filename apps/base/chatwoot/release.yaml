@@ -38,6 +38,10 @@ spec:
       tag: v4.14.0
       pullPolicy: IfNotPresent
 
+    hooks:
+      migrate:
+        hookAnnotation: "pre-install,pre-upgrade"
+
     # SECRET_KEY_BASE (+ optional SMTP_*) come from a SOPS-encrypted secret
     # supplied by each overlay.
     existingEnvSecret: chatwoot-secret

@@ -99,13 +99,14 @@ spec:
         limits:
           memory: 768Mi
 
-    # Chart key is "services" (plural); the Cloudflare Tunnel hits this service
-    # on :80, forwarded to the Puma container on 3000.
+    # Chart key is "services" (plural). internalPort drives the app bind port,
+    # containerPort and probes; targetPort must match it. Set to 80 so the
+    # Cloudflare Tunnel (which hits the service on :80) reaches Puma.
     services:
       name: chatwoot
       type: ClusterIP
       internalPort: 80
-      targetPort: 3000
+      targetPort: 80
 
     # Exposed via Cloudflare Tunnel (dashboard-managed), not a k8s Ingress.
     ingress:

@@ -17,11 +17,14 @@ spec:
     initdb:
       database: chatwoot
       owner: chatwoot
-      # Pre-create pgvector as superuser at init time. Chatwoot's migration runs
-      # "CREATE EXTENSION IF NOT EXISTS vector" as the unprivileged app user,
-      # which would otherwise fail (vector is not a "trusted" extension).
+      # Pre-create as superuser at init time the extensions Chatwoot's schema
+      # declares. The app user is unprivileged, so the non-trusted ones (vector,
+      # pg_stat_statements) would otherwise fail on "CREATE EXTENSION".
       postInitApplicationSQL:
         - CREATE EXTENSION IF NOT EXISTS vector;
+        - CREATE EXTENSION IF NOT EXISTS pg_stat_statements;
+        - CREATE EXTENSION IF NOT EXISTS pg_trgm;
+        - CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
   backup:
     barmanObjectStore:

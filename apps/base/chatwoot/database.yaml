@@ -29,6 +29,9 @@ spec:
   backup:
     barmanObjectStore:
       destinationPath: s3://cloudnativepg-homelab-backup/chatwoot-database
+      # Fresh archive namespace for the rebuilt cluster; reusing the previous
+      # one (system identifier mismatch) would get WAL archiving rejected.
+      serverName: chatwoot-database-v2
       endpointURL: https://s3.eu-central-003.backblazeb2.com
       s3Credentials:
         accessKeyId:

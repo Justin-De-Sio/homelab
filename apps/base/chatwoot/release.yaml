@@ -25,10 +25,6 @@ spec:
   # chart instead of hardcoding a password (no chicken-and-egg).
   valuesFrom:
     - kind: Secret
-      name: chatwoot-database-app
-      valuesKey: password
-      targetPath: postgresql.auth.postgresPassword
-    - kind: Secret
       name: chatwoot-redis-auth
       valuesKey: password
       targetPath: redis.auth.password
@@ -67,7 +63,11 @@ spec:
       auth:
         username: chatwoot
         database: chatwoot
-        # postgresPassword is injected via spec.valuesFrom above.
+        # Read the password live from the CNPG-managed secret (single source of
+        # truth), so a cluster rebuild that rotates it never desyncs the app.
+        existingSecret: chatwoot-database-app
+        secretKeys:
+          adminPasswordKey: password
 
     # --- Bundled Redis (single standalone node, internal only) ---
     redis:

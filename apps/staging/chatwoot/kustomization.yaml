@@ -4,6 +4,7 @@ namespace: chatwoot
 resources:
   - ../../base/chatwoot
   - secret.yaml
+  - redis-secret.yaml
 patches:
   # Staging runs on the homelab cluster (3 nodes); base defaults already fit
   # (2 PG instances, pod anti-affinity). Only the public URL differs.

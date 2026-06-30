@@ -4,6 +4,7 @@ namespace: chatwoot
 resources:
   - ../../base/chatwoot
   - secret.yaml
+  - redis-secret.yaml
 patches:
   # Production runs on the single-node VPS k3s: shrink the database to one
   # instance, drop pod anti-affinity (nothing to spread onto), disable the

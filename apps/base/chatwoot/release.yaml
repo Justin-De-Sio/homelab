@@ -25,14 +25,20 @@ spec:
     remediation:
       retries: 3
     disableWait: true
-  # The CloudNativePG cluster auto-generates the application password and stores
-  # it in the "chatwoot-database-app" secret. Pull that value straight into the
-  # chart instead of hardcoding a password (no chicken-and-egg).
+  # SOPS-managed secrets injected into chart values.
   valuesFrom:
     - kind: Secret
       name: chatwoot-redis-auth
       valuesKey: password
       targetPath: redis.auth.password
+    - kind: Secret
+      name: chatwoot-smtp
+      valuesKey: username
+      targetPath: env.SMTP_USERNAME
+    - kind: Secret
+      name: chatwoot-smtp
+      valuesKey: password
+      targetPath: env.SMTP_PASSWORD
   values:
     image:
       repository: chatwoot/chatwoot
@@ -55,6 +61,12 @@ spec:
       FORCE_SSL: "false"
       # Support desk: no public self-service signup.
       ENABLE_ACCOUNT_SIGNUP: "false"
+      # Transactional email via Brevo (SMTP_USERNAME/PASSWORD from chatwoot-smtp).
+      SMTP_ADDRESS: "smtp-relay.brevo.com"
+      SMTP_PORT: "587"
+      SMTP_AUTHENTICATION: "login"
+      SMTP_ENABLE_STARTTLS_AUTO: "true"
+      MAILER_SENDER_EMAIL: "990prep <contact@990prep.com>"
 
     # --- External PostgreSQL (CloudNativePG) ---
     postgresql:

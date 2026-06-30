@@ -14,12 +14,17 @@ spec:
         name: chatwoot
         namespace: chatwoot
       interval: 12h
+  # disableWait: the migration runs as a post-install/upgrade Helm hook, but web
+  # can't be healthy until that migration ran. Waiting for health would deadlock
+  # the hook, so don't wait (web self-heals once the migration completes).
   install:
     remediation:
       retries: 3
+    disableWait: true
   upgrade:
     remediation:
       retries: 3
+    disableWait: true
   # The CloudNativePG cluster auto-generates the application password and stores
   # it in the "chatwoot-database-app" secret. Pull that value straight into the
   # chart instead of hardcoding a password (no chicken-and-egg).
@@ -33,16 +38,6 @@ spec:
       repository: chatwoot/chatwoot
       tag: v4.14.0
       pullPolicy: IfNotPresent
-
-    hooks:
-      migrate:
-        hookAnnotation: "pre-install,pre-upgrade"
-
-    # Use the namespace "default" SA: the chart's own SA is created in the main
-    # phase, too late for the pre-install migration hook (fresh install fails).
-    # Chatwoot pods need no k8s API access.
-    serviceAccount:
-      create: false
 
     # SECRET_KEY_BASE (+ optional SMTP_*) come from a SOPS-encrypted secret
     # supplied by each overlay.

@@ -1,0 +1,217 @@
+/* 990prep · motion design 9:16 (1080 x 1920)
+   Couleurs et typo reprises du kit de communication 990prep :
+   encre #0F172B, orange accent #F97415 (le "0" du wordmark), bleu #1565C0,
+   vert succès #43A047, Listening #2979FF, Reading #2E7D32, fond clair #F3F5F8,
+   police Outfit (wordmark en 700, tracking -0.025em). */
+
+@font-face { font-family: 'Outfit'; font-weight: 400; src: url('../assets/fonts/outfit-latin-400-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Outfit'; font-weight: 500; src: url('../assets/fonts/outfit-latin-500-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Outfit'; font-weight: 600; src: url('../assets/fonts/outfit-latin-600-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Outfit'; font-weight: 700; src: url('../assets/fonts/outfit-latin-700-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Outfit'; font-weight: 800; src: url('../assets/fonts/outfit-latin-800-normal.woff2') format('woff2'); }
+
+:root {
+  --ink: #0F172B;
+  --orange: #F97415;
+  --blue: #1565C0;
+  --green: #43A047;
+  --listen: #2979FF;
+  --read: #2E7D32;
+  --light: #F3F5F8;
+  --dim: #5A6478;
+  --dim-d: #A8AEBB;
+  --inv: #E5E5E5;
+  --line: #E3E7EE;
+  --red: #EF4444;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--ink); }
+body {
+  font-family: 'Outfit', sans-serif;
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+}
+svg.i { width: 1em; height: 1em; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+
+#stage { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: var(--ink); }
+.layer { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+.scene-dark { background: radial-gradient(120% 70% at 50% 34%, #19264A 0%, var(--ink) 64%); }
+
+/* ---------- titres animés (mot par mot, masqués) ---------- */
+.headline { font-weight: 700; letter-spacing: -0.03em; line-height: 1.04; color: var(--ink); }
+.headline .line { white-space: nowrap; }
+.headline .w { display: inline-block; overflow: hidden; vertical-align: top; padding: 0.14em 0.06em 0.2em; margin: -0.14em -0.06em -0.2em; }
+.headline .w.free { overflow: visible; }
+.headline .w.tight { margin-left: 0.07em; }
+.headline .wi { display: inline-block; transform-origin: 50% 80%; }
+.headline .hi .wi { color: var(--orange); }
+.headline sup { font-size: 0.34em; vertical-align: 0; position: relative; top: -1.55em; margin-left: 0.04em; letter-spacing: 0; font-weight: 600; }
+.center { text-align: center; }
+
+/* ---------- wordmark (Outfit 700, -0.025em, "0" orange) ---------- */
+.wordmark { position: absolute; font-weight: 700; white-space: nowrap; line-height: 1; }
+.wordmark .l { display: inline-block; letter-spacing: -0.025em; }
+.wordmark.light { color: var(--ink); }
+.wordmark.dark { color: var(--inv); }
+.wordmark .l.o { color: var(--orange); }
+
+/* ---------- SCENE 1 : accroche ---------- */
+#hook { position: absolute; left: 90px; top: 540px; font-size: 172px; color: #fff; transform-origin: 30% 50%; }
+
+/* ---------- monde clair ---------- */
+#bgLight { background: var(--light); }
+.blob { position: absolute; border-radius: 50%; }
+#blobA { width: 1100px; height: 1100px; left: 380px; top: -420px; background: radial-gradient(circle, rgba(249, 116, 21, 0.16) 0%, rgba(249, 116, 21, 0) 68%); }
+#blobB { width: 1200px; height: 1200px; left: -560px; top: 1020px; background: radial-gradient(circle, rgba(21, 101, 192, 0.14) 0%, rgba(21, 101, 192, 0) 68%); }
+#dots {
+  background-image: radial-gradient(rgba(15, 23, 43, 0.075) 2.2px, transparent 2.8px);
+  background-size: 40px 40px; background-position: 20px 20px;
+  -webkit-mask-image: radial-gradient(90% 60% at 50% 45%, #000 20%, transparent 80%);
+}
+
+/* lunettes (transition accroche -> monde clair) */
+#glasses { pointer-events: none; }
+#glasses circle, #glasses path { fill: none; stroke: var(--orange); stroke-linecap: round; }
+
+/* ---------- SCENE 2 : révélation ---------- */
+#s2 { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+#foxWrap { position: absolute; left: 328.5px; top: 330px; width: 423px; height: 423px; transform-origin: 50% 70%; }
+#foxHead { width: 423px; height: 423px; display: block; }
+.lens { position: absolute; border-radius: 50%; overflow: hidden; }
+.glint { position: absolute; left: 0; top: -40%; width: 38%; height: 180%; background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.85) 50%, rgba(255,255,255,0) 100%); }
+#s2wm { left: 0; width: 1080px; text-align: center; top: 799px; font-size: 190px; }
+#s2txt { position: absolute; left: 0; width: 1080px; top: 1140px; font-size: 80px; }
+#s2under { position: absolute; height: 14px; border-radius: 7px; background: var(--orange); transform-origin: 0 50%; }
+
+/* ---------- titres des fonctionnalités ---------- */
+.feat-title { position: absolute; left: 72px; top: 196px; width: 960px; }
+.feat-title .bar { width: 96px; height: 14px; border-radius: 7px; background: var(--orange); transform-origin: 0 50%; margin-bottom: 26px; }
+.feat-title .headline { font-size: 84px; }
+
+/* ---------- carte produit ---------- */
+#card {
+  position: absolute; left: 70px; top: 470px; width: 940px; height: 800px;
+  background: #fff; border-radius: 44px; border: 1px solid #E4E8EF; overflow: hidden;
+  box-shadow: 0 60px 100px -40px rgba(15, 23, 43, 0.30), 0 6px 18px rgba(15, 23, 43, 0.06);
+  transform-origin: 50% 0%;
+}
+.panel { position: absolute; left: 0; top: 0; width: 940px; padding: 40px 40px 44px; }
+.row.head { display: flex; justify-content: space-between; align-items: center; height: 66px; }
+.chip { display: inline-flex; align-items: center; gap: 12px; height: 66px; padding: 0 28px 0 24px; border-radius: 33px; font-weight: 600; font-size: 31px; letter-spacing: -0.005em; }
+.chip svg.i { font-size: 34px; }
+.chip.read { background: rgba(46, 125, 50, 0.11); color: var(--read); }
+.timer { display: inline-flex; align-items: center; gap: 10px; height: 66px; padding: 0 24px 0 20px; border-radius: 20px; border: 2px solid var(--line); font-weight: 600; font-size: 33px; color: var(--ink); }
+.timer svg.i { font-size: 34px; color: var(--dim); }
+.timer .rec { width: 12px; height: 12px; border-radius: 6px; background: var(--red); margin-right: 2px; }
+.timer .d { display: inline-block; width: 0.58em; text-align: center; }
+.timer .c { display: inline-block; width: 0.26em; text-align: center; }
+.prog { margin-top: 28px; height: 10px; border-radius: 5px; background: #EDF0F5; overflow: hidden; }
+#progFill { height: 100%; width: 0; background: var(--blue); border-radius: 5px; }
+.qmeta { margin-top: 14px; font-size: 28px; font-weight: 500; color: var(--dim); }
+.qmeta b { color: var(--ink); font-weight: 700; }
+.question { margin-top: 22px; font-size: 47px; line-height: 1.3; font-weight: 600; color: var(--ink); letter-spacing: -0.012em; }
+.blank { display: inline-block; position: relative; width: 236px; height: 1.08em; vertical-align: -0.16em; margin: 0 4px; }
+.blank::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 4px; border-radius: 2px; background: #C9D0DB; }
+#blankFill { position: absolute; left: 0; right: 0; bottom: 4px; text-align: center; color: var(--green); font-weight: 700; }
+.opts { margin-top: 24px; }
+.opt {
+  position: relative; display: flex; align-items: center; gap: 22px; height: 92px; margin-bottom: 12px;
+  padding: 0 20px; border-radius: 26px; border: 2px solid var(--line); background: #fff;
+  font-size: 40px; font-weight: 600; color: var(--ink); overflow: hidden;
+}
+.letter { width: 56px; height: 56px; border-radius: 28px; background: var(--light); display: grid; place-items: center; font-size: 28px; font-weight: 700; color: var(--dim); flex: none; }
+.oicon { position: absolute; right: 22px; top: 18px; width: 54px; height: 54px; border-radius: 27px; display: grid; place-items: center; color: #fff; opacity: 0; }
+.oicon svg.i { font-size: 34px; stroke-width: 3; }
+.explain { height: 0; overflow: hidden; border-radius: 24px; background: rgba(21, 101, 192, 0.07); border: 2px solid rgba(21, 101, 192, 0.2); opacity: 0; }
+.explain .inner { padding: 22px 26px 24px; }
+.exTitle { display: flex; align-items: center; gap: 12px; font-size: 32px; font-weight: 700; color: var(--blue); }
+.exTitle svg.i { font-size: 36px; }
+.exTxt { margin-top: 8px; font-size: 35px; line-height: 1.34; font-weight: 500; color: var(--ink); }
+.exTxt b { font-weight: 700; color: var(--green); }
+
+/* stats */
+.stitle { display: flex; align-items: center; gap: 14px; font-size: 42px; font-weight: 700; letter-spacing: -0.015em; }
+.stitle svg.i { font-size: 44px; color: var(--blue); }
+.legend { display: flex; align-items: center; font-size: 26px; font-weight: 500; color: var(--dim); }
+.legend .dot { width: 16px; height: 16px; border-radius: 8px; display: inline-block; margin: 0 10px 0 22px; }
+.srows { margin-top: 22px; position: relative; }
+.srow { position: relative; display: flex; align-items: center; height: 84px; padding: 0 20px; border-radius: 22px; }
+.slab { width: 170px; font-size: 33px; font-weight: 600; color: var(--ink); }
+.track { position: relative; flex: 1; height: 30px; border-radius: 15px; background: #EDF0F5; overflow: hidden; }
+.fill { position: absolute; left: 0; top: 0; bottom: 0; width: 0; border-radius: 15px; }
+.sval { width: 124px; text-align: right; font-size: 34px; font-weight: 700; }
+#weakTip {
+  position: absolute; display: flex; align-items: center; gap: 10px; height: 62px; padding: 0 26px 0 20px;
+  border-radius: 31px; background: var(--orange); color: #fff; font-size: 30px; font-weight: 700; white-space: nowrap;
+  box-shadow: 0 16px 30px -10px rgba(249, 116, 21, 0.55); transform-origin: 50% 100%;
+}
+#weakTip svg.i { font-size: 33px; stroke-width: 2.6; }
+
+/* flashcards */
+#deck { position: absolute; left: 170px; top: 560px; width: 740px; height: 530px; perspective: 2000px; }
+.fc { position: absolute; left: 0; top: 0; width: 740px; height: 530px; border-radius: 44px; }
+.fc.back { background: #fff; border: 1px solid #E4E8EF; box-shadow: 0 40px 80px -40px rgba(15, 23, 43, 0.25); }
+#fcFront { transform-style: preserve-3d; }
+.face {
+  position: absolute; inset: 0; border-radius: 44px; background: #fff; border: 1px solid #E4E8EF;
+  box-shadow: 0 60px 100px -40px rgba(15, 23, 43, 0.30), 0 6px 18px rgba(15, 23, 43, 0.06);
+  backface-visibility: hidden; -webkit-backface-visibility: hidden;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+}
+.face.fb { transform: rotateY(180deg); }
+.fchip { position: absolute; left: 36px; top: 34px; height: 52px; padding: 0 22px; border-radius: 26px; display: inline-flex; align-items: center; gap: 10px; font-size: 25px; font-weight: 600; background: rgba(249, 116, 21, 0.12); color: #C2560B; }
+.fchip svg.i { font-size: 27px; }
+.fcount { position: absolute; right: 38px; top: 44px; font-size: 25px; font-weight: 500; color: var(--dim); }
+.fword { font-size: 92px; font-weight: 700; letter-spacing: -0.03em; color: var(--ink); margin-top: 6px; }
+.fword.or { color: var(--orange); }
+.fsub { margin-top: 12px; font-size: 30px; font-weight: 500; color: var(--dim); }
+.fhint { position: absolute; bottom: 40px; display: flex; align-items: center; gap: 10px; font-size: 25px; font-weight: 500; color: var(--dim); }
+.fhint svg.i { font-size: 28px; }
+.fbtns { position: absolute; bottom: 36px; left: 36px; right: 36px; display: flex; gap: 18px; }
+.fbtn { flex: 1; height: 84px; border-radius: 24px; display: flex; align-items: center; justify-content: center; gap: 12px; font-size: 31px; font-weight: 700; }
+.fbtn.no { border: 2px solid var(--line); color: var(--dim); background: #fff; }
+.fbtn.yes { background: var(--green); color: #fff; }
+.fbtn svg.i { font-size: 32px; stroke-width: 3; }
+#toast {
+  position: absolute; left: 90px; top: 1150px; height: 84px; padding: 0 30px 0 24px; border-radius: 42px;
+  background: var(--ink); color: #fff; display: inline-flex; align-items: center; gap: 14px;
+  font-size: 30px; font-weight: 600; white-space: nowrap; box-shadow: 0 20px 40px -16px rgba(15, 23, 43, 0.45);
+  transform-origin: 20% 50%;
+}
+#toast svg.i { font-size: 32px; color: var(--orange); stroke-width: 2.6; }
+#toast b { color: var(--orange); font-weight: 700; }
+
+/* mascottes */
+.mascot { position: absolute; transform-origin: 50% 100%; }
+#mTests { left: 650px; top: 1262px; height: 360px; }
+#mDrills { left: 650px; top: 1262px; height: 360px; }
+#mVocab { left: 660px; top: 1250px; height: 370px; }
+
+/* indicateur de toucher */
+.tap { position: absolute; width: 96px; height: 96px; margin: -48px 0 0 -48px; border-radius: 50%; background: rgba(255, 255, 255, 0.55); border: 3px solid rgba(15, 23, 43, 0.35); box-shadow: 0 10px 24px rgba(15, 23, 43, 0.25); opacity: 0; }
+.ripple { position: absolute; width: 96px; height: 96px; margin: -48px 0 0 -48px; border-radius: 50%; border: 4px solid rgba(15, 23, 43, 0.35); opacity: 0; }
+
+/* ---------- transition vers le CTA ---------- */
+#wipeO { background: var(--orange); }
+
+/* ---------- SCENE 7 : CTA ---------- */
+#ctaGlow { background:
+  radial-gradient(70% 38% at 50% 100%, rgba(249, 116, 21, 0.30) 0%, rgba(249, 116, 21, 0) 70%),
+  radial-gradient(80% 40% at 50% 12%, rgba(41, 121, 255, 0.22) 0%, rgba(41, 121, 255, 0) 70%); }
+.spark { position: absolute; border-radius: 50%; }
+#hero { position: absolute; left: 110px; top: 170px; width: 860px; transform-origin: 60% 50%; }
+#ctaWm { left: 0; width: 1080px; text-align: center; top: 845px; font-size: 160px; }
+#ctaProof { position: absolute; left: 0; width: 1080px; top: 1123px; text-align: center; font-size: 44px; font-weight: 500; color: var(--dim-d); letter-spacing: -0.01em; }
+#ctaProof b { color: #fff; font-weight: 700; }
+#ctaBtn {
+  position: absolute; left: 140px; top: 1210px; width: 800px; height: 136px; border-radius: 68px;
+  background: var(--orange); color: #fff; font-size: 56px; font-weight: 700; letter-spacing: -0.02em;
+  display: flex; align-items: center; justify-content: center; gap: 20px; overflow: hidden;
+  box-shadow: 0 30px 70px -18px rgba(249, 116, 21, 0.75);
+}
+#ctaBtn svg.i { font-size: 58px; stroke-width: 2.8; }
+#ctaBtn .shine { position: absolute; top: -30%; left: 0; width: 180px; height: 160%; background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.55) 50%, rgba(255,255,255,0) 100%); }
+#ctaUrl { position: absolute; left: 0; width: 1080px; top: 1384px; text-align: center; font-size: 48px; font-weight: 600; color: #fff; letter-spacing: -0.01em; }
+#legal { position: absolute; left: 0; width: 1080px; top: 1492px; text-align: center; font-size: 25px; font-weight: 400; color: var(--dim-d); }

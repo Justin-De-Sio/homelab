@@ -1,0 +1,15 @@
+{
+  "name": "990prep-motion",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Motion design 9:16 de 990prep (TikTok, Reels, Shorts)",
+  "type": "module",
+  "scripts": {
+    "audio": "python3 scripts/audio.py out/audio.wav",
+    "render": "node scripts/render.mjs --audio out/audio.wav",
+    "preview": "node scripts/render.mjs --frames 1.3,3.3,5.2,7.3,9.5,11.4,14.9"
+  },
+  "devDependencies": {
+    "playwright": "1.56.1"
+  }
+}
